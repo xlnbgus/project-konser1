@@ -1,0 +1,236 @@
+{
+  "users": [
+    {
+      "id": "admin-1",
+      "name": "Admin KonserOjol",
+      "email": "admin@konserojol.com",
+      "phone": "081000000000",
+      "password": "$2b$10$C1AtUepxGJYBdbF2OGVX5uJkXDwYeype2dXMjtwaFzhfvdJzM6Ela",
+      "role": "admin",
+      "createdAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "1785751997340",
+      "name": "Budi",
+      "email": "budi1785751997207437@example.com",
+      "phone": "08123456789",
+      "password": "$2b$10$wILy4wMxeog1d8KQbw9wyOKxhXpNHHDIQIVWv5maBvyRg4ro/bEHK",
+      "createdAt": "2026-08-03T10:13:17.340Z"
+    },
+    {
+      "id": "1785751997500",
+      "name": "Citra",
+      "email": "citra1785751997370586@example.com",
+      "phone": "08111111111",
+      "password": "$2b$10$icSc6Vl5t8M0vtLHV5Dq.OQ2i/Mxaz6qO/rH8xiPl1VfE/Q.R3MPC",
+      "createdAt": "2026-08-03T10:13:17.500Z"
+    },
+    {
+      "id": "1785752539958",
+      "name": "Budi",
+      "email": "budi178575253982338@example.com",
+      "phone": "08123456789",
+      "password": "$2b$10$DjBLyQtzF8iq0a4Un9D/SeNqgMPe3Usi9PdrA5PYmhxXM.w0Uhed6",
+      "createdAt": "2026-08-03T10:22:19.959Z"
+    },
+    {
+      "id": "1785752540134",
+      "name": "Citra",
+      "email": "citra1785752539994963@example.com",
+      "phone": "08111111111",
+      "password": "$2b$10$/aOgbJ6EvVvvzyHxyynBgugkj/0HArJY6ywwhGGiIUtwcCGvmPITq",
+      "createdAt": "2026-08-03T10:22:20.134Z"
+    },
+    {
+      "id": "1785752989563",
+      "name": "Budi",
+      "email": "budi1785752989432458@example.com",
+      "phone": "08123456789",
+      "password": "$2b$10$gsm8KJMmGbAo/lR2kudT8eR.xcsux8Ha0cTZ6f/cqObLzjSj7h1zm",
+      "createdAt": "2026-08-03T10:29:49.563Z"
+    },
+    {
+      "id": "1785752989723",
+      "name": "Citra",
+      "email": "citra1785752989592778@example.com",
+      "phone": "08111111111",
+      "password": "$2b$10$5ljTUEmQ1V2EdL6z28JZku/jMDcaXySIGBn0l.z2sFLfUdph/cDLS",
+      "createdAt": "2026-08-03T10:29:49.723Z"
+    }
+  ],
+  "events": [
+    {
+      "id": 1,
+      "title": "Weekend Festival",
+      "description": "Festival musik malam minggu yang penuh hiburan.",
+      "date": "2026-09-12",
+      "location": "Jakarta",
+      "price": 250000,
+      "category": "Festival",
+      "organizer": "KonserKu",
+      "status": "available"
+    },
+    {
+      "id": 2,
+      "title": "Indie Night",
+      "description": "Konser indie akustik dan live performance.",
+      "date": "2026-09-25",
+      "location": "Bandung",
+      "price": 180000,
+      "category": "Konser",
+      "organizer": "SoundWave",
+      "status": "available"
+    },
+    {
+      "id": 3,
+      "title": "SNOOPY RUN 2026",
+      "description": "Lomba lari santai dengan suasana keluarga.",
+      "date": "2026-09-06",
+      "location": "Tangerang",
+      "price": 499000,
+      "category": "Sports",
+      "organizer": "Provaliant",
+      "status": "available"
+    }
+  ],
+  "promos": [
+    {
+      "id": 1,
+      "code": "EARLYBIRD30",
+      "title": "Early Bird",
+      "description": "Diskon 30% untuk pemesanan awal",
+      "discountPercent": 30,
+      "expires": "31 Agustus 2026"
+    },
+    {
+      "id": 2,
+      "code": "NEWUSER2026",
+      "title": "Pengguna Baru",
+      "description": "Bebas biaya admin untuk pengguna baru",
+      "discountPercent": 0,
+      "expires": "Tidak terbatas"
+    }
+  ],
+  "orders": [
+    {
+      "id": "1785751874775",
+      "userId": "1785751874768",
+      "eventId": 1,
+      "eventTitle": "Weekend Festival",
+      "quantity": 2,
+      "subtotal": 500000,
+      "discountAmount": 150000,
+      "total": 350000,
+      "promoCode": "EARLYBIRD30",
+      "paymentMethod": "debit",
+      "paymentLabel": "Kartu Debit",
+      "buyerEmail": "citra1785751874640517@example.com",
+      "status": "pending",
+      "createdAt": "2026-08-03T10:11:14.775Z"
+    },
+    {
+      "id": "1785751997193",
+      "userId": "admin-1",
+      "eventId": 1,
+      "eventTitle": "Weekend Festival",
+      "quantity": 1,
+      "subtotal": 250000,
+      "discountAmount": 0,
+      "total": 250000,
+      "promoCode": null,
+      "paymentMethod": "debit",
+      "paymentLabel": "Kartu Debit",
+      "buyerEmail": "admin@konserojol.com",
+      "status": "paid",
+      "createdAt": "2026-08-03T10:13:17.193Z",
+      "updatedAt": "2026-08-03T10:13:17.201Z"
+    },
+    {
+      "id": "1785751997509",
+      "userId": "1785751997500",
+      "eventId": 1,
+      "eventTitle": "Weekend Festival",
+      "quantity": 2,
+      "subtotal": 500000,
+      "discountAmount": 150000,
+      "total": 350000,
+      "promoCode": "EARLYBIRD30",
+      "paymentMethod": "debit",
+      "paymentLabel": "Kartu Debit",
+      "buyerEmail": "citra1785751997370586@example.com",
+      "status": "pending",
+      "createdAt": "2026-08-03T10:13:17.509Z"
+    },
+    {
+      "id": "1785752539663",
+      "userId": "admin-1",
+      "eventId": 1,
+      "eventTitle": "Weekend Festival",
+      "quantity": 1,
+      "subtotal": 250000,
+      "discountAmount": 0,
+      "total": 250000,
+      "promoCode": null,
+      "paymentMethod": "debit",
+      "paymentLabel": "Kartu Debit",
+      "buyerEmail": "admin@konserojol.com",
+      "status": "paid",
+      "createdAt": "2026-08-03T10:22:19.663Z",
+      "updatedAt": "2026-08-03T10:22:19.671Z"
+    },
+    {
+      "id": "1785752540144",
+      "userId": "1785752540134",
+      "eventId": 1,
+      "eventTitle": "Weekend Festival",
+      "quantity": 2,
+      "subtotal": 500000,
+      "discountAmount": 150000,
+      "total": 350000,
+      "promoCode": "EARLYBIRD30",
+      "paymentMethod": "debit",
+      "paymentLabel": "Kartu Debit",
+      "buyerEmail": "citra1785752539994963@example.com",
+      "status": "pending",
+      "createdAt": "2026-08-03T10:22:20.144Z"
+    },
+    {
+      "id": "1785752989277",
+      "userId": "admin-1",
+      "eventId": 1,
+      "eventTitle": "Weekend Festival",
+      "quantity": 1,
+      "subtotal": 250000,
+      "discountAmount": 0,
+      "total": 250000,
+      "promoCode": null,
+      "paymentMethod": "debit",
+      "paymentLabel": "Kartu Debit",
+      "buyerEmail": "admin@konserojol.com",
+      "status": "paid",
+      "createdAt": "2026-08-03T10:29:49.277Z",
+      "updatedAt": "2026-08-03T10:29:49.286Z"
+    },
+    {
+      "id": "1785752989733",
+      "userId": "1785752989723",
+      "eventId": 1,
+      "eventTitle": "Weekend Festival",
+      "quantity": 2,
+      "subtotal": 500000,
+      "discountAmount": 150000,
+      "total": 350000,
+      "promoCode": "EARLYBIRD30",
+      "paymentMethod": "debit",
+      "paymentLabel": "Kartu Debit",
+      "buyerEmail": "citra1785752989592778@example.com",
+      "status": "pending",
+      "createdAt": "2026-08-03T10:29:49.733Z"
+    }
+  ],
+  "ticketCategories": [],
+  "artists": [],
+  "salesSettings": {
+    "isSalesOpen": true
+  }
+}

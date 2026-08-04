@@ -1,0 +1,219 @@
+{
+  "users": [
+    {
+      "id": "1785748194963",
+      "name": "Budi",
+      "email": "budi@example.com",
+      "phone": "08123456789",
+      "password": "$2b$10$9kSgGDXvODI8EcK.vYKsHeD1tKRySvLVLEKiKt0LftnYJakg31E9W",
+      "createdAt": "2026-08-03T09:09:54.963Z"
+    },
+    {
+      "id": "1785748195142",
+      "name": "Citra",
+      "email": "citra@example.com",
+      "phone": "08111111111",
+      "password": "$2b$10$iX/Po3vpl7.M6Tb//r/vf.vurn9WqvQynxGEGETNxwptjy4mmACCu",
+      "createdAt": "2026-08-03T09:09:55.142Z"
+    },
+    {
+      "id": "1785749206556",
+      "name": "Budi",
+      "email": "budi1785749206388467@example.com",
+      "phone": "08123456789",
+      "password": "$2b$10$5m5aMAdjkrtBPdHPd.TPkeD0o01WO60SuyEWkWt/TccxPeuxEKa.q",
+      "createdAt": "2026-08-03T09:26:46.556Z"
+    },
+    {
+      "id": "1785749206734",
+      "name": "Citra",
+      "email": "citra1785749206596498@example.com",
+      "phone": "08111111111",
+      "password": "$2b$10$L3pqTR5IVNRW2AsiTkUGFeHYh.aVs9.oMWyljJBKmrBOQVLXFbtm6",
+      "createdAt": "2026-08-03T09:26:46.734Z"
+    },
+    {
+      "id": "1785749433282",
+      "name": "Budi",
+      "email": "budi1785749433151614@example.com",
+      "phone": "08123456789",
+      "password": "$2b$10$7lgjxjpFjSOs/pwgbwNgredfAQ/rh5rodIKiNbw0jpiQCodsKgoUu",
+      "createdAt": "2026-08-03T09:30:33.282Z"
+    },
+    {
+      "id": "1785749433447",
+      "name": "Citra",
+      "email": "citra1785749433313759@example.com",
+      "phone": "08111111111",
+      "password": "$2b$10$8lvERj7E/K9iz8Dj8b0fROAf1taxWToVlvl3GpsTNymvReQRa.91e",
+      "createdAt": "2026-08-03T09:30:33.447Z"
+    },
+    {
+      "id": "1785749483333",
+      "name": "Budi",
+      "email": "budi1785749483194334@example.com",
+      "phone": "08123456789",
+      "password": "$2b$10$6xyxZ5/S1zp3cGL/820uqOXnA8OpK9Q.dCZfgRWlJSzSYYEOhAIYy",
+      "createdAt": "2026-08-03T09:31:23.333Z"
+    },
+    {
+      "id": "1785749483498",
+      "name": "Citra",
+      "email": "citra1785749483368303@example.com",
+      "phone": "08111111111",
+      "password": "$2b$10$DJgimmBHAs7yuMZNNixmqOqGT5REHlHX4J0MXOjhDZ5LEnn6LnT3K",
+      "createdAt": "2026-08-03T09:31:23.498Z"
+    },
+    {
+      "id": "1785749588109",
+      "name": "Budi",
+      "email": "budi1785749587971193@example.com",
+      "phone": "08123456789",
+      "password": "$2b$10$pjfmGKGGSZ4jtDMDKX7md.HvIW8RwORJoIKXVjuCrp5EJMNzzqKAS",
+      "createdAt": "2026-08-03T09:33:08.109Z"
+    },
+    {
+      "id": "1785749588276",
+      "name": "Citra",
+      "email": "citra178574958814421@example.com",
+      "phone": "08111111111",
+      "password": "$2b$10$.53JNG4rLnI5IHLKJphDQ.eF56CzEtyRgrrSPA8w74QNMeoBM/Iji",
+      "createdAt": "2026-08-03T09:33:08.276Z"
+    }
+  ],
+  "events": [
+    {
+      "id": 1,
+      "title": "Weekend Festival",
+      "description": "Festival musik malam minggu yang penuh hiburan.",
+      "date": "2026-09-12",
+      "location": "Jakarta",
+      "price": 250000,
+      "category": "Festival",
+      "organizer": "KonserKu",
+      "status": "available"
+    },
+    {
+      "id": 2,
+      "title": "Indie Night",
+      "description": "Konser indie akustik dan live performance.",
+      "date": "2026-09-25",
+      "location": "Bandung",
+      "price": 180000,
+      "category": "Konser",
+      "organizer": "SoundWave",
+      "status": "available"
+    },
+    {
+      "id": 3,
+      "title": "SNOOPY RUN 2026",
+      "description": "Lomba lari santai dengan suasana keluarga.",
+      "date": "2026-09-06",
+      "location": "Tangerang",
+      "price": 499000,
+      "category": "Sports",
+      "organizer": "Provaliant",
+      "status": "available"
+    }
+  ],
+  "promos": [
+    {
+      "id": 1,
+      "code": "EARLYBIRD30",
+      "title": "Early Bird",
+      "description": "Diskon 30% untuk pemesanan awal",
+      "discountPercent": 30,
+      "expires": "31 Agustus 2026"
+    },
+    {
+      "id": 2,
+      "code": "NEWUSER2026",
+      "title": "Pengguna Baru",
+      "description": "Bebas biaya admin untuk pengguna baru",
+      "discountPercent": 0,
+      "expires": "Tidak terbatas"
+    }
+  ],
+  "orders": [
+    {
+      "id": "1785748195158",
+      "userId": "1785748195142",
+      "eventId": 1,
+      "eventTitle": "Weekend Festival",
+      "quantity": 2,
+      "subtotal": 500000,
+      "discountAmount": 150000,
+      "total": 350000,
+      "promoCode": "EARLYBIRD30",
+      "paymentMethod": "debit",
+      "paymentLabel": "Kartu Debit",
+      "buyerEmail": "citra@example.com",
+      "status": "pending",
+      "createdAt": "2026-08-03T09:09:55.158Z"
+    },
+    {
+      "id": "1785749206746",
+      "userId": "1785749206734",
+      "eventId": 1,
+      "eventTitle": "Weekend Festival",
+      "quantity": 2,
+      "subtotal": 500000,
+      "discountAmount": 150000,
+      "total": 350000,
+      "promoCode": "EARLYBIRD30",
+      "paymentMethod": "debit",
+      "paymentLabel": "Kartu Debit",
+      "buyerEmail": "citra1785749206596498@example.com",
+      "status": "pending",
+      "createdAt": "2026-08-03T09:26:46.746Z"
+    },
+    {
+      "id": "1785749433459",
+      "userId": "1785749433447",
+      "eventId": 1,
+      "eventTitle": "Weekend Festival",
+      "quantity": 2,
+      "subtotal": 500000,
+      "discountAmount": 150000,
+      "total": 350000,
+      "promoCode": "EARLYBIRD30",
+      "paymentMethod": "debit",
+      "paymentLabel": "Kartu Debit",
+      "buyerEmail": "citra1785749433313759@example.com",
+      "status": "pending",
+      "createdAt": "2026-08-03T09:30:33.459Z"
+    },
+    {
+      "id": "1785749483511",
+      "userId": "1785749483498",
+      "eventId": 1,
+      "eventTitle": "Weekend Festival",
+      "quantity": 2,
+      "subtotal": 500000,
+      "discountAmount": 150000,
+      "total": 350000,
+      "promoCode": "EARLYBIRD30",
+      "paymentMethod": "debit",
+      "paymentLabel": "Kartu Debit",
+      "buyerEmail": "citra1785749483368303@example.com",
+      "status": "pending",
+      "createdAt": "2026-08-03T09:31:23.511Z"
+    },
+    {
+      "id": "1785749588289",
+      "userId": "1785749588276",
+      "eventId": 1,
+      "eventTitle": "Weekend Festival",
+      "quantity": 2,
+      "subtotal": 500000,
+      "discountAmount": 150000,
+      "total": 350000,
+      "promoCode": "EARLYBIRD30",
+      "paymentMethod": "debit",
+      "paymentLabel": "Kartu Debit",
+      "buyerEmail": "citra178574958814421@example.com",
+      "status": "pending",
+      "createdAt": "2026-08-03T09:33:08.289Z"
+    }
+  ]
+}

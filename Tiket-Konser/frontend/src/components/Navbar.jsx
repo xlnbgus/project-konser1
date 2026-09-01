@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({ searchQuery = '', onSearchChange = () => {} }) => {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -10,6 +9,11 @@ const Navbar = () => {
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault()
+    document.getElementById('top-events')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   return (
     <nav
@@ -53,20 +57,32 @@ const Navbar = () => {
           {/* Right actions */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             {/* Search */}
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: 8,
-              padding: '8px 14px', borderRadius: 10,
-              background: 'rgba(255,255,255,0.06)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              cursor: 'pointer',
-            }}
-              className="search-bar"
-            >
-              <svg width="14" height="14" fill="none" stroke="#9ca3af" strokeWidth="2" viewBox="0 0 24 24">
-                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
-              </svg>
-              <span style={{ fontSize: '0.8rem', color: '#6b7280' }}>Cari konser...</span>
-            </div>
+            <form onSubmit={handleSearchSubmit} style={{ display: 'flex', alignItems: 'center' }} className="search-bar">
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: 8,
+                padding: '8px 14px', borderRadius: 10,
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.1)',
+              }}>
+                <svg width="14" height="14" fill="none" stroke="#9ca3af" strokeWidth="2" viewBox="0 0 24 24">
+                  <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(event) => onSearchChange(event.target.value)}
+                  placeholder="Cari konser..."
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    outline: 'none',
+                    color: '#f3f4f6',
+                    fontSize: '0.8rem',
+                    width: '140px',
+                  }}
+                />
+              </div>
+            </form>
 
             {/* Location */}
             <div style={{
@@ -81,8 +97,6 @@ const Navbar = () => {
               <span style={{ color: '#a78bfa' }}>📍</span>
               Jakarta
             </div>
-
-            <Link to="/login" className="btn-primary" style={{ padding: '8px 18px', fontSize: '0.8rem' }}>Admin Login</Link>
 
             {/* Mobile hamburger */}
             <button

@@ -18,7 +18,7 @@ const dbConfig = {
 let pool = null;
 
 function isDbConfigured() {
-  return Boolean(process.env.DB_HOST && process.env.DB_USER && process.env.DB_PASSWORD && process.env.DB_NAME);
+  return Boolean(process.env.DB_HOST && process.env.DB_USER && process.env.DB_NAME);
 }
 
 async function getPool() {

@@ -1,65 +1,79 @@
 import { useEffect, useState } from 'react'
 import Modal from './Modal'
-import { checkoutApi } from '../api'
 
-const list = [
-  { id:1, mon:'AGT', day:'28', title:'Beyond Eyes 15th Anniversary – Surabaya', venue:'Surabaya Convention Center', time:'19:00 WIB', price:'Rp900.000',   cat:'Konser',  dotColor:'#3b82f6', emoji:'🎤' },
-  { id:2, mon:'AGT', day:'29', title:'Echoes of Innocence – Usmar Ismail Hall',  venue:'Usmar Ismail Hall, Jakarta', time:'20:00 WIB', price:'Rp350.000',  cat:'Konser',  dotColor:'#7c3aed', emoji:'🎸' },
-  { id:3, mon:'SEP', day:'06', title:'SNOOPY RUN 2026',                           venue:'Tangerang Selatan',          time:'05:00 WIB', price:'Rp499.000',  cat:'Sports',  dotColor:'#eab308', emoji:'🏃' },
-  { id:4, mon:'SEP', day:'15', title:'Westlife World Tour 2026 – Jakarta',        venue:'GBK Arena, Jakarta',         time:'20:00 WIB', price:'Rp750.000',  cat:'Konser',  dotColor:'#06b6d4', emoji:'🌟' },
-  { id:5, mon:'OKT', day:'03', title:'Synchronize Festival 2026 — Day 1',         venue:'Gambir Expo, Jakarta',       time:'14:00 WIB', price:'Rp600.000',  cat:'Festival',dotColor:'#f97316', emoji:'🎆' },
-  { id:6, mon:'OKT', day:'30', title:'UNGU – Waktu yang Dinanti Final Chapter',   venue:'ICE BSD, Tangerang',         time:'19:30 WIB', price:'Rp550.000',  cat:'Konser',  dotColor:'#a855f7', emoji:'🎵' },
+const DEMO_EVENTS = [
+  { id: 1, title: 'Beyond Eyes 15th Anniversary – Surabaya', location: 'Surabaya Convention Center', date: '2026-08-28', price: 900000, category: 'Konser',  organizer: 'Maryhouse Media',   status: 'available' },
+  { id: 2, title: 'SNOOPY RUN 2026',                         location: 'Tangerang Selatan',          date: '2026-09-06', price: 499000, category: 'Sports',  organizer: 'Provaliant Sports', status: 'available' },
+  { id: 3, title: 'UNGU – Waktu yang Dinanti Final Chapter', location: 'ICE BSD, Tangerang',         date: '2026-10-30', price: 550000, category: 'Konser',  organizer: 'TipTip',            status: 'available' },
 ]
 
-export default function UpcomingEvents() {
-  const [selectedEvent, setSelectedEvent] = useState(null)
-  const [paymentMethods, setPaymentMethods] = useState([])
-  const [selectedMethod, setSelectedMethod] = useState('debit')
-  const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState('')
+const CAT_DOT = {
+  Konser:    '#3b82f6',
+  Festival:  '#f97316',
+  'Stand Up':'#facc15',
+  Sports:    '#eab308',
+  Theater:   '#a855f7',
+}
+
+const CAT_EMOJI = { Konser: '🎤', Festival: '🎪', 'Stand Up': '😂', Sports: '🏃', Theater: '🎭' }
+
+const formatPrice = (price) => `Rp ${Number(price).toLocaleString('id-ID')}`
+
+const parseDateParts = (dateStr) => {
+  if (!dateStr) return { mon: '???', day: '??' }
+  try {
+    const d   = new Date(dateStr)
+    const mon = d.toLocaleDateString('id-ID', { month: 'short' }).toUpperCase().replace('.', '')
+    const day = String(d.getDate()).padStart(2, '0')
+    return { mon, day }
+  } catch {
+    return { mon: '???', day: '??' }
+  }
+}
+
+const formatTime = (dateStr) => {
+  if (!dateStr) return '-'
+  try {
+    return new Date(dateStr).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' WIB'
+  } catch {
+    return '19:00 WIB'
+  }
+}
+
+const getMapsUrl = (venue) => {
+  const q = encodeURIComponent(`${venue || ''}, Indonesia`)
+  return `https://www.google.com/maps/search/?api=1&query=${q}`
+}
+
+const getMapsEmbedUrl = (venue) => {
+  const q = encodeURIComponent(`${venue || ''}, Indonesia`)
+  return `https://www.google.com/maps?q=${q}&output=embed`
+}
+
+export default function UpcomingEvents({ searchQuery = '' }) {
+  const [events, setEvents]                     = useState([])
+  const [fetchLoading, setFetchLoading]         = useState(true)
+  const [selectedLocation, setSelectedLocation] = useState(null)
 
   useEffect(() => {
-    checkoutApi.paymentMethods()
-      .then((data) => {
-        setPaymentMethods(data.paymentMethods || [])
-        if (data.paymentMethods?.length) {
-          setSelectedMethod(data.paymentMethods[0].value)
-        }
+    setFetchLoading(true)
+    fetch('/api/events')
+      .then(res => res.json())
+      .then(data => {
+        const list = Array.isArray(data.events) ? data.events : []
+        setEvents(list.length > 0 ? list : DEMO_EVENTS)
       })
-      .catch(() => setPaymentMethods([]))
+      .catch(() => setEvents(DEMO_EVENTS))
+      .finally(() => setFetchLoading(false))
   }, [])
 
-  const handleCheckout = async () => {
-    const token = localStorage.getItem('token')
-    if (!token) {
-      setMessage('Silakan masuk dulu sebelum lanjut checkout.')
-      return
-    }
+  const normalizedQuery = searchQuery.trim().toLowerCase()
 
-    if (!selectedEvent) return
-
-    setLoading(true)
-    setMessage('')
-
-    try {
-      const data = await checkoutApi.checkout(token, {
-        eventId: selectedEvent.id,
-        quantity: 1,
-        paymentMethod: selectedMethod,
-      })
-
-      if (data?.order) {
-        window.location.href = '/payment-success'
-        return
-      }
-
-      setMessage(`Checkout berhasil! Metode pembayaran: ${data.order.paymentLabel}. Total: Rp${data.order.total.toLocaleString('id-ID')}`)
-    } catch (error) {
-      setMessage(error.message || 'Checkout gagal')
-    } finally {
-      setLoading(false)
-    }
-  }
+  const filteredList = events.filter(ev => {
+    if (!normalizedQuery) return true
+    const hay = [ev.title, ev.location, ev.category, ev.date, ev.organizer].join(' ').toLowerCase()
+    return hay.includes(normalizedQuery)
+  })
 
   return (
     <section style={{ padding: '96px 0', background: '#0a0a0f' }}>
@@ -101,153 +115,197 @@ export default function UpcomingEvents() {
           </a>
         </div>
 
-        {/* List — gap & padding lebih besar */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-          {list.map(ev => (
-            <div
-              key={ev.id}
-              style={{
-                display: 'flex', alignItems: 'center', gap: 20,
-                padding: '22px 28px', borderRadius: 20,
-                background: 'rgba(255,255,255,0.03)',
-                border: '1px solid rgba(255,255,255,0.07)',
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.background    = 'rgba(124,58,237,0.08)'
-                e.currentTarget.style.borderColor   = 'rgba(124,58,237,0.35)'
-                e.currentTarget.style.transform     = 'translateX(6px)'
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.background    = 'rgba(255,255,255,0.03)'
-                e.currentTarget.style.borderColor   = 'rgba(255,255,255,0.07)'
-                e.currentTarget.style.transform     = 'translateX(0)'
-              }}
-            >
-              {/* Date box — lebih besar */}
-              <div style={{
-                flexShrink: 0, width: 64, height: 64, borderRadius: 16,
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                display: 'flex', flexDirection: 'column',
-                alignItems: 'center', justifyContent: 'center',
-              }}>
-                <span style={{ fontSize: '0.62rem', fontWeight: 700, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-                  {ev.mon}
-                </span>
-                <span style={{ fontSize: '1.4rem', fontWeight: 900, color: '#fff', lineHeight: 1.1 }}>
-                  {ev.day}
-                </span>
-              </div>
+        {normalizedQuery && filteredList.length === 0 && !fetchLoading && (
+          <div style={{ marginBottom: 20, padding: '14px 18px', borderRadius: 16, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', color: '#cbd5e1' }}>
+            Tidak ada event yang cocok dengan pencarian &quot;{searchQuery}&quot;.
+          </div>
+        )}
 
-              {/* Emoji box — lebih besar */}
-              <div style={{
-                flexShrink: 0, width: 52, height: 52, borderRadius: 14,
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(255,255,255,0.08)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 24,
-              }}>
-                {ev.emoji}
-              </div>
+        {/* List */}
+        {fetchLoading ? (
+          <div style={{ textAlign: 'center', padding: '60px 0', color: '#6b7280', fontSize: '0.95rem' }}>
+            Memuat jadwal event…
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            {filteredList.map(ev => {
+              const { mon, day } = parseDateParts(ev.date)
+              const emoji        = CAT_EMOJI[ev.category] || '🎵'
+              const dotColor     = CAT_DOT[ev.category]   || '#6b7280'
+              const timeStr      = formatTime(ev.date)
 
-              {/* Info */}
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{
-                  color: '#f3f4f6', fontWeight: 700, fontSize: '1rem',
-                  marginBottom: 6,
-                  whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
-                }}>
-                  {ev.title}
-                </p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
-                  <span style={{ fontSize: '0.8rem', color: '#6b7280' }}>📍 {ev.venue}</span>
-                  <span style={{ fontSize: '0.8rem', color: '#6b7280' }}>🕐 {ev.time}</span>
+              return (
+                <div
+                  key={ev.id}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 20,
+                    padding: '22px 28px', borderRadius: 20,
+                    background: 'rgba(255,255,255,0.03)',
+                    border: '1px solid rgba(255,255,255,0.07)',
+                    transition: 'all 0.2s',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.background  = 'rgba(124,58,237,0.08)'
+                    e.currentTarget.style.borderColor = 'rgba(124,58,237,0.35)'
+                    e.currentTarget.style.transform   = 'translateX(6px)'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.background  = 'rgba(255,255,255,0.03)'
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'
+                    e.currentTarget.style.transform   = 'translateX(0)'
+                  }}
+                >
+                  {/* Date box */}
+                  <div style={{
+                    flexShrink: 0, width: 64, height: 64, borderRadius: 16,
+                    background: 'rgba(255,255,255,0.05)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    display: 'flex', flexDirection: 'column',
+                    alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <span style={{ fontSize: '0.62rem', fontWeight: 700, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                      {mon}
+                    </span>
+                    <span style={{ fontSize: '1.4rem', fontWeight: 900, color: '#fff', lineHeight: 1.1 }}>
+                      {day}
+                    </span>
+                  </div>
+
+                  {/* Emoji box */}
+                  <div style={{
+                    flexShrink: 0, width: 52, height: 52, borderRadius: 14,
+                    background: 'rgba(255,255,255,0.05)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 24,
+                  }}>
+                    {emoji}
+                  </div>
+
+                  {/* Info */}
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <p style={{
+                      color: '#f3f4f6', fontWeight: 700, fontSize: '1rem',
+                      marginBottom: 8,
+                      whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+                    }}>
+                      {ev.title}
+                    </p>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center' }}>
+                      {/* Lokasi */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                        <svg width="13" height="13" fill="none" stroke="#6b7280" strokeWidth="2" viewBox="0 0 24 24">
+                          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                          <circle cx="12" cy="9" r="2.5"/>
+                        </svg>
+                        <span style={{ fontSize: '0.8rem', color: '#6b7280', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: 180 }}>
+                          {ev.location}
+                        </span>
+                      </div>
+                      {/* Jam */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                        <svg width="13" height="13" fill="none" stroke="#6b7280" strokeWidth="2" viewBox="0 0 24 24">
+                          <circle cx="12" cy="12" r="10"/>
+                          <path d="M12 6v6l4 2"/>
+                        </svg>
+                        <span style={{ fontSize: '0.8rem', color: '#6b7280', whiteSpace: 'nowrap' }}>
+                          {timeStr}
+                        </span>
+                      </div>
+                      {/* Tombol Lihat Lokasi */}
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setSelectedLocation(ev) }}
+                        style={{
+                          display: 'inline-flex', alignItems: 'center', gap: 5,
+                          padding: '5px 12px', borderRadius: 999,
+                          border: '1px solid rgba(124,58,237,0.4)',
+                          background: 'rgba(124,58,237,0.1)', color: '#c4b5fd',
+                          cursor: 'pointer', fontSize: '0.73rem', fontWeight: 600,
+                          transition: 'all 0.2s', whiteSpace: 'nowrap',
+                        }}
+                        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(124,58,237,0.22)'; e.currentTarget.style.borderColor = 'rgba(124,58,237,0.7)' }}
+                        onMouseLeave={e => { e.currentTarget.style.background = 'rgba(124,58,237,0.1)';  e.currentTarget.style.borderColor = 'rgba(124,58,237,0.4)' }}
+                      >
+                        <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                          <circle cx="12" cy="9" r="2.5"/>
+                        </svg>
+                        Lihat Lokasi
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Category dot */}
+                  <div style={{
+                    flexShrink: 0,
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
+                  }}>
+                    <span style={{
+                      width: 10, height: 10, borderRadius: '50%',
+                      background: dotColor, display: 'block',
+                      boxShadow: `0 0 8px ${dotColor}`,
+                    }} />
+                    <span style={{ fontSize: '0.72rem', color: '#6b7280' }}>{ev.category}</span>
+                  </div>
+
+                  {/* Price */}
+                  <div style={{ flexShrink: 0, textAlign: 'right', minWidth: 100 }}>
+                    <p style={{ fontSize: '0.68rem', color: '#4b5563', marginBottom: 3 }}>Mulai dari</p>
+                    <p style={{
+                      fontWeight: 800, fontSize: '0.95rem',
+                      background: 'linear-gradient(135deg,#a78bfa,#ec4899)',
+                      WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                    }}>
+                      {formatPrice(ev.price)}
+                    </p>
+                  </div>
+
+                  {/* Status badge untuk soldout */}
+                  {ev.status === 'soldout' && (
+                    <div style={{
+                      flexShrink: 0, padding: '8px 14px', borderRadius: 10,
+                      background: 'rgba(39,39,42,0.6)', color: '#71717a',
+                      fontSize: '0.78rem', fontWeight: 700,
+                      border: '1px solid rgba(255,255,255,0.06)',
+                    }}>
+                      Habis
+                    </div>
+                  )}
                 </div>
-              </div>
-
-              {/* Category */}
-              <div style={{
-                flexShrink: 0,
-                display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
-              }}>
-                <span style={{
-                  width: 10, height: 10, borderRadius: '50%',
-                  background: ev.dotColor, display: 'block',
-                  boxShadow: `0 0 8px ${ev.dotColor}`,
-                }} />
-                <span style={{ fontSize: '0.72rem', color: '#6b7280' }}>{ev.cat}</span>
-              </div>
-
-              {/* Price */}
-              <div style={{ flexShrink: 0, textAlign: 'right', minWidth: 100 }}>
-                <p style={{ fontSize: '0.68rem', color: '#4b5563', marginBottom: 3 }}>Mulai dari</p>
-                <p style={{
-                  fontWeight: 800, fontSize: '0.95rem',
-                  background: 'linear-gradient(135deg,#a78bfa,#ec4899)',
-                  WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}>
-                  {ev.price}
-                </p>
-              </div>
-
-              {/* Buy btn — lebih besar */}
-              <button
-                onClick={() => setSelectedEvent(ev)}
-                style={{
-                  flexShrink: 0, padding: '10px 22px', borderRadius: 12,
-                  background: 'linear-gradient(135deg,#7c3aed,#ec4899)',
-                  color: '#fff', fontWeight: 700, fontSize: '0.82rem',
-                  border: 'none', cursor: 'pointer',
-                  boxShadow: '0 4px 14px rgba(124,58,237,0.35)',
-                  transition: 'transform 0.2s, box-shadow 0.2s',
-                }}
-                onMouseEnter={e => { e.currentTarget.style.transform='scale(1.06)'; e.currentTarget.style.boxShadow='0 6px 20px rgba(124,58,237,0.55)' }}
-                onMouseLeave={e => { e.currentTarget.style.transform='scale(1)';    e.currentTarget.style.boxShadow='0 4px 14px rgba(124,58,237,0.35)' }}
-              >
-                Beli Tiket
-              </button>
-            </div>
-          ))}
-        </div>
+              )
+            })}
+          </div>
+        )}
       </div>
 
+      {/* Location Modal */}
       <Modal
-        isOpen={Boolean(selectedEvent)}
-        onClose={() => setSelectedEvent(null)}
-        title={`Beli tiket ${selectedEvent?.title || ''}`}
-        description="Pilih metode pembayaran dan lanjutkan checkout dengan sekali klik."
-        ctaLabel={loading ? 'Memproses...' : 'Bayar Sekarang'}
-        onCta={handleCheckout}
-        secondaryLabel="Batal"
+        isOpen={Boolean(selectedLocation)}
+        onClose={() => setSelectedLocation(null)}
+        title={selectedLocation?.location || 'Lokasi Event'}
+        description={`Lihat titik lokasi ${selectedLocation?.title || 'event'} dan arahkan dengan Google Maps.`}
+        ctaLabel="Buka di Google Maps"
+        onCta={() => window.open(getMapsUrl(selectedLocation?.location), '_blank')}
+        secondaryLabel="Tutup"
         closeOnCta={false}
       >
-        <div style={{ display:'flex', flexDirection:'column', gap:12 }}>
-          <div style={{ padding:'12px 14px', borderRadius:12, background:'rgba(124,58,237,0.12)', border:'1px solid rgba(124,58,237,0.25)', color:'#ddd6fe' }}>
-            <strong style={{ display:'block', marginBottom:4 }}>Event</strong>
-            <span>{selectedEvent?.title}</span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ padding: '12px 14px', borderRadius: 12, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', color: '#e2e8f0' }}>
+            <strong style={{ display: 'block', marginBottom: 4 }}>Alamat</strong>
+            <span>{selectedLocation?.location}</span>
           </div>
-
-          <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
-            <label style={{ color:'#cbd5e1', fontSize:'0.86rem', fontWeight:700 }}>Metode Pembayaran</label>
-            <div style={{ display:'grid', gap:8 }}>
-              {paymentMethods.map((method) => (
-                <label key={method.value} style={{ display:'flex', alignItems:'center', gap:10, padding:'10px 12px', borderRadius:12, background:'rgba(255,255,255,0.05)', border:selectedMethod === method.value ? '1px solid rgba(124,58,237,0.6)' : '1px solid rgba(255,255,255,0.08)', cursor:'pointer' }}>
-                  <input type="radio" name="payment-method-upcoming" value={method.value} checked={selectedMethod === method.value} onChange={() => setSelectedMethod(method.value)} />
-                  <span style={{ color:'#f8fafc', fontWeight:700 }}>{method.label}</span>
-                  <span style={{ color:'#94a3b8', fontSize:'0.8rem', marginLeft:'auto' }}>{method.description}</span>
-                </label>
-              ))}
-            </div>
+          <div style={{ width: '100%', height: 0, paddingBottom: '56.25%', position: 'relative', borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.12)' }}>
+            {selectedLocation && (
+              <iframe
+                title="Event location map"
+                src={getMapsEmbedUrl(selectedLocation.location)}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0 }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            )}
           </div>
-
-          {message && (
-            <div style={{ padding:'10px 12px', borderRadius:10, background: message.includes('berhasil') ? 'rgba(34,197,94,0.12)' : 'rgba(239,68,68,0.12)', border: message.includes('berhasil') ? '1px solid rgba(34,197,94,0.22)' : '1px solid rgba(239,68,68,0.22)', color: message.includes('berhasil') ? '#bbf7d0' : '#fecaca', fontSize:'0.85rem' }}>
-              {message}
-            </div>
-          )}
         </div>
       </Modal>
     </section>

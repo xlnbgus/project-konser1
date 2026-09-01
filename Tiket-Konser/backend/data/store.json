@@ -83,17 +83,6 @@
   ],
   "events": [
     {
-      "id": 1,
-      "title": "Weekend Festival",
-      "description": "Festival musik malam minggu yang penuh hiburan.",
-      "date": "2026-09-12",
-      "location": "Jakarta",
-      "price": 250000,
-      "category": "Festival",
-      "organizer": "KonserKu",
-      "status": "available"
-    },
-    {
       "id": 2,
       "title": "Indie Night",
       "description": "Konser indie akustik dan live performance.",
@@ -105,26 +94,18 @@
       "status": "available"
     },
     {
-      "id": 3,
-      "title": "SNOOPY RUN 2026",
-      "description": "Lomba lari santai dengan suasana keluarga.",
-      "date": "2026-09-06",
-      "location": "Tangerang",
-      "price": 499000,
-      "category": "Sports",
-      "organizer": "Provaliant",
+      "id": 1787908613130,
+      "title": "Test Event",
+      "description": "",
+      "date": "2026-10-01",
+      "location": "Jakarta",
+      "price": 100000,
+      "category": "Umum",
+      "organizer": "Admin",
       "status": "available"
     }
   ],
   "promos": [
-    {
-      "id": 1,
-      "code": "EARLYBIRD30",
-      "title": "Early Bird",
-      "description": "Diskon 30% untuk pemesanan awal",
-      "discountPercent": 30,
-      "expires": "31 Agustus 2026"
-    },
     {
       "id": 2,
       "code": "NEWUSER2026",
@@ -214,6 +195,61 @@
       "buyerEmail": "citra178574958814421@example.com",
       "status": "pending",
       "createdAt": "2026-08-03T09:33:08.289Z"
+    },
+    {
+      "id": "1786172829218",
+      "userId": "guest-1786172829218",
+      "eventId": 1,
+      "eventTitle": "Weekend Festival",
+      "quantity": 2,
+      "subtotal": 500000,
+      "discountAmount": 0,
+      "total": 500000,
+      "promoCode": null,
+      "paymentMethod": "debit",
+      "paymentLabel": "Kartu Debit",
+      "buyerEmail": "guest-1786172829218@konserojol.com",
+      "status": "pending",
+      "createdAt": "2026-08-08T07:07:09.218Z"
+    },
+    {
+      "id": "1786172829511",
+      "userId": "guest-1786172829511",
+      "eventId": 1,
+      "eventTitle": "Weekend Festival",
+      "quantity": 1,
+      "subtotal": 250000,
+      "discountAmount": 0,
+      "total": 250000,
+      "promoCode": null,
+      "paymentMethod": "debit",
+      "paymentLabel": "Kartu Debit",
+      "buyerEmail": "guest-1786172829511@konserojol.com",
+      "status": "paid",
+      "createdAt": "2026-08-08T07:07:09.511Z",
+      "updatedAt": "2026-08-08T07:07:09.519Z"
+    },
+    {
+      "id": "1786172829763",
+      "userId": "guest-1786172829762",
+      "eventId": 1,
+      "eventTitle": "Weekend Festival",
+      "quantity": 2,
+      "subtotal": 500000,
+      "discountAmount": 150000,
+      "total": 350000,
+      "promoCode": "EARLYBIRD30",
+      "paymentMethod": "debit",
+      "paymentLabel": "Kartu Debit",
+      "buyerEmail": "guest-1786172829762@konserojol.com",
+      "status": "pending",
+      "createdAt": "2026-08-08T07:07:09.763Z"
     }
-  ]
+  ],
+  "ticketCategories": [],
+  "artists": [],
+  "salesSettings": {
+    "isSalesOpen": true,
+    "updatedAt": "2026-08-21T10:35:49.759Z"
+  }
 }

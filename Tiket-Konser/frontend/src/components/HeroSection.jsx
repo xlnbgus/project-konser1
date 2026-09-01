@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 const slides = [
   {
@@ -81,7 +80,6 @@ const Particle = ({ emoji, top, right, delay, duration }) => (
 )
 
 export default function HeroSection() {
-  const navigate = useNavigate()
   const [idx, setIdx] = useState(0)
   const [fading, setFading] = useState(false)
 
@@ -91,7 +89,7 @@ export default function HeroSection() {
     setTimeout(() => { setIdx(next); setFading(false) }, 280)
   }
 
-  const handleBuyTicket = () => navigate('/login')
+  const handleBuyTicket = () => document.getElementById('top-events')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   const handleViewDetail = () => document.getElementById('top-events')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
   useEffect(() => {
@@ -330,7 +328,7 @@ export default function HeroSection() {
 
               {/* Floating badges */}
               <div className="glass" style={{
-                position: 'absolute', top: 18, right: 18,
+                position: 'absolute', top: 18, left: 18,
                 padding: '10px 16px', borderRadius: 14,
                 boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
                 zIndex: 10,
@@ -339,7 +337,7 @@ export default function HeroSection() {
                 <p style={{ fontSize: '0.9rem', fontWeight: 700, color: '#fff' }}>{s.ticketsAvailable || '2.800'} tiket</p>
               </div>
               <div className="glass" style={{
-                position: 'absolute', bottom: 18, left: 18,
+                position: 'absolute', top: 18, right: 18,
                 padding: '10px 16px', borderRadius: 14,
                 boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
                 zIndex: 10,

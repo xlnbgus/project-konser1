@@ -28,7 +28,20 @@ export default function PromoSection() {
 
   const handleCopy = async (code) => {
     try {
-      await navigator.clipboard.writeText(code)
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(code)
+      } else {
+        const textArea = document.createElement('textarea')
+        textArea.value = code
+        textArea.setAttribute('readonly', '')
+        textArea.style.position = 'fixed'
+        textArea.style.left = '-9999px'
+        document.body.appendChild(textArea)
+        textArea.select()
+        document.execCommand('copy')
+        document.body.removeChild(textArea)
+      }
+
       setCopiedCode(code)
       setTimeout(() => setCopiedCode(''), 1800)
     } catch {
@@ -154,7 +167,11 @@ export default function PromoSection() {
                       {p.code}
                     </span>
                     <button
-                      onClick={() => handleCopy(p.code)}
+                      type="button"
+                      onClick={(event) => {
+                        event.stopPropagation()
+                        handleCopy(p.code)
+                      }}
                       style={{
                         background: 'none', border: 'none', cursor: 'pointer',
                         color: copiedCode === p.code ? '#fff' : 'rgba(255,255,255,0.5)', padding: 0, lineHeight: 1,

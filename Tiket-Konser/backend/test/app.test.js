@@ -71,6 +71,36 @@ test('POST /api/auth/login allows direct admin login', async () => {
   }
 });
 
+test('POST /api/checkout allows checkout without auth token', async () => {
+  const { server, port } = await startServer();
+  try {
+    const checkoutPayload = JSON.stringify({ eventId: 1, quantity: 2, paymentMethod: 'debit' });
+
+    const response = await new Promise((resolve, reject) => {
+      const req = http.request(
+        { hostname: '127.0.0.1', port, path: '/api/checkout', method: 'POST', headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(checkoutPayload) } },
+        (res) => {
+          let data = '';
+          res.on('data', (chunk) => {
+            data += chunk;
+          });
+          res.on('end', () => resolve({ statusCode: res.statusCode, body: data }));
+        }
+      );
+      req.on('error', reject);
+      req.write(checkoutPayload);
+      req.end();
+    });
+
+    assert.equal(response.statusCode, 201);
+    const body = JSON.parse(response.body);
+    assert.equal(body.success, true);
+    assert.equal(body.order.quantity, 2);
+  } finally {
+    server.close();
+  }
+});
+
 test('GET /api/admin/events returns data for admin', async () => {
   const { server, port } = await startServer();
   try {

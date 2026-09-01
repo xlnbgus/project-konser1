@@ -121,7 +121,7 @@ export default function HowItWorks() {
         {/* CTA */}
         <div style={{ textAlign: 'center' }}>
           <button
-            onClick={() => navigate('/login')}
+            onClick={() => document.getElementById('top-events')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
             style={{
               padding: '16px 44px', borderRadius: 18, fontSize: '1rem', fontWeight: 700,
               color: '#fff', border: 'none', cursor: 'pointer',

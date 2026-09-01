@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
 async function request(path, options = {}) {
   const response = await fetch(`${API_BASE_URL}${path}`, {
@@ -41,9 +41,9 @@ export const checkoutApi = {
   checkout: (token, payload) => request('/api/checkout', {
     method: 'POST',
     body: JSON.stringify(payload),
-    headers: {
+    headers: token ? {
       Authorization: `Bearer ${token}`,
-    },
+    } : {},
   }),
 };
 

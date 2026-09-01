@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Navbar from '../components/Navbar'
 import TickerBanner from '../components/TickerBanner'
 import HeroSection from '../components/HeroSection'
@@ -9,15 +10,17 @@ import PromoSection from '../components/PromoSection'
 import Footer from '../components/Footer'
 
 export default function HomePage() {
+  const [searchQuery, setSearchQuery] = useState('')
+
   return (
     <div>
-      <TickerBanner />
-      <Navbar />
+      <Navbar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
       <HeroSection />
       <PromoSection />
-      <TopEvents />
+      <TopEvents searchQuery={searchQuery} />
+      <TickerBanner />
       <FeaturedArtists />
-      <UpcomingEvents />
+      <UpcomingEvents searchQuery={searchQuery} />
       <HowItWorks />
       <Footer />
     </div>

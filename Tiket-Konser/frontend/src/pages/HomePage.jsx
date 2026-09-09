@@ -10,14 +10,20 @@ import PromoSection from '../components/PromoSection'
 import Footer from '../components/Footer'
 
 export default function HomePage() {
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, setSearchQuery]       = useState('')
+  const [activeCategory, setActiveCategory] = useState('Semua')
 
   return (
     <div>
-      <Navbar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+      <Navbar
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+        activeCategory={activeCategory}
+        onCategoryChange={setActiveCategory}
+      />
       <HeroSection />
       <PromoSection />
-      <TopEvents searchQuery={searchQuery} />
+      <TopEvents searchQuery={searchQuery} activeCategory={activeCategory} onCategoryChange={setActiveCategory} />
       <TickerBanner />
       <FeaturedArtists />
       <UpcomingEvents searchQuery={searchQuery} />

@@ -98,7 +98,14 @@ INSERT INTO events (title, description, event_date, location, price, category, o
 ('Beyond Eyes 15th Anniversary – Surabaya', 'Rayakan 15 tahun Beyond Eyes dengan konser spektakuler di Surabaya.', '2026-08-28', 'Surabaya Convention Center', 900000.00, 'Konser', 'Maryhouse Media', 'available'),
 ('LaLaLa Festival 2026', 'Festival musik dua hari dengan lineup artis lokal dan internasional terpilih.', '2026-08-22', 'Jakarta', 800000.00, 'Festival', 'The Group', 'available'),
 ('Raisa Live in Concert 2026', 'Konser solo Raisa dengan setlist hits terbaik sepanjang karir.', '2026-12-12', 'Jakarta', 650000.00, 'Konser', 'Raisa Production', 'available'),
-('Synchronize Festival 2026', 'Festival musik tahunan terbesar di Indonesia selama 3 hari penuh.', '2026-10-03', 'Gambir Expo, Jakarta', 600000.00, 'Festival', 'Demajors', 'available');
+('Synchronize Festival 2026', 'Festival musik tahunan terbesar di Indonesia selama 3 hari penuh.', '2026-10-03', 'Gambir Expo, Jakarta', 600000.00, 'Festival', 'Demajors', 'available'),
+('Stand Up Comedy Special: Malem Minggu', 'Malam stand up comedy spesial dengan komika terbaik Indonesia.', '2026-09-20', 'Balai Kartini, Jakarta', 150000.00, 'Stand Up', 'Komunitas Stand Up Indo', 'available'),
+('Stand Up Comedy Festival 2026', 'Festival komedi terbesar dengan lineup 20+ komika dari seluruh Indonesia.', '2026-11-08', 'Tennis Indoor Senayan, Jakarta', 200000.00, 'Stand Up', 'Stand Up Indo', 'available'),
+('SNOOPY RUN 2026', 'Lomba lari santai dengan suasana keluarga. Cocok untuk semua usia.', '2026-09-06', 'Tangerang', 499000.00, 'Sports', 'Provaliant', 'available'),
+('Jakarta Marathon 2026', 'Lari maraton bergengsi melewati ibu kota dengan jarak 5K, 10K, dan 42K.', '2026-10-18', 'Monas, Jakarta', 350000.00, 'Sports', 'Jakarta Marathon Committee', 'available'),
+('Badminton Exhibition: All Star', 'Pertandingan eksibisi bulu tangkis bintang Indonesia vs Asia.', '2026-11-22', 'Istora Senayan, Jakarta', 275000.00, 'Sports', 'PBSI', 'available'),
+('Pertunjukan Teater: Laskar Pelangi', 'Adaptasi teatrikal dari novel legendaris Laskar Pelangi karya Andrea Hirata.', '2026-10-10', 'Gedung Kesenian Jakarta', 185000.00, 'Theater', 'Teater Koma', 'available'),
+('Opera Jawa: Rahwana Putih', 'Pertunjukan opera kontemporer memadukan tari Jawa klasik dan musik modern.', '2026-11-15', 'Taman Ismail Marzuki, Jakarta', 225000.00, 'Theater', 'Komunitas Seni Nusantara', 'available');
 
 INSERT INTO ticket_categories (name, description, quota, price_adjustment) VALUES
 ('VIP', 'Area depan panggung dengan fasilitas premium dan akses backstage.', 120, 0.00),

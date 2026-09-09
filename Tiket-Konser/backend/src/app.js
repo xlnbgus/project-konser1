@@ -11,7 +11,7 @@ const paymentMethods = [
     { value: "debit", label: "Kartu Debit", description: "Bayar dengan kartu debit" },
     { value: "bank", label: "Transfer Bank", description: "Transfer melalui bank lokal" },
     { value: "e-wallet", label: "E-Wallet", description: "Dana, Ovo, GoPay, dan lainnya" },
-    { value: "qris", label: "QRIS", description: "Scan QRIS dengan aplikasi dompet digital" }
+    { value: "qris", label: "QRIS", description: "Scan QRIS dengan aplikasi apa saja" }
 ];
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json({ limit: "10mb" }));

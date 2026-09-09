@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const Navbar = ({ searchQuery = '', onSearchChange = () => {} }) => {
+const Navbar = ({ searchQuery = '', onSearchChange = () => {}, activeCategory = 'Semua', onCategoryChange = () => {} }) => {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -13,6 +13,14 @@ const Navbar = ({ searchQuery = '', onSearchChange = () => {} }) => {
   const handleSearchSubmit = (event) => {
     event.preventDefault()
     document.getElementById('top-events')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  const handleCategoryClick = (cat) => {
+    onCategoryChange(cat)
+    setTimeout(() => {
+      document.getElementById('top-events')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 50)
+    setMobileOpen(false)
   }
 
   return (
@@ -50,7 +58,18 @@ const Navbar = ({ searchQuery = '', onSearchChange = () => {} }) => {
           {/* Desktop links */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 28 }} className="desktop-nav">
             {['Konser', 'Festival', 'Stand Up', 'Sports', 'Theater'].map(item => (
-              <a key={item} href="#" className="nav-link">{item}</a>
+              <a
+                key={item}
+                href="#"
+                onClick={e => { e.preventDefault(); handleCategoryClick(item) }}
+                className="nav-link"
+                style={{
+                  color: activeCategory === item ? '#a78bfa' : '',
+                  fontWeight: activeCategory === item ? 700 : 500,
+                }}
+              >
+                {item}
+              </a>
             ))}
           </div>
 
@@ -125,11 +144,15 @@ const Navbar = ({ searchQuery = '', onSearchChange = () => {} }) => {
             display: 'flex', flexDirection: 'column', gap: 4,
           }}>
             {['Konser', 'Festival', 'Stand Up', 'Sports', 'Theater'].map(item => (
-              <a key={item} href="#" style={{
-                color: '#d1d5db', padding: '10px 8px', fontSize: '0.9rem',
-                textDecoration: 'none', borderRadius: 8,
-                transition: 'background 0.2s',
-              }}>{item}</a>
+              <a key={item} href="#"
+                onClick={e => { e.preventDefault(); handleCategoryClick(item) }}
+                style={{
+                  color: activeCategory === item ? '#a78bfa' : '#d1d5db',
+                  fontWeight: activeCategory === item ? 700 : 400,
+                  padding: '10px 8px', fontSize: '0.9rem',
+                  textDecoration: 'none', borderRadius: 8,
+                  transition: 'background 0.2s',
+                }}>{item}</a>
             ))}
           </div>
         )}

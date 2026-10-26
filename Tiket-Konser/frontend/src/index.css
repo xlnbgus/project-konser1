@@ -6,10 +6,13 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-html {
-  scroll-behavior: smooth;
+input, textarea, select {
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 body {
@@ -389,3 +392,7 @@ body {
 /* ===== HIDE SCROLLBAR (chip row) ===== */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+html {
+  scroll-behavior: smooth;
+}

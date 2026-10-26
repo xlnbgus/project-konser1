@@ -1,10 +1,17 @@
+import raisaImg    from '../assets/artists/raisa.jpg'
+import unguImg     from '../assets/artists/ungu.jpg'
+import westlifeImg from '../assets/artists/westlife.jpg'
+import noahImg     from '../assets/artists/noah.jpg'
+import dewa19Img   from '../assets/artists/dewa19.jpg'
+import isyanaImg   from '../assets/artists/isyana.jpg'
+
 const artists = [
-  { id:1, name:'Raisa',    genre:'Pop',         date:'12 Des 2026', emoji:'💜', gradFrom:'#4c1d95', gradTo:'#6d28d9', fans:'2.1M' },
-  { id:2, name:'UNGU',     genre:'Rock',        date:'30 Okt 2026', emoji:'🎸', gradFrom:'#1e3a5f', gradTo:'#1e40af', fans:'3.5M' },
-  { id:3, name:'Westlife', genre:'Pop',         date:'15 Sep 2026', emoji:'🌟', gradFrom:'#065f46', gradTo:'#0d9488', fans:'5.2M' },
-  { id:4, name:'Noah',     genre:'Alternative', date:'10 Nov 2026', emoji:'🎵', gradFrom:'#881337', gradTo:'#be123c', fans:'4.1M' },
-  { id:5, name:'Dewa 19',  genre:'Rock',        date:'22 Des 2026', emoji:'🔥', gradFrom:'#78350f', gradTo:'#b45309', fans:'3.8M' },
-  { id:6, name:'Isyana',   genre:'Pop',         date:'05 Okt 2026', emoji:'✨', gradFrom:'#064e3b', gradTo:'#047857', fans:'1.7M' },
+  { id:1, name:'Raisa',    genre:'Pop',         date:'12 Des 2026', img: raisaImg,    fans:'2.1M' },
+  { id:2, name:'UNGU',     genre:'Rock',        date:'30 Okt 2026', img: unguImg,     fans:'3.5M' },
+  { id:3, name:'Westlife', genre:'Pop',         date:'15 Sep 2026', img: westlifeImg, fans:'5.2M' },
+  { id:4, name:'Noah',     genre:'Alternative', date:'10 Nov 2026', img: noahImg,     fans:'4.1M' },
+  { id:5, name:'Dewa 19',  genre:'Rock',        date:'22 Des 2026', img: dewa19Img,   fans:'3.8M' },
+  { id:6, name:'Isyana',   genre:'Pop',         date:'05 Okt 2026', img: isyanaImg,   fans:'1.7M' },
 ]
 
 export default function FeaturedArtists() {
@@ -65,26 +72,25 @@ export default function FeaturedArtists() {
                 e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'
               }}
             >
-              {/* Avatar — lebih tinggi */}
+              {/* Foto artis */}
               <div style={{
                 height: 180,
-                background: `linear-gradient(135deg, ${a.gradFrom}, ${a.gradTo})`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
                 position: 'relative', overflow: 'hidden',
               }}>
+                <img
+                  src={a.img}
+                  alt={a.name}
+                  style={{
+                    width: '100%', height: '100%',
+                    objectFit: 'cover', objectPosition: 'center top',
+                    display: 'block',
+                    transition: 'transform 0.4s ease',
+                  }}
+                />
                 <div style={{
                   position: 'absolute', inset: 0,
-                  background: 'radial-gradient(ellipse at 30% 25%, rgba(255,255,255,0.22), transparent 60%)',
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%)',
                 }} />
-                {/* Dots pattern */}
-                <div style={{
-                  position: 'absolute', inset: 0, opacity: 0.08,
-                  backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)',
-                  backgroundSize: '20px 20px',
-                }} />
-                <span style={{ fontSize: '4rem', position: 'relative', zIndex: 1, transition: 'transform 0.3s' }}>
-                  {a.emoji}
-                </span>
               </div>
 
               {/* Info */}

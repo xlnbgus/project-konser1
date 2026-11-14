@@ -767,7 +767,7 @@ app.post("/api/checkout", async (req, res) => {
         } else {
             event = storage.getEventById(eventId);
             if (promoCode) {
-                selectedPromo = storage.getPromos().find((item) => item.code === promoCode);
+                selectedPromo = storage.getActivePromos().find((item) => item.code === promoCode);
             }
         }
 

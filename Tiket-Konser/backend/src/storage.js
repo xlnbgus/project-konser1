@@ -165,6 +165,17 @@ function getPromos() {
   return readStore().promos;
 }
 
+// Hanya promo yang belum kadaluarsa (atau tidak ada expiry)
+function getActivePromos() {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  return getPromos().filter((p) => {
+    if (!p.expires || p.expires === 'Tidak terbatas') return true
+    const exp = new Date(p.expires)
+    return !isNaN(exp) ? exp >= today : true
+  })
+}
+
 function getTicketCategories() {
   return readStore().ticketCategories;
 }
@@ -310,6 +321,7 @@ module.exports = {
   getEvents,
   getEventById,
   getPromos,
+  getActivePromos,
   getTicketCategories,
   createTicketCategory,
   updateTicketCategory,

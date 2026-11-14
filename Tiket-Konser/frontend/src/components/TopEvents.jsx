@@ -232,6 +232,7 @@ export default function TopEvents({ searchQuery = '', activeCategory: externalCa
     if (externalCategory && externalCategory !== active) {
       setActive(externalCategory)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [externalCategory])
 
   // Fetch events dari backend saat mount

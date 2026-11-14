@@ -1,195 +1,149 @@
 import { Link, useLocation } from 'react-router-dom'
-import { useRef } from 'react'
 
 const formatPrice = (val) => `Rp ${Number(val || 0).toLocaleString('id-ID')}`
 
-// ─── PDF Generator — render dari DOM → canvas → PDF (teks tidak bisa diselect) ──
-async function downloadStruk(data, strutNode) {
-  const [{ jsPDF }, html2canvas] = await Promise.all([
-    import('jspdf'),
-    import('html2canvas'),
-  ])
+async function downloadStruk({ eventTitle, paymentLabel, total, subtotal, discountAmount, quantity, promoCode, orderId }) {
+  const { jsPDF } = await import('jspdf')
 
-  const canvas = await html2canvas.default(strutNode, {
-    scale: 3,
-    useCORS: true,
-    backgroundColor: '#ffffff',
-    logging: false,
-  })
+  const W = 148
+  const H = 210
+  const doc = new jsPDF({ unit: 'mm', format: [W, H] })
 
-  const imgData  = canvas.toDataURL('image/png')
-  const pdfW     = 148   // A5 mm
-  const pdfH     = Math.round((canvas.height / canvas.width) * pdfW)
+  const rgb = (hex) => [
+    parseInt(hex.slice(1, 3), 16),
+    parseInt(hex.slice(3, 5), 16),
+    parseInt(hex.slice(5, 7), 16),
+  ]
+  const fill  = (hex) => doc.setFillColor(...rgb(hex))
+  const draw  = (hex) => doc.setDrawColor(...rgb(hex))
+  const color = (hex) => doc.setTextColor(...rgb(hex))
+  const B = () => doc.setFont('helvetica', 'bold')
+  const N = () => doc.setFont('helvetica', 'normal')
+  const sz = (n) => doc.setFontSize(n)
+  const lw = (n) => doc.setLineWidth(n)
+  const t = (str, x, y, opts = {}) => doc.text(String(str ?? ''), x, y, opts)
 
-  const doc = new jsPDF({ unit: 'mm', format: [pdfW, pdfH] })
-  doc.addImage(imgData, 'PNG', 0, 0, pdfW, pdfH)
+  const ML = 16
+  const MR = W - ML
+  const CW = MR - ML
 
-  const fileName = `Struk_${String(data.orderId).replace('#', '')}_KonserOjol.pdf`
+  // HEADER
+  fill('#6d28d9')
+  doc.rect(0, 0, W, 36, 'F')
+
+  B(); sz(18); color('#ffffff')
+  t('KonserOjol', W / 2, 15, { align: 'center' })
+
+  N(); sz(9); color('#ddd6fe')
+  t('Struk Pembelian Tiket', W / 2, 23, { align: 'center' })
+
+  sz(7.5); color('#c4b5fd')
+  t('konserojol.id', W / 2, 30, { align: 'center' })
+
+  // BADGE SUKSES
+  fill('#f0fdf4')
+  draw('#86efac'); lw(0.4)
+  doc.roundedRect(ML, 41, CW, 11, 2, 2, 'FD')
+
+  B(); sz(9.5); color('#166534')
+  t('[ OK ]  Pembayaran Berhasil', W / 2, 48.5, { align: 'center' })
+
+  // NOMOR PESANAN
+  fill('#f5f3ff')
+  draw('#ddd6fe'); lw(0.3)
+  doc.roundedRect(ML, 56, CW, 10, 2, 2, 'FD')
+
+  N(); sz(7.5); color('#7c3aed')
+  t('No. Pesanan', ML + 4, 62.5)
+  B(); sz(8.5); color('#4c1d95')
+  t(String(orderId), MR - 4, 62.5, { align: 'right' })
+
+  // DETAIL
+  let y = 72
+
+  const secHead = (label, yy) => {
+    fill('#ede9fe')
+    doc.rect(ML, yy, CW, 6.5, 'F')
+    B(); sz(7); color('#5b21b6')
+    t(label, ML + 3, yy + 4.8)
+    return yy + 10
+  }
+
+  const row = (label, val, yy, valColor = '#111827') => {
+    N(); sz(8); color('#6b7280')
+    t(label, ML + 3, yy)
+    B(); sz(8); color(valColor)
+    const lines = doc.splitTextToSize(String(val ?? ''), CW * 0.5)
+    t(lines[0] || '', MR - 3, yy, { align: 'right' })
+    draw('#e5e7eb'); lw(0.15)
+    doc.line(ML, yy + 2.5, MR, yy + 2.5)
+    return yy + 8
+  }
+
+  y = secHead('DETAIL PEMESANAN', y)
+  y = row('Event', eventTitle, y)
+  y = row('Jumlah Tiket', `${quantity} tiket`, y)
+  y = row('Metode Pembayaran', paymentLabel, y)
+
+  y += 4
+
+  // RINCIAN HARGA
+  y = secHead('RINCIAN HARGA', y)
+  y = row(`Subtotal (${quantity} tiket)`, formatPrice(subtotal), y)
+
+  if (discountAmount > 0) {
+    const discLabel = promoCode ? `Diskon (${promoCode})` : 'Diskon'
+    y = row(discLabel, `- ${formatPrice(discountAmount)}`, y, '#15803d')
+  }
+
+  // KOTAK TOTAL
+  y += 2
+  fill('#f5f3ff')
+  draw('#a78bfa'); lw(0.6)
+  doc.roundedRect(ML, y, CW, 13, 2, 2, 'FD')
+
+  B(); sz(9.5); color('#4c1d95')
+  t('Total Dibayar', ML + 5, y + 9)
+
+  sz(11); color('#7c3aed')
+  t(formatPrice(total), MR - 5, y + 9, { align: 'right' })
+
+  y += 18
+
+  // GARIS PUTUS-PUTUS
+  draw('#d1d5db'); lw(0.3)
+  doc.setLineDashPattern([2, 2], 0)
+  doc.line(ML, y, MR, y)
+  doc.setLineDashPattern([], 0)
+  y += 6
+
+  // FOOTER
+  const now = new Date()
+  const dateStr =
+    now.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' }) +
+    '  ' +
+    now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+
+  N(); sz(7); color('#9ca3af')
+  t(`Dicetak: ${dateStr}`, W / 2, y, { align: 'center' })
+  y += 5
+  sz(7.5); color('#6b7280')
+  t('Terima kasih telah memesan tiket di KonserOjol!', W / 2, y, { align: 'center' })
+  y += 4.5
+  sz(7); color('#9ca3af')
+  t('Simpan struk ini sebagai bukti pembelian Anda.', W / 2, y, { align: 'center' })
+
+  // Strip bawah
+  fill('#6d28d9')
+  doc.rect(0, H - 5, W, 5, 'F')
+
+  const fileName = `Struk_${String(orderId).replace('#', '')}_KonserOjol.pdf`
   doc.save(fileName)
 }
 
-// ─── Komponen Struk (tersembunyi, hanya untuk di-render ke PDF) ──────────────
-function StrukTemplate({ eventTitle, paymentLabel, total, subtotal, discountAmount, quantity, promoCode, orderId }) {
-  const now = new Date()
-  const dateStr = now.toLocaleDateString('id-ID', {
-    day: '2-digit', month: 'long', year: 'numeric',
-  }) + '  ' + now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
-
-  return (
-    <div style={{
-      width: 420, background: '#ffffff',
-      fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-      fontSize: 13, color: '#111827',
-      userSelect: 'none',
-    }}>
-      {/* ── HEADER ── */}
-      <div style={{
-        background: 'linear-gradient(135deg, #5b21b6 0%, #7c3aed 100%)',
-        padding: '28px 24px 22px',
-        textAlign: 'center',
-      }}>
-        <div style={{ fontSize: 22, fontWeight: 900, color: '#ffffff', letterSpacing: '-0.3px', marginBottom: 4 }}>
-          KonserOjol
-        </div>
-        <div style={{ fontSize: 12, color: '#ddd6fe', fontWeight: 400 }}>
-          Struk Pembelian Tiket
-        </div>
-        <div style={{ fontSize: 10, color: '#c4b5fd', marginTop: 2 }}>
-          konserojol.id
-        </div>
-      </div>
-
-      {/* ── BADGE SUKSES ── */}
-      <div style={{ padding: '0 20px', marginTop: 16 }}>
-        <div style={{
-          background: '#f0fdf4', border: '1.5px solid #86efac',
-          borderRadius: 10, padding: '12px 16px',
-          textAlign: 'center',
-        }}>
-          <span style={{ fontSize: 18, marginRight: 8 }}>✅</span>
-          <span style={{ fontSize: 14, fontWeight: 700, color: '#166534' }}>
-            Pembayaran Berhasil
-          </span>
-        </div>
-      </div>
-
-      {/* ── NO PESANAN ── */}
-      <div style={{ padding: '12px 20px 0' }}>
-        <div style={{
-          background: '#f5f3ff', border: '1px solid #ddd6fe',
-          borderRadius: 10, padding: '10px 14px',
-          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        }}>
-          <span style={{ fontSize: 11, color: '#7c3aed', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-            No. Pesanan
-          </span>
-          <span style={{ fontSize: 13, fontWeight: 800, color: '#4c1d95', fontFamily: 'monospace' }}>
-            {orderId}
-          </span>
-        </div>
-      </div>
-
-      {/* ── DETAIL ── */}
-      <div style={{ padding: '16px 20px 0' }}>
-        {/* Section head */}
-        <div style={{
-          background: '#ede9fe', borderRadius: 6,
-          padding: '5px 10px', marginBottom: 8,
-        }}>
-          <span style={{ fontSize: 10, fontWeight: 800, color: '#5b21b6', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            Detail Pemesanan
-          </span>
-        </div>
-
-        {[
-          ['Event', eventTitle],
-          ['Jumlah Tiket', `${quantity} tiket`],
-          ['Metode Pembayaran', paymentLabel],
-        ].map(([label, val]) => (
-          <div key={label} style={{
-            display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start',
-            padding: '7px 0', borderBottom: '1px solid #f3f4f6',
-          }}>
-            <span style={{ color: '#6b7280', fontSize: 12 }}>{label}</span>
-            <span style={{ fontWeight: 700, fontSize: 12, color: '#111827', textAlign: 'right', maxWidth: '55%' }}>{val}</span>
-          </div>
-        ))}
-      </div>
-
-      {/* ── RINCIAN HARGA ── */}
-      <div style={{ padding: '14px 20px 0' }}>
-        <div style={{
-          background: '#ede9fe', borderRadius: 6,
-          padding: '5px 10px', marginBottom: 8,
-        }}>
-          <span style={{ fontSize: 10, fontWeight: 800, color: '#5b21b6', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            Rincian Harga
-          </span>
-        </div>
-
-        <div style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid #f3f4f6' }}>
-          <span style={{ color: '#6b7280', fontSize: 12 }}>Subtotal ({quantity} tiket)</span>
-          <span style={{ fontWeight: 600, fontSize: 12 }}>{formatPrice(subtotal)}</span>
-        </div>
-
-        {discountAmount > 0 && (
-          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid #f3f4f6' }}>
-            <span style={{ color: '#15803d', fontSize: 12 }}>
-              Diskon{promoCode ? ` (${promoCode})` : ''}
-            </span>
-            <span style={{ fontWeight: 600, fontSize: 12, color: '#15803d' }}>
-              − {formatPrice(discountAmount)}
-            </span>
-          </div>
-        )}
-
-        {/* Total box */}
-        <div style={{
-          marginTop: 10,
-          background: 'linear-gradient(135deg, #f5f3ff, #ede9fe)',
-          border: '1.5px solid #a78bfa', borderRadius: 10,
-          padding: '12px 14px',
-          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        }}>
-          <span style={{ fontSize: 14, fontWeight: 700, color: '#4c1d95' }}>Total Dibayar</span>
-          <span style={{ fontSize: 17, fontWeight: 900, color: '#6d28d9' }}>{formatPrice(total)}</span>
-        </div>
-      </div>
-
-      {/* ── GARIS PERFORASI ── */}
-      <div style={{
-        margin: '18px 20px 0',
-        borderTop: '1.5px dashed #d1d5db',
-      }} />
-
-      {/* ── FOOTER ── */}
-      <div style={{ padding: '12px 20px 20px', textAlign: 'center' }}>
-        <div style={{ fontSize: 10, color: '#9ca3af', marginBottom: 4 }}>
-          Dicetak: {dateStr}
-        </div>
-        <div style={{ fontSize: 11, color: '#6b7280', fontWeight: 500, marginBottom: 2 }}>
-          Terima kasih telah memesan tiket di KonserOjol!
-        </div>
-        <div style={{ fontSize: 10, color: '#9ca3af' }}>
-          Simpan struk ini sebagai bukti pembelian Anda.
-        </div>
-
-        {/* strip bawah */}
-        <div style={{
-          marginTop: 16,
-          background: 'linear-gradient(90deg, #5b21b6, #7c3aed)',
-          borderRadius: 4, height: 5,
-        }} />
-      </div>
-    </div>
-  )
-}
-
-// ─── Component ───────────────────────────────────────────────────────────────
 export default function PaymentSuccessPage() {
   const location = useLocation()
   const state = location.state || {}
-  const strutRef = useRef(null)
 
   const eventTitle     = state.eventTitle     || 'Tiket Konser'
   const paymentLabel   = state.paymentLabel   || 'Pembayaran dipilih'
@@ -200,12 +154,8 @@ export default function PaymentSuccessPage() {
   const promoCode      = state.promoCode      || null
   const orderId        = state.orderId        ? `#${state.orderId}` : 'TRX-001'
 
-  const strutData = { eventTitle, paymentLabel, total, subtotal, discountAmount, quantity, promoCode, orderId }
-
   const handleDownload = () => {
-    if (strutRef.current) {
-      downloadStruk(strutData, strutRef.current)
-    }
+    downloadStruk({ eventTitle, paymentLabel, total, subtotal, discountAmount, quantity, promoCode, orderId })
   }
 
   return (
@@ -220,7 +170,6 @@ export default function PaymentSuccessPage() {
       position: 'relative',
       overflow: 'hidden',
     }}>
-      {/* bg glow */}
       <div style={{
         position: 'absolute', top: '-10%', left: '50%', transform: 'translateX(-50%)',
         width: 600, height: 400, borderRadius: '50%',
@@ -228,21 +177,27 @@ export default function PaymentSuccessPage() {
       }} />
 
       <div style={{ width: '100%', maxWidth: 520, position: 'relative', zIndex: 1 }}>
-        {/* Card */}
         <div style={{
           background: 'rgba(255,255,255,0.04)',
           border: '1px solid rgba(255,255,255,0.08)',
-          borderRadius: 24, padding: '40px 36px',
+          borderRadius: 24,
+          padding: '40px 36px',
           boxShadow: '0 32px 80px rgba(0,0,0,0.4)',
         }}>
-          {/* Icon */}
+          {/* Icon centang */}
           <div style={{
             width: 64, height: 64, borderRadius: '50%',
             background: 'linear-gradient(135deg,#22c55e,#16a34a)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontSize: 28, marginBottom: 20,
             boxShadow: '0 8px 24px rgba(34,197,94,0.35)',
-          }}>✓</div>
+            color: '#fff',
+          }}>
+            {/* SVG centang agar tidak ada masalah encoding */}
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
 
           <h1 style={{
             color: '#fff', fontSize: '1.65rem', fontWeight: 800,
@@ -254,7 +209,6 @@ export default function PaymentSuccessPage() {
             Tiket kamu sudah dipesan. Simpan nomor pesanan di bawah sebagai bukti pembelian.
           </p>
 
-          {/* Detail rows */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 24 }}>
             <DetailRow label="Event" value={eventTitle} accent />
 
@@ -263,7 +217,6 @@ export default function PaymentSuccessPage() {
               <DetailRow label="Metode" value={paymentLabel} />
             </div>
 
-            {/* Price breakdown */}
             <div style={{
               padding: '14px 16px', borderRadius: 12,
               background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)',
@@ -276,7 +229,7 @@ export default function PaymentSuccessPage() {
                 {discountAmount > 0 && (
                   <PriceRow
                     label={`Diskon${promoCode ? ` (${promoCode})` : ''}`}
-                    value={`− ${formatPrice(discountAmount)}`}
+                    value={`- ${formatPrice(discountAmount)}`}
                     green
                   />
                 )}
@@ -297,7 +250,6 @@ export default function PaymentSuccessPage() {
             <DetailRow label="Nomor Pesanan" value={orderId} mono />
           </div>
 
-          {/* Actions */}
           <div style={{ display: 'flex', gap: 10 }}>
             <Link
               to="/"
@@ -340,19 +292,8 @@ export default function PaymentSuccessPage() {
         </div>
 
         <p style={{ textAlign: 'center', marginTop: 16, color: '#1f2937', fontSize: '0.72rem' }}>
-          KonserOjol · Terima kasih sudah memesan 🎵
+          KonserOjol &middot; Terima kasih sudah memesan
         </p>
-      </div>
-
-      {/* Struk tersembunyi — dirender ke PDF, tidak terlihat user */}
-      <div
-        ref={strutRef}
-        style={{
-          position: 'fixed', top: 0, left: '-9999px',
-          pointerEvents: 'none', zIndex: -1,
-        }}
-      >
-        <StrukTemplate {...strutData} />
       </div>
     </div>
   )

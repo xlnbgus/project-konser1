@@ -4,141 +4,164 @@ const formatPrice = (val) => `Rp ${Number(val || 0).toLocaleString('id-ID')}`
 
 // ─── PDF Generator (lazy-loaded) ────────────────────────────────────────────
 async function downloadStruk({ eventTitle, paymentLabel, total, subtotal, discountAmount, quantity, promoCode, orderId }) {
-  // lazy import agar tidak masuk bundle utama
   const { jsPDF } = await import('jspdf')
 
-  const PAGE_W  = 148   // A5 landscape-ish
-  const PAGE_H  = 210
-  const doc     = new jsPDF({ unit: 'mm', format: [PAGE_W, PAGE_H] })
-  const L       = 14    // left margin
-  const R       = PAGE_W - L  // right edge
-  const CW      = R - L  // content width
+  // Ukuran A5 portrait standar
+  const W   = 148
+  const H   = 210
+  const doc = new jsPDF({ unit: 'mm', format: [W, H] })
 
-  // ── helpers ──
-  const setColor  = (hex)  => { const r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16); doc.setTextColor(r,g,b) }
-  const setFill   = (hex)  => { const r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16); doc.setFillColor(r,g,b) }
-  const setDraw   = (hex)  => { const r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16); doc.setDrawColor(r,g,b) }
-  const text      = (str, x, y, opts = {}) => doc.text(String(str), x, y, opts)
-  const bold      = () => doc.setFont('helvetica', 'bold')
-  const normal    = () => doc.setFont('helvetica', 'normal')
-  const size      = (n) => doc.setFontSize(n)
+  // ── warna helper ──
+  const rgb = (hex) => [
+    parseInt(hex.slice(1,3),16),
+    parseInt(hex.slice(3,5),16),
+    parseInt(hex.slice(5,7),16),
+  ]
+  const fill  = (hex) => doc.setFillColor(...rgb(hex))
+  const draw  = (hex) => doc.setDrawColor(...rgb(hex))
+  const color = (hex) => doc.setTextColor(...rgb(hex))
+  const B     = ()    => doc.setFont('helvetica', 'bold')
+  const N     = ()    => doc.setFont('helvetica', 'normal')
+  const sz    = (n)   => doc.setFontSize(n)
+  const lw    = (n)   => doc.setLineWidth(n)
+  const t     = (str, x, y, opts={}) => doc.text(String(str ?? ''), x, y, opts)
 
-  // ── HEADER BAR ──
-  setFill('#7c3aed')
-  doc.rect(0, 0, PAGE_W, 28, 'F')
+  const ML = 16   // margin kiri
+  const MR = W - ML // margin kanan
+  const CW = MR - ML
 
-  // gradient shimmer strip
-  setFill('#9f5ef5')
-  doc.rect(0, 0, PAGE_W * 0.4, 28, 'F')
+  // ════════════════════════════════════════════════
+  // 1. HEADER — solid ungu penuh tanpa shimmer
+  // ════════════════════════════════════════════════
+  fill('#6d28d9')
+  doc.rect(0, 0, W, 36, 'F')
 
-  // Brand name
-  bold(); size(16); setColor('#ffffff')
-  text('KonserOjol', PAGE_W / 2, 11, { align: 'center' })
+  // Nama brand
+  B(); sz(18); color('#ffffff')
+  t('KonserOjol', W / 2, 15, { align: 'center' })
 
-  normal(); size(8); setColor('#e0d4ff')
-  text('Struk Pembelian Tiket', PAGE_W / 2, 18, { align: 'center' })
+  // Subtitle
+  N(); sz(9); color('#ddd6fe')
+  t('Struk Pembelian Tiket', W / 2, 23, { align: 'center' })
 
-  size(7); setColor('#c4b5fd')
-  text('konserojol.id', PAGE_W / 2, 24, { align: 'center' })
+  sz(7.5); color('#c4b5fd')
+  t('konserojol.id', W / 2, 30, { align: 'center' })
 
-  // ── SUCCESS PILL ──
-  setFill('#f0fdf4')
-  doc.roundedRect(L, 33, CW, 12, 2, 2, 'F')
-  setDraw('#86efac'); doc.setLineWidth(0.3)
-  doc.roundedRect(L, 33, CW, 12, 2, 2, 'S')
+  // ════════════════════════════════════════════════
+  // 2. BADGE SUKSES — teks ASCII, bukan emoji/unicode
+  // ════════════════════════════════════════════════
+  fill('#f0fdf4')
+  draw('#86efac'); lw(0.4)
+  doc.roundedRect(ML, 41, CW, 11, 2, 2, 'FD')
 
-  bold(); size(9); setColor('#15803d')
-  text('✓  Pembayaran Berhasil', PAGE_W / 2, 41, { align: 'center' })
+  B(); sz(9.5); color('#166534')
+  t('[ OK ]  Pembayaran Berhasil', W / 2, 48.5, { align: 'center' })
 
-  // ── ORDER ID CHIP ──
-  setFill('#f5f3ff')
-  doc.roundedRect(L, 49, CW, 10, 2, 2, 'F')
-  normal(); size(7); setColor('#6b21a8')
-  text('No. Pesanan', L + 3, 55.5)
-  bold(); size(8); setColor('#4c1d95')
-  text(orderId, R - 3, 55.5, { align: 'right' })
+  // ════════════════════════════════════════════════
+  // 3. NOMOR PESANAN
+  // ════════════════════════════════════════════════
+  fill('#f5f3ff')
+  draw('#ddd6fe'); lw(0.3)
+  doc.roundedRect(ML, 56, CW, 10, 2, 2, 'FD')
 
-  // ── SECTION: DETAIL ──
-  let y = 65
+  N(); sz(7.5); color('#7c3aed')
+  t('No. Pesanan', ML + 4, 62.5)
+  B(); sz(8.5); color('#4c1d95')
+  t(String(orderId), MR - 4, 62.5, { align: 'right' })
 
-  const sectionBar = (label, yPos) => {
-    setFill('#f3f4f6')
-    doc.rect(L, yPos, CW, 7, 'F')
-    bold(); size(7); setColor('#374151')
-    text(label, L + 3, yPos + 5)
-    return yPos + 11
+  // ════════════════════════════════════════════════
+  // 4. DETAIL PEMESANAN
+  // ════════════════════════════════════════════════
+  let y = 72
+
+  // section header helper
+  const secHead = (label, yy) => {
+    fill('#ede9fe')
+    doc.rect(ML, yy, CW, 6.5, 'F')
+    B(); sz(7); color('#5b21b6')
+    t(label, ML + 3, yy + 4.8)
+    return yy + 10
   }
 
-  const row = (label, value, yPos, opts = {}) => {
-    normal(); size(8); setColor(opts.labelColor || '#6b7280')
-    text(label, L + 2, yPos)
-    bold(); size(8); setColor(opts.valueColor || '#111827')
-    text(value, R - 2, yPos, { align: 'right' })
-    // faint divider
-    setDraw('#e5e7eb'); doc.setLineWidth(0.2)
-    doc.line(L, yPos + 2.5, R, yPos + 2.5)
-    return yPos + 8
+  // row helper
+  const row = (label, val, yy, valColor = '#111827') => {
+    N(); sz(8); color('#6b7280')
+    t(label, ML + 3, yy)
+    B(); sz(8); color(valColor)
+    // wrap value jika terlalu panjang
+    const maxW = CW - 6
+    const lines = doc.splitTextToSize(String(val ?? ''), maxW * 0.5)
+    t(lines[0] || '', MR - 3, yy, { align: 'right' })
+    draw('#e5e7eb'); lw(0.15)
+    doc.line(ML, yy + 2.5, MR, yy + 2.5)
+    return yy + 8
   }
 
-  // Detail section
-  y = sectionBar('DETAIL PEMESANAN', y)
+  y = secHead('DETAIL PEMESANAN', y)
   y = row('Event', eventTitle, y)
   y = row('Jumlah Tiket', `${quantity} tiket`, y)
   y = row('Metode Pembayaran', paymentLabel, y)
 
-  y += 3
+  y += 4
 
-  // Harga section
-  y = sectionBar('RINCIAN HARGA', y)
+  // ════════════════════════════════════════════════
+  // 5. RINCIAN HARGA
+  // ════════════════════════════════════════════════
+  y = secHead('RINCIAN HARGA', y)
   y = row(`Subtotal (${quantity} tiket)`, formatPrice(subtotal), y)
 
   if (discountAmount > 0) {
-    const discLabel = `Diskon${promoCode ? ` — ${promoCode}` : ''}`
-    y = row(discLabel, `- ${formatPrice(discountAmount)}`, y, { valueColor: '#15803d', labelColor: '#15803d' })
+    const discLabel = promoCode ? `Diskon (${promoCode})` : 'Diskon'
+    y = row(discLabel, `- ${formatPrice(discountAmount)}`, y, '#15803d')
   }
 
-  // ── TOTAL BOX ──
+  // ════════════════════════════════════════════════
+  // 6. KOTAK TOTAL
+  // ════════════════════════════════════════════════
   y += 2
-  setFill('#faf5ff')
-  doc.roundedRect(L, y, CW, 14, 2, 2, 'F')
-  setDraw('#c4b5fd'); doc.setLineWidth(0.5)
-  doc.roundedRect(L, y, CW, 14, 2, 2, 'S')
+  fill('#f5f3ff')
+  draw('#a78bfa'); lw(0.6)
+  doc.roundedRect(ML, y, CW, 13, 2, 2, 'FD')
 
-  bold(); size(9); setColor('#374151')
-  text('Total Dibayar', L + 4, y + 9)
+  B(); sz(9.5); color('#4c1d95')
+  t('Total Dibayar', ML + 5, y + 9)
 
-  size(11); setColor('#6d28d9')
-  text(formatPrice(total), R - 4, y + 9, { align: 'right' })
+  sz(11); color('#7c3aed')
+  t(formatPrice(total), MR - 5, y + 9, { align: 'right' })
 
-  y += 20
+  y += 18
 
-  // ── BARCODE-LIKE DECORATION ──
-  setFill('#e5e7eb')
-  for (let i = 0; i < 40; i++) {
-    const bw = i % 3 === 0 ? 1.5 : 0.7
-    doc.rect(L + i * 2.8, y, bw, 8, 'F')
-  }
-  y += 12
+  // ════════════════════════════════════════════════
+  // 7. GARIS PUTUS-PUTUS (perforasi)
+  // ════════════════════════════════════════════════
+  draw('#d1d5db'); lw(0.3)
+  doc.setLineDashPattern([2, 2], 0)
+  doc.line(ML, y, MR, y)
+  doc.setLineDashPattern([], 0)
+  y += 6
 
-  // ── FOOTER ──
-  const now = new Date()
+  // ════════════════════════════════════════════════
+  // 8. FOOTER
+  // ════════════════════════════════════════════════
+  const now     = new Date()
   const dateStr = now.toLocaleDateString('id-ID', {
     day: '2-digit', month: 'long', year: 'numeric',
-    hour: '2-digit', minute: '2-digit',
-  })
+  }) + ' ' + now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
 
-  size(7); normal(); setColor('#9ca3af')
-  text(`Dicetak: ${dateStr}`, PAGE_W / 2, y, { align: 'center' })
+  N(); sz(7); color('#9ca3af')
+  t(`Dicetak: ${dateStr}`, W / 2, y, { align: 'center' })
   y += 5
-  text('Terima kasih telah memesan tiket di KonserOjol!', PAGE_W / 2, y, { align: 'center' })
-  y += 4
-  text('Simpan struk ini sebagai bukti pembelian Anda.', PAGE_W / 2, y, { align: 'center' })
+  sz(7.5); color('#6b7280')
+  t('Terima kasih telah memesan tiket di KonserOjol!', W / 2, y, { align: 'center' })
+  y += 4.5
+  sz(7); color('#9ca3af')
+  t('Harap simpan struk ini sebagai bukti pembelian Anda.', W / 2, y, { align: 'center' })
 
-  // bottom accent
-  setFill('#7c3aed')
-  doc.rect(0, PAGE_H - 5, PAGE_W, 5, 'F')
+  // ── strip bawah ──
+  fill('#6d28d9')
+  doc.rect(0, H - 5, W, 5, 'F')
 
-  const fileName = `Struk_${orderId.replace('#', '')}_KonserOjol.pdf`
+  const fileName = `Struk_${String(orderId).replace('#', '')}_KonserOjol.pdf`
   doc.save(fileName)
 }
 

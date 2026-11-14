@@ -46,7 +46,7 @@ async function downloadStruk({ eventTitle, paymentLabel, total, subtotal, discou
   doc.roundedRect(ML, 41, CW, 11, 2, 2, 'FD')
 
   B(); sz(9.5); color('#166534')
-  t('[ OK ]  Pembayaran Berhasil', W / 2, 48.5, { align: 'center' })
+  t('Pembayaran Berhasil', W / 2, 48.5, { align: 'center' })
 
   // NOMOR PESANAN
   fill('#f5f3ff')

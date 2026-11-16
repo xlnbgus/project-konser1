@@ -53,126 +53,117 @@ export default function LoginPage() {
     }
   }
 
+  const inputStyle = {
+    width: '100%',
+    padding: '12px 16px',
+    borderRadius: 8,
+    border: '1px solid rgba(245,243,238,0.1)',
+    background: 'rgba(245,243,238,0.05)',
+    color: '#F5F3EE',
+    fontSize: '0.9rem',
+    outline: 'none',
+    boxSizing: 'border-box',
+    transition: 'border-color 0.2s',
+    fontFamily: "'Manrope', sans-serif",
+  }
+
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#07070e',
+      background: '#111318',
       display: 'flex',
-      fontFamily: "'Inter', sans-serif",
+      fontFamily: "'Manrope', sans-serif",
     }}>
-      {/* Left panel — branding */}
-      <div style={{
-        flex: '0 0 45%',
-        position: 'relative',
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        padding: '48px 52px',
-      }}
+
+      {/* Left — Branding */}
+      <div
         className="login-left-panel"
+        style={{
+          flex: '0 0 46%',
+          position: 'relative',
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          padding: '48px 52px',
+          background: '#0D0F14',
+          borderRight: '1px solid rgba(245,243,238,0.07)',
+        }}
       >
-        {/* bg gradient */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: 'linear-gradient(145deg, #13001f 0%, #0e0018 40%, #1a0030 100%)',
-          zIndex: 0,
-        }} />
-        {/* glow blobs */}
-        <div style={{
-          position: 'absolute', top: '-80px', left: '-80px',
-          width: 480, height: 480, borderRadius: '50%',
-          background: '#7c3aed', filter: 'blur(120px)', opacity: 0.18, zIndex: 0,
-        }} />
-        <div style={{
-          position: 'absolute', bottom: '-60px', right: '-60px',
-          width: 360, height: 360, borderRadius: '50%',
-          background: '#ec4899', filter: 'blur(110px)', opacity: 0.13, zIndex: 0,
-        }} />
-        {/* grid dots */}
-        <div style={{
-          position: 'absolute', inset: 0, zIndex: 0,
-          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)',
-          backgroundSize: '30px 30px',
-        }} />
+        {/* Subtle accent line */}
+        <div style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: 2, background: '#D95D39' }} />
 
         {/* Logo */}
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <div style={{
-              width: 42, height: 42, borderRadius: 13,
-              background: 'linear-gradient(135deg, #7c3aed, #ec4899)',
+              width: 32, height: 32, borderRadius: 8,
+              background: '#D95D39',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 20, boxShadow: '0 4px 20px rgba(124,58,237,0.45)',
-            }}>🎵</div>
-            <span style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.3rem' }}>
-              <span style={{
-                background: 'linear-gradient(135deg,#a78bfa,#ec4899)',
-                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-              }}>Konser</span>
-              <span style={{ color: '#fff' }}>Ojol</span>
+              flexShrink: 0,
+            }}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 19V6l12-3v13"/><circle cx="6" cy="19" r="3"/><circle cx="18" cy="16" r="3"/>
+              </svg>
+            </div>
+            <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: '1.1rem', color: '#F5F3EE' }}>
+              Konser<span style={{ color: '#D95D39' }}>Ku</span>
             </span>
           </div>
         </div>
 
-        {/* Center text */}
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            background: 'rgba(124,58,237,0.18)', border: '1px solid rgba(124,58,237,0.3)',
-            borderRadius: 100, padding: '6px 14px', marginBottom: 28,
+        {/* Center content */}
+        <div>
+          <span style={{
+            display: 'inline-block', padding: '5px 12px', borderRadius: 5,
+            background: 'rgba(217,93,57,0.12)', border: '1px solid rgba(217,93,57,0.25)',
+            color: '#D95D39', fontSize: '0.68rem', fontWeight: 700,
+            letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 24,
+            fontFamily: "'Space Grotesk', sans-serif",
           }}>
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#a78bfa', display: 'inline-block' }} />
-            <span style={{ color: '#a78bfa', fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-              Admin Panel
-            </span>
-          </div>
+            Admin Panel
+          </span>
+
           <h2 style={{
-            fontFamily: 'Poppins, sans-serif', fontWeight: 900,
-            fontSize: 'clamp(1.8rem, 3vw, 2.6rem)',
-            lineHeight: 1.2, color: '#fff', marginBottom: 16,
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontWeight: 700,
+            fontSize: 'clamp(1.8rem, 3vw, 2.4rem)',
+            lineHeight: 1.15, color: '#F5F3EE',
+            marginBottom: 14, letterSpacing: '-0.03em',
           }}>
             Kelola konser &<br />
-            <span style={{
-              background: 'linear-gradient(135deg,#a78bfa,#ec4899)',
-              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-            }}>tiket dengan mudah</span>
+            <span style={{ color: '#D95D39' }}>tiket dengan mudah</span>
           </h2>
-          <p style={{ color: '#6b7280', fontSize: '0.9rem', lineHeight: 1.7, maxWidth: 300 }}>
-            Dashboard khusus admin untuk memantau event, penjualan tiket, dan data pengguna secara real-time.
+          <p style={{ color: '#6B6E7A', fontSize: '0.9rem', lineHeight: 1.7, maxWidth: 290 }}>
+            Dashboard admin untuk memantau event, penjualan tiket, dan data pengguna secara real-time.
           </p>
 
-          {/* stats row */}
-          <div style={{ display: 'flex', gap: 20, marginTop: 40 }}>
+          {/* Stats */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10, marginTop: 36 }}>
             {[
               { value: '8+', label: 'Event Aktif' },
               { value: '10+', label: 'Artis' },
               { value: '2', label: 'Promo' },
             ].map(s => (
               <div key={s.label} style={{
-                flex: 1,
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(255,255,255,0.07)',
-                borderRadius: 14, padding: '16px 14px', textAlign: 'center',
+                background: 'rgba(245,243,238,0.04)',
+                border: '1px solid rgba(245,243,238,0.08)',
+                borderRadius: 9, padding: '14px 12px', textAlign: 'center',
               }}>
-                <div style={{
-                  fontFamily: 'Poppins, sans-serif', fontWeight: 800, fontSize: '1.4rem',
-                  background: 'linear-gradient(135deg,#a78bfa,#ec4899)',
-                  WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-                }}>{s.value}</div>
-                <div style={{ color: '#4b5563', fontSize: '0.7rem', marginTop: 4, fontWeight: 500 }}>{s.label}</div>
+                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: '1.3rem', color: '#D95D39' }}>{s.value}</div>
+                <div style={{ color: '#6B6E7A', fontSize: '0.68rem', marginTop: 3 }}>{s.label}</div>
               </div>
             ))}
           </div>
         </div>
 
         {/* Bottom */}
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          <p style={{ color: '#1f2937', fontSize: '0.72rem' }}>© 2026 KonserOjol · All rights reserved</p>
+        <div>
+          <p style={{ color: '#3A3D47', fontSize: '0.72rem' }}>© 2026 KonserKu · All rights reserved</p>
         </div>
       </div>
 
-      {/* Right panel — form */}
+      {/* Right — Form */}
       <div style={{
         flex: 1,
         display: 'flex',
@@ -181,75 +172,65 @@ export default function LoginPage() {
         justifyContent: 'center',
         padding: '48px 40px',
         position: 'relative',
-        overflow: 'hidden',
       }}>
-        {/* subtle bg */}
-        <div style={{
-          position: 'absolute', top: '20%', right: '-10%',
-          width: 400, height: 400, borderRadius: '50%',
-          background: '#7c3aed', filter: 'blur(140px)', opacity: 0.04, pointerEvents: 'none',
-        }} />
-
-        <div style={{ width: '100%', maxWidth: 400, position: 'relative', zIndex: 1 }}>
-          {/* heading */}
+        <div style={{ width: '100%', maxWidth: 380 }}>
+          {/* Heading */}
           <div style={{ marginBottom: 36 }}>
             <h1 style={{
-              fontFamily: 'Poppins, sans-serif', fontWeight: 800,
-              fontSize: '1.9rem', color: '#fff', marginBottom: 8,
+              fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700,
+              fontSize: '1.75rem', color: '#F5F3EE', marginBottom: 8, letterSpacing: '-0.03em',
             }}>
-              Selamat datang 👋
+              Selamat datang kembali
             </h1>
-            <p style={{ color: '#4b5563', fontSize: '0.875rem', lineHeight: 1.6 }}>
-              Masuk ke dashboard admin KonserOjol.
+            <p style={{ color: '#6B6E7A', fontSize: '0.875rem', lineHeight: 1.6 }}>
+              Masuk ke dashboard admin KonserKu.
             </p>
           </div>
 
-          {/* error */}
+          {/* Error */}
           {error && (
             <div style={{
-              padding: '12px 16px', borderRadius: 12, marginBottom: 24,
-              background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)',
+              padding: '11px 14px', borderRadius: 8, marginBottom: 22,
+              background: 'rgba(239,68,68,0.07)', border: '1px solid rgba(239,68,68,0.2)',
               color: '#fca5a5', fontSize: '0.82rem',
               display: 'flex', alignItems: 'center', gap: 8,
             }}>
-              <span style={{ fontSize: 16 }}>⚠️</span>
+              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>
+              </svg>
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
             {/* Email */}
             <div>
               <label style={{
-                display: 'block', color: '#6b7280', fontSize: '0.78rem',
-                fontWeight: 600, marginBottom: 8, letterSpacing: '0.05em',
+                display: 'block', color: '#6B6E7A', fontSize: '0.75rem',
+                fontWeight: 700, marginBottom: 8, letterSpacing: '0.08em', textTransform: 'uppercase',
+                fontFamily: "'Space Grotesk', sans-serif",
               }}>
-                ALAMAT EMAIL
+                Alamat Email
               </label>
               <input
                 type="email" name="email" value={form.email}
                 onChange={handleChange}
                 placeholder="admin@konserojol.com"
                 autoComplete="email"
-                style={{
-                  width: '100%', padding: '13px 16px',
-                  borderRadius: 12, border: '1px solid rgba(255,255,255,0.08)',
-                  background: 'rgba(255,255,255,0.04)', color: '#f9fafb',
-                  fontSize: '0.875rem', outline: 'none', boxSizing: 'border-box',
-                  transition: 'border-color 0.2s',
-                }}
-                onFocus={e => e.target.style.borderColor = 'rgba(124,58,237,0.55)'}
-                onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'}
+                style={inputStyle}
+                onFocus={e => e.target.style.borderColor = 'rgba(217,93,57,0.4)'}
+                onBlur={e => e.target.style.borderColor = 'rgba(245,243,238,0.1)'}
               />
             </div>
 
             {/* Password */}
             <div>
               <label style={{
-                display: 'block', color: '#6b7280', fontSize: '0.78rem',
-                fontWeight: 600, marginBottom: 8, letterSpacing: '0.05em',
+                display: 'block', color: '#6B6E7A', fontSize: '0.75rem',
+                fontWeight: 700, marginBottom: 8, letterSpacing: '0.08em', textTransform: 'uppercase',
+                fontFamily: "'Space Grotesk', sans-serif",
               }}>
-                PASSWORD
+                Password
               </label>
               <div style={{ position: 'relative' }}>
                 <input
@@ -257,28 +238,31 @@ export default function LoginPage() {
                   onChange={handleChange}
                   placeholder="••••••••"
                   autoComplete="current-password"
-                  style={{
-                    width: '100%', padding: '13px 48px 13px 16px',
-                    borderRadius: 12, border: '1px solid rgba(255,255,255,0.08)',
-                    background: 'rgba(255,255,255,0.04)', color: '#f9fafb',
-                    fontSize: '0.875rem', outline: 'none', boxSizing: 'border-box',
-                    transition: 'border-color 0.2s',
-                  }}
-                  onFocus={e => e.target.style.borderColor = 'rgba(124,58,237,0.55)'}
-                  onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'}
+                  style={{ ...inputStyle, paddingRight: 44 }}
+                  onFocus={e => e.target.style.borderColor = 'rgba(217,93,57,0.4)'}
+                  onBlur={e => e.target.style.borderColor = 'rgba(245,243,238,0.1)'}
                 />
                 <button
                   type="button" onClick={() => setShow(!show)}
                   style={{
-                    position: 'absolute', right: 14, top: '50%', transform: 'translateY(-50%)',
+                    position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)',
                     background: 'none', border: 'none', cursor: 'pointer',
-                    color: '#4b5563', fontSize: 16, padding: 0, lineHeight: 1,
+                    color: '#6B6E7A', display: 'flex', alignItems: 'center', justifyContent: 'center',
                     transition: 'color 0.2s',
                   }}
-                  onMouseEnter={e => e.currentTarget.style.color = '#a78bfa'}
-                  onMouseLeave={e => e.currentTarget.style.color = '#4b5563'}
+                  onMouseEnter={e => e.currentTarget.style.color = '#D95D39'}
+                  onMouseLeave={e => e.currentTarget.style.color = '#6B6E7A'}
                 >
-                  {show ? '🙈' : '👁️'}
+                  {show ? (
+                    <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/>
+                      <line x1="1" y1="1" x2="23" y2="23"/>
+                    </svg>
+                  ) : (
+                    <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                    </svg>
+                  )}
                 </button>
               </div>
             </div>
@@ -286,39 +270,27 @@ export default function LoginPage() {
             {/* Submit */}
             <button
               type="submit" disabled={loading}
-              style={{
-                width: '100%', padding: '14px', borderRadius: 12, marginTop: 4,
-                background: loading
-                  ? 'rgba(124,58,237,0.35)'
-                  : 'linear-gradient(135deg,#7c3aed,#ec4899)',
-                color: '#fff', fontWeight: 700, fontSize: '0.95rem',
-                border: 'none', cursor: loading ? 'not-allowed' : 'pointer',
-                boxShadow: loading ? 'none' : '0 8px 28px rgba(124,58,237,0.38)',
-                transition: 'transform 0.2s, box-shadow 0.2s, opacity 0.2s',
-                letterSpacing: '0.02em',
-              }}
-              onMouseEnter={e => { if (!loading) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 14px 36px rgba(124,58,237,0.52)' } }}
-              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 28px rgba(124,58,237,0.38)' }}
+              className="btn-primary"
+              style={{ width: '100%', padding: '13px', marginTop: 4, fontSize: '0.9rem', opacity: loading ? 0.7 : 1 }}
             >
               {loading ? 'Memproses...' : 'Masuk ke Dashboard'}
             </button>
           </form>
 
-          {/* divider */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '28px 0 0' }}>
-            <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
-            <span style={{ color: '#1f2937', fontSize: '0.75rem' }}>atau</span>
-            <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.06)' }} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '24px 0 0' }}>
+            <div style={{ flex: 1, height: 1, background: 'rgba(245,243,238,0.07)' }} />
+            <span style={{ color: '#3A3D47', fontSize: '0.73rem' }}>atau</span>
+            <div style={{ flex: 1, height: 1, background: 'rgba(245,243,238,0.07)' }} />
           </div>
 
           <div style={{ textAlign: 'center', marginTop: 20 }}>
             <Link to="/" style={{
-              color: '#4b5563', fontSize: '0.82rem', textDecoration: 'none',
+              color: '#6B6E7A', fontSize: '0.84rem', textDecoration: 'none',
               display: 'inline-flex', alignItems: 'center', gap: 6,
-              transition: 'color 0.2s',
+              transition: 'color 0.2s', fontFamily: "'Manrope', sans-serif",
             }}
-              onMouseEnter={e => e.currentTarget.style.color = '#a78bfa'}
-              onMouseLeave={e => e.currentTarget.style.color = '#4b5563'}
+              onMouseEnter={e => e.currentTarget.style.color = '#D95D39'}
+              onMouseLeave={e => e.currentTarget.style.color = '#6B6E7A'}
             >
               ← Kembali ke Beranda
             </Link>

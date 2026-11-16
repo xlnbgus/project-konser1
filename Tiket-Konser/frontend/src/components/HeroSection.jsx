@@ -1,511 +1,525 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Modal from './Modal'
-import PaymentDetailForm from './PaymentDetailForm'
+import syncImg from '../assets/events/synchronize-fest.jpg'
+import westlifeImg from '../assets/artists/westlife.jpg'
+import wtfImg from '../assets/events/wethefest.jpg'
 
 const slides = [
   {
-    tag: 'FEATURED EVENT',
-    badge: '2 Hari',
-    badgeColor: '#7c3aed',
-    title: 'Echoes of',
-    accent: 'Innocence',
-    sub: 'THE RHYTHM OF OUR ROOTS',
-    venue: 'Usmar Ismail Hall',
-    date: '29–30 Agustus 2026',
-    price: 'Mulai Rp350.000',
-    priceRaw: 350000,
-    eventTitle: 'Echoes of Innocence',
+    tag: 'FESTIVAL MUSIK',
+    badge: '3 Hari Penuh Musik',
+    title: 'Synchronize',
+    accent: 'Festival 2026',
+    sub: 'INDONESIAN MULTI-GENRE MUSIC CELEBRATION',
+    description: 'Perayaan musik Indonesia terbesar yang menampilkan ratusan artis dari berbagai genre — rock, pop, jazz, hingga elektronik. Selama 3 hari penuh di bawah langit malam Jakarta.',
+    venue: 'Gambir Expo Kemayoran, Jakarta',
+    date: '3–5 Oktober 2026',
+    price: 'Mulai Rp450.000',
+    priceRaw: 450000,
+    eventTitle: 'Synchronize Festival 2026',
     ticketsAvailable: '2.800',
-    emoji: '🎸',
-    bgFrom: '#1a0533',
-    bgVia: '#0d0620',
-    orb1: '#7c3aed',
-    orb2: '#ec4899',
-    accentColor: '#a78bfa',
-    headerGrad: 'linear-gradient(135deg, #4c1d95, #5b21b6)',
-    particles: ['🎵','🎶','🎸','🎹','🎼'],
-    stats: [{ v: '12.4K+', l: 'Tiket Terjual' }, { v: '15K', l: 'Kapasitas' }, { v: '4.9★', l: 'Rating' }],
+    image: syncImg,
+    stats: [{ v: '35K+', l: 'Tiket Terjual' }, { v: '40K', l: 'Kapasitas' }, { v: '4.9★', l: 'Rating' }],
   },
   {
-    tag: 'HOT TICKET',
+    tag: 'WORLD TOUR',
     badge: 'Hampir Habis',
-    badgeColor: '#f97316',
     title: 'Westlife',
     accent: 'World Tour',
-    sub: 'THE GREATEST HITS LIVE',
-    venue: 'GBK Arena, Jakarta',
+    sub: 'THE GREATEST HITS LIVE ARENA TOUR',
+    description: 'Westlife kembali ke Indonesia dalam tur dunia mereka yang epik! Nikmati medley hits legendaris dari "Swear It Again", "Flying Without Wings", hingga "My Love" live di hadapan puluhan ribu penonton.',
+    venue: 'GBK Stadium, Jakarta',
     date: '15 September 2026',
     price: 'Mulai Rp750.000',
     priceRaw: 750000,
-    eventTitle: 'Westlife World Tour',
+    eventTitle: 'Westlife World Tour 2026',
     ticketsAvailable: '420',
-    emoji: '🎤',
-    bgFrom: '#001a33',
-    bgVia: '#030d1a',
-    orb1: '#3b82f6',
-    orb2: '#06b6d4',
-    accentColor: '#60a5fa',
-    headerGrad: 'linear-gradient(135deg, #1e3a5f, #1e40af)',
-    particles: ['⭐','🌟','✨','💫','🎤'],
+    image: westlifeImg,
     stats: [{ v: '18K+', l: 'Tiket Terjual' }, { v: '20K', l: 'Kapasitas' }, { v: '5.0★', l: 'Rating' }],
   },
   {
-    tag: 'EXCLUSIVE SHOW',
-    badge: 'Baru Dibuka',
-    badgeColor: '#16a34a',
-    title: 'Jazz Under',
-    accent: 'The Stars',
-    sub: 'AN INTIMATE JAZZ EXPERIENCE',
-    venue: 'Taman Ismail Marzuki',
-    date: '5 Oktober 2026',
-    price: 'Mulai Rp450.000',
-    priceRaw: 450000,
-    eventTitle: 'Jazz Under The Stars',
-    ticketsAvailable: '5.800',
-    emoji: '🎺',
-    bgFrom: '#1a0f00',
-    bgVia: '#120a00',
-    orb1: '#d97706',
-    orb2: '#ea580c',
-    accentColor: '#fbbf24',
-    headerGrad: 'linear-gradient(135deg, #78350f, #92400e)',
-    particles: ['🎺','🎷','🎻','🎹','🎵'],
-    stats: [{ v: '3.2K+', l: 'Tiket Terjual' }, { v: '5K', l: 'Kapasitas' }, { v: '4.8★', l: 'Rating' }],
+    tag: 'SUMMER FESTIVAL',
+    badge: 'Presale 2 Dibuka',
+    title: 'We The Fest',
+    accent: 'Summer 2026',
+    sub: 'MUSIC · ARTS · FASHION · FOOD EXPERIENCE',
+    description: 'We The Fest bukan sekadar konser — ini adalah perayaan gaya hidup. Musik dari artis lokal dan internasional, pameran seni interaktif, fashion bazaar, dan kuliner terbaik.',
+    venue: 'GBK Sports Complex, Jakarta',
+    date: '21–23 Agustus 2026',
+    price: 'Mulai Rp750.000',
+    priceRaw: 750000,
+    eventTitle: 'We The Fest (WTF) 2026',
+    ticketsAvailable: '3.400',
+    image: wtfImg,
+    stats: [{ v: '24K+', l: 'Tiket Terjual' }, { v: '30K', l: 'Kapasitas' }, { v: '4.9★', l: 'Rating' }],
   },
 ]
 
-// Floating particle
-const Particle = ({ emoji, top, right, delay, duration }) => (
-  <div style={{
-    position: 'absolute', top, right,
-    fontSize: 22, opacity: 0.25,
-    animation: `float ${duration}s ease-in-out infinite`,
-    animationDelay: `${delay}s`,
-    pointerEvents: 'none', userSelect: 'none',
-  }}>
-    {emoji}
-  </div>
-)
-
-export default function HeroSection() {
-  const navigate = useNavigate()
-  const [idx, setIdx]                       = useState(0)
-  const [fading, setFading]                 = useState(false)
-  const [locationModal, setLocationModal]   = useState(null)
-
-  // Checkout state
-  const [checkoutSlide, setCheckoutSlide]   = useState(null)
-  const [quantity, setQuantity]             = useState(1)
-  const [promoCode, setPromoCode]           = useState('')
-  const [appliedPromo, setAppliedPromo]     = useState(null)
-  const [promoError, setPromoError]         = useState('')
-  const [promoLoading, setPromoLoading]     = useState(false)
-  const [paymentMethods, setPaymentMethods] = useState([])
-  const [selectedMethod, setSelectedMethod] = useState('')
-  const [paymentDetail, setPaymentDetail]   = useState({})
-  const [loading, setLoading]               = useState(false)
-  const [message, setMessage]               = useState('')
-
-  const subtotal       = checkoutSlide ? checkoutSlide.priceRaw * quantity : 0
-  const discountAmount = appliedPromo ? Math.round(subtotal * (Number(appliedPromo.discountPercent || 0) / 100)) : 0
-  const totalPrice     = Math.max(0, subtotal - discountAmount)
-
-  const formatPrice = (v) => `Rp ${Number(v || 0).toLocaleString('id-ID')}`
-
-  useEffect(() => {
-    fetch('/api/payment-methods')
-      .then(r => r.json())
-      .then(d => {
-        const methods = Array.isArray(d.paymentMethods) ? d.paymentMethods : []
-        const withQris = methods.some(m => m.value === 'qris') ? methods : [...methods, { value: 'qris', label: 'QRIS', description: 'Scan pakai kamera HP' }]
-        setPaymentMethods(withQris)
-        if (withQris.length > 0) setSelectedMethod(withQris[0].value)
-      })
-      .catch(() => { setPaymentMethods([{ value: 'qris', label: 'QRIS', description: 'Scan pakai kamera HP' }]); setSelectedMethod('qris') })
-  }, [])
-
-  const openCheckout = (slide) => {
-    setCheckoutSlide(slide)
-    setQuantity(1)
-    setPromoCode('')
-    setAppliedPromo(null)
-    setPromoError('')
-    setPaymentDetail({})
-    setMessage('')
-  }
-
-  const handleApplyPromo = async () => {
-    const code = promoCode.trim()
-    if (!code) return
-    setPromoLoading(true)
-    setPromoError('')
-    setAppliedPromo(null)
-    try {
-      const res = await fetch('/api/promos')
-      const data = await res.json()
-      const promos = Array.isArray(data.promos) ? data.promos : []
-      const found = promos.find(p => p.code?.toUpperCase() === code.toUpperCase())
-      if (!found) setPromoError('Kode promo tidak valid atau sudah tidak aktif.')
-      else { setAppliedPromo(found); setPromoError('') }
-    } catch { setPromoError('Gagal memvalidasi kode promo.') }
-    finally { setPromoLoading(false) }
-  }
-
-  const handleCheckout = async () => {
-    if (!selectedMethod) { setMessage('Pilih metode pembayaran.'); return }
-    setLoading(true)
-    setMessage('')
-    try {
-      // Cari event dari API berdasarkan title
-      const evRes = await fetch('/api/events')
-      const evData = await evRes.json()
-      const events = Array.isArray(evData.events) ? evData.events : []
-      const event = events.find(e => e.title?.toLowerCase().includes(checkoutSlide.accent?.toLowerCase()) || e.title === checkoutSlide.eventTitle)
-      if (!event) { setMessage('Event tidak ditemukan di database.'); setLoading(false); return }
-
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          eventId: event.id,
-          quantity: Number(quantity),
-          paymentMethod: selectedMethod,
-          promoCode: appliedPromo ? appliedPromo.code : undefined,
-        }),
-      })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.message || 'Checkout gagal')
-      if (data.order) {
-        navigate('/payment-success', {
-          state: {
-            eventTitle:     data.order.eventTitle,
-            paymentLabel:   data.order.paymentLabel,
-            total:          data.order.total,
-            orderId:        data.order.id,
-            quantity:       data.order.quantity,
-            subtotal:       data.order.subtotal,
-            discountAmount: data.order.discountAmount,
-            promoCode:      data.order.promoCode,
-          }
-        })
-      }
-    } catch (err) { setMessage(err.message || 'Checkout gagal') }
-    finally { setLoading(false) }
-  }
+export default function HeroSection({ onSelectEvent }) {
+  const [idx, setIdx] = useState(0)
+  const [fading, setFading] = useState(false)
+  const [locationModal, setLocationModal] = useState(null)
 
   const goTo = (next) => {
     if (fading) return
     setFading(true)
-    setTimeout(() => { setIdx(next); setFading(false) }, 280)
+    setTimeout(() => {
+      setIdx(next)
+      setFading(false)
+    }, 280)
   }
 
-  const handleBuyTicket = () => openCheckout(s)
-  const handleViewDetail = () => document.getElementById('top-events')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-
   useEffect(() => {
-    const t = setInterval(() => goTo((idx + 1) % slides.length), 5500)
+    const t = setInterval(() => {
+      goTo((idx + 1) % slides.length)
+    }, 6000)
     return () => clearInterval(t)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idx])
 
   const s = slides[idx]
 
+  const handleBuyClick = () => {
+    if (onSelectEvent) {
+      onSelectEvent(s)
+    }
+  }
+
   return (
     <>
-    <section style={{
-      position: 'relative',
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      overflow: 'hidden',
-      background: `linear-gradient(135deg, ${s.bgFrom} 0%, ${s.bgVia} 50%, #0a0a0f 100%)`,
-      transition: 'background 0.8s',
-    }}>
-      {/* Orb glow backgrounds */}
-      <div style={{
-        position: 'absolute', top: '15%', left: '5%',
-        width: 480, height: 480, borderRadius: '50%',
-        background: s.orb1, filter: 'blur(130px)', opacity: 0.18,
-        transition: 'background 0.8s',
-        pointerEvents: 'none',
-      }} />
-      <div style={{
-        position: 'absolute', bottom: '10%', right: '10%',
-        width: 360, height: 360, borderRadius: '50%',
-        background: s.orb2, filter: 'blur(100px)', opacity: 0.14,
-        transition: 'background 0.8s',
-        pointerEvents: 'none',
-      }} />
+      <section
+        style={{
+          position: 'relative',
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          overflow: 'hidden',
+          background: '#0D0F14',
+        }}
+      >
+        {/* Background image with high-contrast dark overlay */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            opacity: fading ? 0 : 0.5,
+            transition: 'opacity 0.5s ease',
+          }}
+        >
+          <img
+            src={s.image}
+            alt=""
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
+          />
+          {/* Multi-layer gradient backdrop to ensure 100% readability */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background:
+                'linear-gradient(to right, rgba(13,15,20,0.98) 0%, rgba(13,15,20,0.92) 48%, rgba(13,15,20,0.6) 80%, rgba(13,15,20,0.4) 100%)',
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(to top, rgba(13,15,20,1) 0%, rgba(13,15,20,0.4) 40%, transparent 80%)',
+            }}
+          />
+        </div>
 
-      {/* Grid dots */}
-      <div className="dots-pattern" style={{
-        position: 'absolute', inset: 0, opacity: 0.04, pointerEvents: 'none',
-      }} />
+        {/* Slide number watermark */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 90,
+            right: 36,
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: '5rem',
+            fontWeight: 800,
+            color: 'rgba(255,255,255,0.06)',
+            lineHeight: 1,
+            userSelect: 'none',
+            letterSpacing: '-0.04em',
+          }}
+        >
+          0{idx + 1}
+        </div>
 
-      {/* Particles */}
-      {s.particles.map((p, i) => (
-        <Particle
-          key={`${idx}-${i}`}
-          emoji={p}
-          top={`${12 + i * 14}%`}
-          right={`${3 + i * 5}%`}
-          delay={i * 0.4}
-          duration={3 + i * 0.5}
-        />
-      ))}
+        {/* Content Container */}
+        <div
+          style={{
+            maxWidth: 1280,
+            margin: '0 auto',
+            padding: '0 24px',
+            width: '100%',
+            paddingTop: 110,
+            paddingBottom: 90,
+            opacity: fading ? 0 : 1,
+            transform: fading ? 'translateY(8px)' : 'translateY(0)',
+            transition: 'opacity 0.28s ease, transform 0.28s ease',
+            position: 'relative',
+            zIndex: 2,
+          }}
+        >
+          <div style={{ maxWidth: 700 }}>
 
-      {/* Content */}
-      <div style={{
-        maxWidth: 1280, margin: '0 auto', padding: '0 24px',
-        width: '100%', paddingTop: 80, paddingBottom: 60,
-        opacity: fading ? 0 : 1,
-        transform: fading ? 'translateY(10px)' : 'translateY(0)',
-        transition: 'opacity 0.28s, transform 0.28s',
-      }}>
-        <div className="hero-grid">
-          {/* ── LEFT: Text ── */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
-            {/* Tags row */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-              <div style={{
-                display: 'inline-flex', alignItems: 'center', gap: 6,
-                padding: '6px 14px', borderRadius: 99,
-                background: `${s.accentColor}22`,
-                border: `1px solid ${s.accentColor}44`,
-                fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.15em',
-                color: s.accentColor, textTransform: 'uppercase',
-              }}>
-                <span style={{
-                  width: 6, height: 6, borderRadius: '50%',
-                  background: s.accentColor,
-                  animation: 'pulseDot 1.5s ease-in-out infinite',
-                  display: 'inline-block',
-                }} />
+            {/* Eyebrow Tags */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 7,
+                  padding: '6px 14px',
+                  borderRadius: 6,
+                  background: 'rgba(217,93,57,0.25)',
+                  border: '1.5px solid #D95D39',
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  letterSpacing: '0.12em',
+                  color: '#FFFFFF',
+                  textTransform: 'uppercase',
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  boxShadow: '0 2px 10px rgba(217,93,57,0.3)',
+                }}
+              >
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: '50%',
+                    background: '#FF6B4A',
+                    boxShadow: '0 0 8px #FF6B4A',
+                    display: 'inline-block',
+                  }}
+                />
                 {s.tag}
-              </div>
-              <span style={{
-                padding: '5px 12px', borderRadius: 99,
-                background: s.badgeColor, color: '#fff',
-                fontSize: '0.72rem', fontWeight: 700,
-              }}>
+              </span>
+
+              <span
+                style={{
+                  padding: '5px 12px',
+                  borderRadius: 6,
+                  background: 'rgba(255,255,255,0.12)',
+                  border: '1px solid rgba(255,255,255,0.25)',
+                  color: '#FFFFFF',
+                  fontSize: '0.72rem',
+                  fontWeight: 600,
+                  fontFamily: "'Space Grotesk', sans-serif",
+                }}
+              >
                 {s.badge}
               </span>
             </div>
 
-            {/* Title */}
-            <div>
-              <h1 style={{
-                fontFamily: 'Poppins, sans-serif',
-                fontSize: 'clamp(2.8rem, 6vw, 4.5rem)',
-                fontWeight: 900, lineHeight: 1.05,
-                color: '#fff', margin: 0,
-              }}>
-                {s.title}
-              </h1>
-              <h1 className="text-gradient" style={{
-                fontFamily: 'Poppins, sans-serif',
-                fontSize: 'clamp(2.8rem, 6vw, 4.5rem)',
-                fontWeight: 900, lineHeight: 1.05,
-                margin: 0,
-              }}>
+            {/* Headline Title: FORCED HIGH-CONTRAST BRIGHT WHITE */}
+            <h1
+              style={{
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: 'clamp(3.2rem, 7.5vw, 5.5rem)',
+                fontWeight: 800,
+                lineHeight: 0.95,
+                color: '#FFFFFF',
+                margin: '0 0 4px',
+                letterSpacing: '-0.03em',
+                textShadow: '0 4px 24px rgba(0,0,0,0.9)',
+              }}
+            >
+              {s.title}
+            </h1>
+            <h1
+              style={{
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: 'clamp(3.2rem, 7.5vw, 5.5rem)',
+                fontWeight: 800,
+                lineHeight: 0.95,
+                margin: '0 0 20px',
+                letterSpacing: '-0.03em',
+                color: '#FFFFFF',
+                textShadow: '0 4px 24px rgba(0,0,0,0.9)',
+              }}
+            >
+              <span style={{ color: '#D95D39', textShadow: '0 0 30px rgba(217,93,57,0.5)' }}>
                 {s.accent}
-              </h1>
-            </div>
+              </span>
+            </h1>
 
-            {/* Subtitle */}
-            <p style={{
-              fontSize: '0.72rem', fontWeight: 700,
-              letterSpacing: '0.3em', color: '#6b7280',
-              textTransform: 'uppercase',
-            }}>
+            {/* Sub-label */}
+            <p
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                letterSpacing: '0.22em',
+                color: '#FFFFFF',
+                opacity: 0.9,
+                textTransform: 'uppercase',
+                marginBottom: 20,
+                fontFamily: "'Space Grotesk', sans-serif",
+                textShadow: '0 2px 10px rgba(0,0,0,0.8)',
+              }}
+            >
               {s.sub}
             </p>
 
-            {/* Info chips */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-              {/* Lokasi — bisa diklik */}
+            {/* Description: FORCED BRIGHT WHITE */}
+            <p
+              style={{
+                fontSize: '1rem',
+                color: '#FFFFFF',
+                lineHeight: 1.75,
+                maxWidth: 580,
+                marginBottom: 28,
+                textShadow: '0 2px 12px rgba(0,0,0,0.9)',
+                fontWeight: 400,
+              }}
+            >
+              {s.description}
+            </p>
+
+            {/* Meta pills: Venue & Date */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 32 }}>
               <button
                 onClick={() => setLocationModal(s.venue)}
                 style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 7,
-                  padding: '9px 16px', borderRadius: 12,
-                  background: 'rgba(255,255,255,0.06)',
-                  border: `1px solid ${s.accentColor}33`,
-                  fontSize: '0.82rem', color: '#d1d5db',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '9px 16px',
+                  borderRadius: 8,
+                  background: 'rgba(255,255,255,0.1)',
+                  border: '1px solid rgba(255,255,255,0.22)',
+                  fontSize: '0.84rem',
+                  fontWeight: 600,
+                  color: '#FFFFFF',
+                  cursor: 'pointer',
+                  transition: 'background 0.2s, border-color 0.2s',
                   backdropFilter: 'blur(8px)',
-                  cursor: 'pointer', transition: 'background 0.2s, border-color 0.2s',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(124,58,237,0.15)'; e.currentTarget.style.borderColor = 'rgba(124,58,237,0.5)' }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.borderColor = `${s.accentColor}33` }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(217,93,57,0.25)'
+                  e.currentTarget.style.borderColor = '#D95D39'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.1)'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.22)'
+                }}
               >
-                <span>📍</span>
+                <svg width="14" height="14" fill="none" stroke="#D95D39" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" />
+                </svg>
                 {s.venue}
               </button>
-              {/* Tanggal — statis */}
-              <div style={{
-                display: 'inline-flex', alignItems: 'center', gap: 7,
-                padding: '9px 16px', borderRadius: 12,
-                background: 'rgba(255,255,255,0.06)',
-                border: `1px solid ${s.accentColor}33`,
-                fontSize: '0.82rem', color: '#d1d5db',
-                backdropFilter: 'blur(8px)',
-              }}>
-                <span>📅</span>
+
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '9px 16px',
+                  borderRadius: 8,
+                  background: 'rgba(255,255,255,0.1)',
+                  border: '1px solid rgba(255,255,255,0.22)',
+                  fontSize: '0.84rem',
+                  fontWeight: 600,
+                  color: '#FFFFFF',
+                  backdropFilter: 'blur(8px)',
+                }}
+              >
+                <svg width="14" height="14" fill="none" stroke="#D95D39" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" />
+                </svg>
                 {s.date}
               </div>
             </div>
 
-            {/* Price + CTA */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 20 }}>
+            {/* Price + CTA Buttons */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 24, marginBottom: 40 }}>
               <div>
-                <p style={{ fontSize: '0.72rem', color: '#6b7280', marginBottom: 2 }}>Harga tiket</p>
-                <p style={{
-                  fontSize: '1.4rem', fontWeight: 800,
-                  color: s.accentColor,
-                }}>
+                <p
+                  style={{
+                    fontSize: '0.72rem',
+                    color: '#FFFFFF',
+                    opacity: 0.85,
+                    marginBottom: 2,
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase',
+                    fontWeight: 700,
+                  }}
+                >
+                  Harga Tiket
+                </p>
+                <p
+                  style={{
+                    fontSize: '1.75rem',
+                    fontWeight: 800,
+                    color: '#FFFFFF',
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    letterSpacing: '-0.02em',
+                    textShadow: '0 2px 14px rgba(0,0,0,0.9)',
+                  }}
+                >
                   {s.price}
                 </p>
               </div>
-              <div style={{ display: 'flex', gap: 10 }}>
-                <button className="btn-primary" onClick={handleBuyTicket}>Beli Tiket Sekarang</button>
-                <button className="btn-outline" onClick={handleViewDetail}>Lihat Detail</button>
+
+              <div style={{ display: 'flex', gap: 12 }}>
+                {/* Vibrant Burnt Orange Main Button */}
+                <button
+                  onClick={handleBuyClick}
+                  style={{
+                    padding: '14px 30px',
+                    borderRadius: 8,
+                    background: '#D95D39',
+                    color: '#FFFFFF',
+                    border: 'none',
+                    fontWeight: 800,
+                    fontSize: '0.92rem',
+                    cursor: 'pointer',
+                    boxShadow: '0 6px 25px rgba(217,93,57,0.5)',
+                    transition: 'all 0.2s ease',
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    letterSpacing: '0.02em',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#C04E2D'
+                    e.currentTarget.style.transform = 'translateY(-2px)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#D95D39'
+                    e.currentTarget.style.transform = 'translateY(0)'
+                  }}
+                >
+                  Beli Tiket Sekarang →
+                </button>
+
+                {/* Secondary Button */}
+                <button
+                  onClick={() => document.getElementById('top-events')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                  style={{
+                    padding: '14px 24px',
+                    borderRadius: 8,
+                    background: 'rgba(255,255,255,0.1)',
+                    border: '1.5px solid rgba(255,255,255,0.3)',
+                    color: '#FFFFFF',
+                    fontWeight: 700,
+                    fontSize: '0.9rem',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    backdropFilter: 'blur(8px)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.2)'
+                    e.currentTarget.style.borderColor = '#FFFFFF'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'rgba(255,255,255,0.1)'
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'
+                  }}
+                >
+                  Lihat Detail
+                </button>
               </div>
             </div>
 
-            {/* Stats */}
-            <div style={{ display: 'flex', gap: 28, paddingTop: 8 }}>
-              {s.stats.map(st => (
-                <div key={st.l}>
-                  <p style={{ fontFamily: 'Poppins,sans-serif', fontSize: '1.2rem', fontWeight: 800, color: '#fff', margin: 0 }}>{st.v}</p>
-                  <p style={{ fontSize: '0.75rem', color: '#6b7280', margin: 0 }}>{st.l}</p>
+            {/* Statistics: Bright White Text & High Contrast */}
+            <div style={{ display: 'flex', gap: 36 }}>
+              {s.stats.map((st) => (
+                <div key={st.l} style={{ borderLeft: '3px solid #D95D39', paddingLeft: 14 }}>
+                  <p
+                    style={{
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontSize: '1.25rem',
+                      fontWeight: 800,
+                      color: '#FFFFFF',
+                      margin: 0,
+                      textShadow: '0 2px 10px rgba(0,0,0,0.8)',
+                    }}
+                  >
+                    {st.v}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: '0.78rem',
+                      color: '#FFFFFF',
+                      opacity: 0.85,
+                      margin: 0,
+                      fontWeight: 500,
+                    }}
+                  >
+                    {st.l}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
-
-          {/* ── RIGHT: Ticket visual ── */}
-          <div className="hero-right" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <div style={{ position: 'relative' }}>
-              {/* Floating card */}
-              <div className="hero-ticket animate-float" style={{ position: 'relative', zIndex: 2 }}>
-                {/* Header */}
-                <div className="hero-ticket-header" style={{ background: s.headerGrad }}>
-                  <div className="dots-pattern" style={{ position: 'absolute', inset: 0, opacity: 0.15 }} />
-                  <div style={{ position: 'relative', textAlign: 'center', zIndex: 2 }}>
-                    <div style={{ fontSize: 52, marginBottom: 6 }}>{s.emoji}</div>
-                    <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase' }}>
-                      Live Performance
-                    </p>
-                    <p style={{
-                      color: '#fff', fontFamily: 'Poppins,sans-serif', fontWeight: 800,
-                      fontSize: '1.05rem', marginTop: 4,
-                    }}>
-                      {s.accent}
-                    </p>
-                  </div>
-                  {/* Spotlight */}
-                  <div style={{
-                    position: 'absolute', inset: 0,
-                    background: 'radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.12), transparent 70%)',
-                  }} />
-                </div>
-
-                {/* Perforated divider */}
-                <div className="hero-ticket-perforated">
-                  <div style={{
-                    position: 'absolute', left: '20px', right: '20px', top: '50%',
-                    borderTop: '1px dashed rgba(255,255,255,0.12)',
-                  }} />
-                </div>
-
-                {/* Body */}
-                <div className="hero-ticket-body">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, marginBottom: 16 }}>
-                    <div>
-                      <p style={{ fontSize: '0.65rem', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 3 }}>Venue</p>
-                      <p style={{ fontSize: '0.8rem', color: '#fff', fontWeight: 600 }}>{s.venue}</p>
-                    </div>
-                    <div style={{ textAlign: 'right' }}>
-                      <p style={{ fontSize: '0.65rem', color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 3 }}>Tanggal</p>
-                      <p style={{ fontSize: '0.8rem', color: '#fff', fontWeight: 600 }}>{s.date}</p>
-                    </div>
-                  </div>
-
-                  <div style={{
-                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                    paddingTop: 14, borderTop: '1px solid rgba(255,255,255,0.08)',
-                  }}>
-                    <div>
-                      <p style={{ fontSize: '0.65rem', color: '#6b7280', marginBottom: 3 }}>Harga</p>
-                      <p style={{ fontSize: '1.1rem', fontWeight: 800, color: s.accentColor }}>{s.price}</p>
-                    </div>
-                    {/* QR placeholder */}
-                    <div style={{
-                      width: 56, height: 56, background: '#fff', borderRadius: 10, padding: 6,
-                      display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: 2,
-                    }}>
-                      {Array.from({ length: 25 }).map((_, i) => (
-                        <div key={i} style={{ borderRadius: 1, background: [0,2,4,10,14,20,22,24,6,12,18].includes(i) ? '#111' : '#fff' }} />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Floating badges */}
-              <div className="glass" style={{
-                position: 'absolute', top: 18, left: 18,
-                padding: '10px 16px', borderRadius: 14,
-                boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
-                zIndex: 10,
-              }}>
-                <p style={{ fontSize: '0.68rem', color: '#9ca3af', marginBottom: 2 }}>Tersedia</p>
-                <p style={{ fontSize: '0.9rem', fontWeight: 700, color: '#fff' }}>{s.ticketsAvailable || '2.800'} tiket</p>
-              </div>
-              <div className="glass" style={{
-                position: 'absolute', top: 18, right: 18,
-                padding: '10px 16px', borderRadius: 14,
-                boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
-                zIndex: 10,
-              }}>
-                <p style={{ fontSize: '0.68rem', color: '#9ca3af', marginBottom: 2 }}>Terjual</p>
-                <p style={{ fontSize: '0.9rem', fontWeight: 700, color: '#22c55e' }}>82% ✓</p>
-              </div>
-            </div>
-          </div>
         </div>
 
-        {/* ── Slide controls ── */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 48, flexWrap: 'wrap', gap: 12 }}>
+        {/* Slide Indicators & Navigation Controls */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 36,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 20,
+            zIndex: 3,
+          }}
+        >
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
             {slides.map((_, i) => (
               <button
                 key={i}
                 onClick={() => goTo(i)}
                 style={{
-                  height: 8, borderRadius: 4,
-                  width: i === idx ? 32 : 8,
-                  background: i === idx ? s.accentColor : 'rgba(255,255,255,0.2)',
-                  border: 'none', cursor: 'pointer',
-                  transition: 'all 0.3s',
+                  height: 4,
+                  borderRadius: 2,
+                  width: i === idx ? 32 : 12,
+                  background: i === idx ? '#D95D39' : 'rgba(255,255,255,0.35)',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  boxShadow: i === idx ? '0 0 10px rgba(217,93,57,0.8)' : 'none',
                 }}
               />
             ))}
           </div>
+
           <div style={{ display: 'flex', gap: 8 }}>
             {[
-              { label: '‹', fn: () => goTo((idx - 1 + slides.length) % slides.length) },
-              { label: '›', fn: () => goTo((idx + 1) % slides.length) },
-            ].map(btn => (
+              { label: '←', fn: () => goTo((idx - 1 + slides.length) % slides.length) },
+              { label: '→', fn: () => goTo((idx + 1) % slides.length) },
+            ].map((btn) => (
               <button
                 key={btn.label}
                 onClick={btn.fn}
-                className="glass"
                 style={{
-                  width: 40, height: 40, borderRadius: '50%',
-                  color: '#fff', fontSize: 22, border: 'none',
-                  cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  transition: 'background 0.2s',
+                  width: 38,
+                  height: 38,
+                  borderRadius: 8,
+                  background: 'rgba(255,255,255,0.12)',
+                  border: '1px solid rgba(255,255,255,0.25)',
+                  color: '#FFFFFF',
+                  fontSize: 16,
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'background 0.2s, transform 0.2s',
+                  backdropFilter: 'blur(8px)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#D95D39'
+                  e.currentTarget.style.borderColor = '#D95D39'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.12)'
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'
                 }}
               >
                 {btn.label}
@@ -513,185 +527,137 @@ export default function HeroSection() {
             ))}
           </div>
         </div>
-      </div>
 
-      {/* Scroll indicator */}
-      <div style={{
-        position: 'absolute', bottom: 24, left: '50%', transform: 'translateX(-50%)',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6,
-      }}>
-        <span style={{ fontSize: '0.65rem', letterSpacing: '0.2em', color: '#4b5563', textTransform: 'uppercase' }}>Scroll</span>
-        <div style={{
-          width: 22, height: 36, borderRadius: 11,
-          border: '1px solid rgba(255,255,255,0.15)',
-          display: 'flex', justifyContent: 'center', alignItems: 'flex-start',
-          paddingTop: 6,
-        }}>
-          <div className="animate-bounce-y" style={{
-            width: 4, height: 8, borderRadius: 2,
-            background: 'rgba(255,255,255,0.4)',
-          }} />
+        {/* Scroll hint */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 36,
+            right: 36,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 6,
+            zIndex: 3,
+          }}
+        >
+          <span
+            style={{
+              fontSize: '0.65rem',
+              letterSpacing: '0.2em',
+              color: 'rgba(255,255,255,0.6)',
+              textTransform: 'uppercase',
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontWeight: 600,
+            }}
+          >
+            Scroll
+          </span>
+          <div
+            style={{
+              width: 1.5,
+              height: 32,
+              background: 'linear-gradient(to bottom, #D95D39, transparent)',
+            }}
+          />
         </div>
-      </div>
+      </section>
 
-      <style>{`
-        .hero-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 60px;
-          align-items: center;
-        }
-        @media (max-width: 900px) {
-          .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-          .hero-right { display: none !important; }
-        }
-      `}</style>
-    </section>
-
-    {/* Checkout Modal */}
-    <Modal
-      isOpen={Boolean(checkoutSlide)}
-      onClose={() => { setCheckoutSlide(null); setMessage('') }}
-      title={`Beli Tiket: ${checkoutSlide?.eventTitle || ''}`}
-      description="Isi detail pembelian dan selesaikan checkout."
-      ctaLabel={loading ? 'Memproses…' : 'Bayar Sekarang'}
-      onCta={handleCheckout}
-      secondaryLabel="Batal"
-      closeOnCta={false}
-    >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <div style={{ padding: '12px 14px', borderRadius: 12, background: 'rgba(124,58,237,0.12)', border: '1px solid rgba(124,58,237,0.25)', color: '#ddd6fe' }}>
-          <strong style={{ display: 'block', marginBottom: 4 }}>Event</strong>
-          <span>{checkoutSlide?.eventTitle}</span>
-        </div>
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6, flex: 1, minWidth: 140 }}>
-            <label style={{ color: '#cbd5e1', fontSize: '0.86rem', fontWeight: 700 }}>Jumlah Tiket</label>
-            <select value={quantity} onChange={e => { setQuantity(Number(e.target.value)); setAppliedPromo(null); setPromoError('') }}
-              style={{ padding: '10px 12px', borderRadius: 12, background: '#0f172a', color: '#f8fafc', border: '1px solid rgba(255,255,255,0.12)', fontSize: '0.9rem' }}>
-              {Array.from({ length: 10 }, (_, i) => i + 1).map(v => <option key={v} value={v}>{v} tiket</option>)}
-            </select>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6, flex: 1, minWidth: 160 }}>
-            <label style={{ color: '#cbd5e1', fontSize: '0.86rem', fontWeight: 700 }}>Subtotal</label>
-            <div style={{ padding: '10px 12px', borderRadius: 12, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', color: '#fff', fontWeight: 700 }}>{formatPrice(subtotal)}</div>
-          </div>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <label style={{ color: '#cbd5e1', fontSize: '0.86rem', fontWeight: 700 }}>Kode Promo</label>
-          <div style={{ display: 'flex', gap: 8 }}>
-            <input type="text" value={promoCode}
-              onChange={e => { setPromoCode(e.target.value.toUpperCase()); setAppliedPromo(null); setPromoError('') }}
-              onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleApplyPromo() } }}
-              placeholder="Contoh: EARLYBIRD30"
-              style={{ flex: 1, padding: '10px 12px', borderRadius: 12, background: '#0f172a', color: '#f8fafc', border: appliedPromo ? '1px solid rgba(34,197,94,0.5)' : promoError ? '1px solid rgba(239,68,68,0.5)' : '1px solid rgba(255,255,255,0.12)', fontSize: '0.9rem', outline: 'none' }}
-            />
-            <button type="button" onClick={handleApplyPromo} disabled={!promoCode.trim() || promoLoading}
-              style={{ padding: '10px 16px', borderRadius: 12, fontWeight: 700, fontSize: '0.82rem', border: 'none', cursor: !promoCode.trim() || promoLoading ? 'not-allowed' : 'pointer', background: !promoCode.trim() || promoLoading ? 'rgba(124,58,237,0.25)' : 'linear-gradient(135deg,#7c3aed,#ec4899)', color: '#fff', whiteSpace: 'nowrap' }}>
-              {promoLoading ? '...' : 'Pakai'}
-            </button>
-          </div>
-          {appliedPromo && (
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', borderRadius: 10, background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.3)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span>✅</span>
-                <div>
-                  <div style={{ color: '#86efac', fontSize: '0.82rem', fontWeight: 700 }}>{appliedPromo.title}</div>
-                  <div style={{ color: '#4ade80', fontSize: '0.75rem', marginTop: 2 }}>
-                    {appliedPromo.discountPercent > 0 ? `Diskon ${appliedPromo.discountPercent}% — hemat ${formatPrice(discountAmount)}` : 'Promo berhasil diterapkan'}
-                  </div>
-                </div>
-              </div>
-              <button type="button" onClick={() => { setAppliedPromo(null); setPromoCode(''); setPromoError('') }} style={{ background: 'none', border: 'none', color: '#6b7280', cursor: 'pointer', fontSize: 16 }}>×</button>
+      {/* Location Modal */}
+      {locationModal && (
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setLocationModal(null)
+          }}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 999,
+            background: 'rgba(10,11,15,0.85)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '24px',
+            backdropFilter: 'blur(8px)',
+          }}
+        >
+          <div
+            style={{
+              width: '100%',
+              maxWidth: 480,
+              borderRadius: 14,
+              background: '#161920',
+              border: '1px solid rgba(245,243,238,0.12)',
+              boxShadow: '0 24px 60px rgba(0,0,0,0.6)',
+              padding: '24px',
+            }}
+          >
+            <h3
+              style={{
+                margin: '0 0 8px',
+                color: '#F5F3EE',
+                fontSize: '1.05rem',
+                fontWeight: 700,
+                fontFamily: "'Space Grotesk', sans-serif",
+              }}
+            >
+              {locationModal}
+            </h3>
+            <p style={{ margin: '0 0 14px', color: '#9095A1', fontSize: '0.84rem' }}>
+              Buka navigasi lokasi venue konser langsung di Google Maps.
+            </p>
+            <div
+              style={{
+                padding: '12px 14px',
+                borderRadius: 8,
+                background: 'rgba(245,243,238,0.04)',
+                border: '1px solid rgba(245,243,238,0.08)',
+                color: '#F5F3EE',
+                marginBottom: 16,
+                fontSize: '0.88rem',
+              }}
+            >
+              📍 {locationModal}
             </div>
-          )}
-          {promoError && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px', borderRadius: 10, background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', color: '#fca5a5', fontSize: '0.82rem' }}>
-              ⚠️ {promoError}
+            <div style={{ display: 'flex', gap: 10 }}>
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(locationModal + ', Indonesia')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  flex: 1,
+                  textAlign: 'center',
+                  padding: '11px 20px',
+                  borderRadius: 8,
+                  background: '#D95D39',
+                  color: '#fff',
+                  textDecoration: 'none',
+                  fontWeight: 700,
+                  fontSize: '0.88rem',
+                  fontFamily: "'Space Grotesk', sans-serif",
+                }}
+              >
+                Buka di Maps ↗
+              </a>
+              <button
+                onClick={() => setLocationModal(null)}
+                style={{
+                  padding: '11px 20px',
+                  borderRadius: 8,
+                  background: 'rgba(245,243,238,0.06)',
+                  border: '1px solid rgba(245,243,238,0.12)',
+                  color: '#F5F3EE',
+                  cursor: 'pointer',
+                  fontWeight: 600,
+                  fontSize: '0.88rem',
+                }}
+              >
+                Tutup
+              </button>
             </div>
-          )}
-        </div>
-        <div style={{ padding: '14px 16px', borderRadius: 12, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', color: '#94a3b8', fontSize: '0.82rem' }}>
-            <span>Subtotal ({quantity} tiket)</span><span>{formatPrice(subtotal)}</span>
-          </div>
-          {discountAmount > 0 && (
-            <div style={{ display: 'flex', justifyContent: 'space-between', color: '#4ade80', fontSize: '0.82rem' }}>
-              <span>Diskon ({appliedPromo?.discountPercent}%)</span><span>− {formatPrice(discountAmount)}</span>
-            </div>
-          )}
-          <div style={{ height: 1, background: 'rgba(255,255,255,0.08)' }} />
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 800, fontSize: '1rem' }}>
-            <span style={{ color: '#fff' }}>Total</span>
-            <span style={{ background: 'linear-gradient(135deg,#a78bfa,#ec4899)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>{formatPrice(totalPrice)}</span>
           </div>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <label style={{ color: '#cbd5e1', fontSize: '0.86rem', fontWeight: 700 }}>Metode Pembayaran</label>
-          <div style={{ display: 'grid', gap: 8 }}>
-            {paymentMethods.map(method => (
-              <label key={method.value} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 12, background: 'rgba(255,255,255,0.05)', border: selectedMethod === method.value ? '1px solid rgba(124,58,237,0.6)' : '1px solid rgba(255,255,255,0.08)', cursor: 'pointer' }}>
-                <input type="radio" name="payment-hero" value={method.value} checked={selectedMethod === method.value}
-                  onChange={() => {
-                    setSelectedMethod(method.value)
-                    setPaymentDetail(method.value === 'qris' ? {
-                      eventTitle: checkoutSlide?.eventTitle,
-                      total: totalPrice,
-                      orderId: `KO-${Date.now()}`,
-                    } : {})
-                    setMessage('')
-                  }} />
-                <span style={{ color: '#f8fafc', fontWeight: 700 }}>{method.label}</span>
-                <span style={{ color: '#94a3b8', fontSize: '0.8rem', marginLeft: 'auto' }}>{method.description}</span>
-              </label>
-            ))}
-          </div>
-          {/* Detail form per metode */}
-          {selectedMethod && (
-            <div style={{ padding: '14px 16px', borderRadius: 12, marginTop: 4, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
-              <PaymentDetailForm
-                method={selectedMethod}
-                detail={paymentDetail}
-                onChange={setPaymentDetail}
-              />
-            </div>
-          )}
-        </div>
-        {message && (
-          <div style={{ padding: '10px 12px', borderRadius: 10, background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.22)', color: '#fecaca', fontSize: '0.85rem' }}>{message}</div>
-        )}
-      </div>
-    </Modal>
-
-    {/* Location Modal — sama seperti Event Mendatang */}
-    <Modal
-      isOpen={Boolean(locationModal)}
-      onClose={() => setLocationModal(null)}
-      title={locationModal || 'Lokasi Event'}
-      description={`Lihat titik lokasi dan arahkan dengan Google Maps.`}
-      ctaLabel="Buka di Google Maps"
-      onCta={() => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((locationModal || '') + ', Indonesia')}`, '_blank')}
-      secondaryLabel="Tutup"
-      closeOnCta={false}
-    >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <div style={{ padding: '12px 14px', borderRadius: 12, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', color: '#e2e8f0' }}>
-          <strong style={{ display: 'block', marginBottom: 4 }}>Alamat</strong>
-          <span>{locationModal}</span>
-        </div>
-        <div style={{ width: '100%', height: 0, paddingBottom: '56.25%', position: 'relative', borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.12)' }}>
-          {locationModal && (
-            <iframe
-              title="Lokasi venue"
-              src={`https://www.google.com/maps?q=${encodeURIComponent(locationModal + ', Indonesia')}&output=embed`}
-              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0 }}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          )}
-        </div>
-      </div>
-    </Modal>
+      )}
     </>
   )
 }

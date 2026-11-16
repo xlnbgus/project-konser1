@@ -46,58 +46,65 @@ const DEMO_SALES     = { isSalesOpen: true }
 const S = {
   input: {
     width: '100%', boxSizing: 'border-box', padding: '10px 14px',
-    borderRadius: 10, border: '1px solid rgba(255,255,255,0.1)',
-    background: 'rgba(255,255,255,0.05)', color: '#f9fafb',
+    borderRadius: 8, border: '1px solid rgba(245,243,238,0.1)',
+    background: 'rgba(245,243,238,0.05)', color: '#F5F3EE',
     fontSize: '0.875rem', outline: 'none',
+    fontFamily: "'Manrope', sans-serif",
   },
   select: {
     width: '100%', boxSizing: 'border-box', padding: '10px 14px',
-    borderRadius: 10, border: '1px solid rgba(255,255,255,0.1)',
-    background: '#111827', color: '#f9fafb',
+    borderRadius: 8, border: '1px solid rgba(245,243,238,0.1)',
+    background: '#161920', color: '#F5F3EE',
     fontSize: '0.875rem', outline: 'none', cursor: 'pointer',
+    fontFamily: "'Manrope', sans-serif",
   },
   textarea: {
     width: '100%', boxSizing: 'border-box', padding: '10px 14px',
-    borderRadius: 10, border: '1px solid rgba(255,255,255,0.1)',
-    background: 'rgba(255,255,255,0.05)', color: '#f9fafb',
+    borderRadius: 8, border: '1px solid rgba(245,243,238,0.1)',
+    background: 'rgba(245,243,238,0.05)', color: '#F5F3EE',
     fontSize: '0.875rem', outline: 'none', resize: 'vertical', minHeight: 72,
+    fontFamily: "'Manrope', sans-serif",
   },
   card: {
-    background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: 16, padding: '20px',
+    background: '#161920', border: '1px solid rgba(245,243,238,0.08)',
+    borderRadius: 12, padding: '20px',
   },
   section: {
-    background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: 20, padding: '24px',
+    background: '#161920', border: '1px solid rgba(245,243,238,0.08)',
+    borderRadius: 14, padding: '24px',
   },
   btnPrimary: (color) => ({
-    border: 'none', borderRadius: 10, padding: '10px 18px',
-    background: `linear-gradient(135deg, ${color || '#7c3aed'}, ${color ? color + 'cc' : '#5b21b6'})`,
+    border: 'none', borderRadius: 8, padding: '10px 18px',
+    background: color || '#D95D39',
     color: '#fff', cursor: 'pointer', fontWeight: 600, fontSize: '0.85rem',
     display: 'inline-flex', alignItems: 'center', gap: 6,
+    fontFamily: "'Space Grotesk', sans-serif",
   }),
   btnGhost: {
-    border: 'none', borderRadius: 8, padding: '7px 12px',
-    background: 'rgba(255,255,255,0.07)', color: '#d1d5db',
+    border: '1px solid rgba(245,243,238,0.1)', borderRadius: 8, padding: '7px 12px',
+    background: 'transparent', color: '#9095A1',
     cursor: 'pointer', fontSize: '0.82rem', fontWeight: 500,
+    fontFamily: "'Manrope', sans-serif",
   },
   btnDanger: {
     border: 'none', borderRadius: 8, padding: '7px 12px',
-    background: 'rgba(239,68,68,0.15)', color: '#fca5a5',
+    background: 'rgba(239,68,68,0.12)', color: '#fca5a5',
     cursor: 'pointer', fontSize: '0.82rem', fontWeight: 500,
+    fontFamily: "'Manrope', sans-serif",
   },
   label: {
-    display: 'block', color: '#9ca3af', fontSize: '0.72rem',
-    fontWeight: 700, marginBottom: 6, letterSpacing: '0.06em', textTransform: 'uppercase',
+    display: 'block', color: '#9095A1', fontSize: '0.72rem',
+    fontWeight: 700, marginBottom: 6, letterSpacing: '0.08em', textTransform: 'uppercase',
+    fontFamily: "'Space Grotesk', sans-serif",
   },
   statCard: (color) => ({
-    background: 'rgba(255,255,255,0.04)', border: `1px solid ${color}33`,
-    borderRadius: 16, padding: '20px', position: 'relative', overflow: 'hidden',
+    background: '#161920', border: `1px solid ${color ? color + '44' : 'rgba(217,93,57,0.25)'}`,
+    borderRadius: 12, padding: '20px', position: 'relative', overflow: 'hidden',
   }),
   row: {
     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-    gap: 12, padding: '13px 15px', borderRadius: 12,
-    background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)',
+    gap: 12, padding: '13px 15px', borderRadius: 8,
+    background: 'rgba(245,243,238,0.03)', border: '1px solid rgba(245,243,238,0.06)',
   },
 }
 
@@ -106,29 +113,29 @@ const S = {
 function Modal({ title, onClose, onSubmit, children, submitLabel, submitColor }) {
   return (
     <div style={{
-      position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)',
+      position: 'fixed', inset: 0, background: 'rgba(10,11,15,0.85)',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      padding: 20, zIndex: 100, backdropFilter: 'blur(4px)',
+      padding: 20, zIndex: 100,
     }}>
       <div style={{
-        width: '100%', maxWidth: 520, background: '#0f172a',
-        borderRadius: 20, padding: '28px 24px',
-        border: '1px solid rgba(255,255,255,0.1)',
-        boxShadow: '0 32px 80px rgba(0,0,0,0.7)',
+        width: '100%', maxWidth: 520, background: '#161920',
+        borderRadius: 14, padding: '28px 24px',
+        border: '1px solid rgba(245,243,238,0.1)',
+        boxShadow: '0 24px 60px rgba(0,0,0,0.6)',
         maxHeight: '90vh', overflowY: 'auto',
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 22 }}>
-          <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 700, color: '#f9fafb' }}>{title}</h3>
+          <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 700, color: '#F5F3EE', fontFamily: "'Space Grotesk', sans-serif" }}>{title}</h3>
           <button onClick={onClose} style={{
-            border: 'none', background: 'rgba(255,255,255,0.08)', color: '#9ca3af',
-            cursor: 'pointer', borderRadius: 8, width: 32, height: 32,
+            border: 'none', background: 'rgba(245,243,238,0.08)', color: '#9095A1',
+            cursor: 'pointer', borderRadius: 6, width: 28, height: 28,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>✕</button>
         </div>
         <form onSubmit={onSubmit} style={{ display: 'grid', gap: 14 }}>
           {children}
           <button type="submit" style={{
-            ...S.btnPrimary(submitColor || '#7c3aed'),
+            ...S.btnPrimary(submitColor || '#D95D39'),
             justifyContent: 'center', padding: '12px', marginTop: 4,
           }}>
             {submitLabel || 'Simpan'}
@@ -555,15 +562,15 @@ export default function HomeAdminPage() {
   return (
     <div style={{
       display: 'flex', minHeight: '100vh',
-      background: '#0a0a0f', color: '#f9fafb',
-      fontFamily: "'Inter', sans-serif",
+      background: '#111318', color: '#F5F3EE',
+      fontFamily: "'Manrope', sans-serif",
     }}>
 
       {/* ──────────── SIDEBAR ──────────── */}
       <aside style={{
         width: SW, minHeight: '100vh', flexShrink: 0,
-        background: 'rgba(11,17,32,0.97)', borderRight: '1px solid rgba(255,255,255,0.07)',
-        backdropFilter: 'blur(16px)', position: 'sticky', top: 0, height: '100vh',
+        background: '#161920', borderRight: '1px solid rgba(245,243,238,0.08)',
+        position: 'sticky', top: 0, height: '100vh',
         display: 'flex', flexDirection: 'column',
         transition: 'width 0.22s ease', overflow: 'hidden',
       }}>
@@ -571,25 +578,25 @@ export default function HomeAdminPage() {
         {/* Logo row */}
         <div style={{
           padding: '18px 14px', display: 'flex', alignItems: 'center',
-          gap: 10, borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0,
+          gap: 10, borderBottom: '1px solid rgba(245,243,238,0.06)', flexShrink: 0,
         }}>
           <div style={{
-            width: 36, height: 36, borderRadius: 10, flexShrink: 0,
-            background: 'linear-gradient(135deg,#7c3aed,#ec4899)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18,
-          }}>🎵</div>
+            width: 32, height: 32, borderRadius: 8, flexShrink: 0,
+            background: '#D95D39',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 19V6l12-3v13"/><circle cx="6" cy="19" r="3"/><circle cx="18" cy="16" r="3"/>
+            </svg>
+          </div>
           {sidebarOpen && (
-            <span style={{ fontWeight: 800, fontSize: '1rem', whiteSpace: 'nowrap' }}>
-              <span style={{
-                background: 'linear-gradient(135deg,#a78bfa,#ec4899)',
-                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-              }}>Konser</span>
-              <span style={{ color: '#fff' }}>Ojol</span>
+            <span style={{ fontWeight: 700, fontSize: '1rem', whiteSpace: 'nowrap', fontFamily: "'Space Grotesk', sans-serif" }}>
+              Konser<span style={{ color: '#D95D39' }}>Ku</span>
             </span>
           )}
           <button onClick={() => setSidebarOpen(o => !o)} style={{
-            marginLeft: 'auto', border: 'none', background: 'rgba(255,255,255,0.06)',
-            color: '#9ca3af', cursor: 'pointer', borderRadius: 7, width: 26, height: 26,
+            marginLeft: 'auto', border: 'none', background: 'rgba(245,243,238,0.06)',
+            color: '#9095A1', cursor: 'pointer', borderRadius: 6, width: 26, height: 26,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontSize: 11, flexShrink: 0,
           }}>
@@ -605,16 +612,17 @@ export default function HomeAdminPage() {
               <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
                 display: 'flex', alignItems: 'center',
                 gap: 10, padding: sidebarOpen ? '10px 12px' : '10px',
-                borderRadius: 10, border: 'none', cursor: 'pointer', textAlign: 'left',
-                background: active ? 'rgba(124,58,237,0.18)' : 'transparent',
-                color: active ? '#a78bfa' : '#9ca3af',
-                borderLeft: active ? '3px solid #7c3aed' : '3px solid transparent',
+                borderRadius: 8, border: 'none', cursor: 'pointer', textAlign: 'left',
+                background: active ? 'rgba(217,93,57,0.12)' : 'transparent',
+                color: active ? '#D95D39' : '#9095A1',
+                borderLeft: active ? '3px solid #D95D39' : '3px solid transparent',
                 transition: 'all 0.15s', width: '100%',
                 justifyContent: sidebarOpen ? 'flex-start' : 'center',
+                fontFamily: "'Space Grotesk', sans-serif",
               }}>
                 <span style={{ fontSize: 16, flexShrink: 0 }}>{tab.icon}</span>
                 {sidebarOpen && (
-                  <span style={{ fontWeight: active ? 600 : 400, fontSize: '0.875rem', whiteSpace: 'nowrap' }}>
+                  <span style={{ fontWeight: active ? 700 : 500, fontSize: '0.86rem', whiteSpace: 'nowrap' }}>
                     {tab.label}
                   </span>
                 )}
@@ -631,16 +639,16 @@ export default function HomeAdminPage() {
 
         {/* Sticky header */}
         <header style={{
-          padding: '14px 28px', borderBottom: '1px solid rgba(255,255,255,0.06)',
+          padding: '14px 28px', borderBottom: '1px solid rgba(245,243,238,0.06)',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
-          background: 'rgba(10,10,15,0.85)', backdropFilter: 'blur(12px)',
+          background: 'rgba(17,19,24,0.92)', backdropFilter: 'blur(12px)',
           position: 'sticky', top: 0, zIndex: 10, flexWrap: 'wrap',
         }}>
           <div>
-            <p style={{ margin: 0, color: '#7c3aed', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
+            <p style={{ margin: 0, color: '#D95D39', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: "'Space Grotesk', sans-serif" }}>
               Admin Panel
             </p>
-            <h1 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 700, lineHeight: 1.3 }}>
+            <h1 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 700, lineHeight: 1.3, fontFamily: "'Space Grotesk', sans-serif" }}>
               {TABS.find(t => t.id === activeTab)?.icon}{' '}
               {TABS.find(t => t.id === activeTab)?.label}
             </h1>
@@ -649,7 +657,7 @@ export default function HomeAdminPage() {
             <input
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder="🔍 Cari..."
+              placeholder="Cari..."
               style={{ ...S.input, width: 200, padding: '8px 14px' }}
             />
             {/* Avatar + dropdown profil */}
@@ -657,12 +665,13 @@ export default function HomeAdminPage() {
               <div
                 onClick={() => setProfileOpen(o => !o)}
                 style={{
-                  width: 36, height: 36, borderRadius: 10, flexShrink: 0,
-                  background: 'linear-gradient(135deg,#7c3aed,#ec4899)',
+                  width: 34, height: 34, borderRadius: 8, flexShrink: 0,
+                  background: '#D95D39', color: '#fff', fontWeight: 700,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 15, cursor: 'pointer',
-                  boxShadow: profileOpen ? '0 0 0 2px #7c3aed' : 'none',
-                  transition: 'box-shadow 0.2s',
+                  fontSize: 14, cursor: 'pointer',
+                  border: profileOpen ? '2px solid #D95D39' : '1px solid rgba(245,243,238,0.1)',
+                  transition: 'border 0.2s',
+                  fontFamily: "'Space Grotesk', sans-serif",
                 }}
               >
                 {(user.name || user.email || 'A')[0].toUpperCase()}
@@ -690,7 +699,7 @@ export default function HomeAdminPage() {
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
                         <div style={{
                           width: 40, height: 40, borderRadius: 10, flexShrink: 0,
-                          background: 'linear-gradient(135deg,#7c3aed,#ec4899)',
+                          background: 'linear-gradient(135deg,#ff462b,#ff7a00)',
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
                           fontSize: 18, fontWeight: 700, color: '#fff',
                         }}>
@@ -708,10 +717,10 @@ export default function HomeAdminPage() {
                       <div style={{
                         display: 'inline-flex', alignItems: 'center', gap: 5,
                         padding: '3px 10px', borderRadius: 99,
-                        background: 'rgba(124,58,237,0.15)', border: '1px solid rgba(124,58,237,0.3)',
+                        background: 'rgba(255,70,43,0.15)', border: '1px solid rgba(255,70,43,0.3)',
                       }}>
-                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#a78bfa', display: 'inline-block' }} />
-                        <span style={{ color: '#a78bfa', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#ff7a00', display: 'inline-block' }} />
+                        <span style={{ color: '#ff7a00', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                           Admin
                         </span>
                       </div>
@@ -781,10 +790,10 @@ export default function HomeAdminPage() {
               {/* Stats */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 14 }}>
                 {[
-                  { label: 'Total Pesanan',    value: analytics.totalOrders   || 0,  icon: '📦', color: '#7c3aed' },
+                  { label: 'Total Pesanan',    value: analytics.totalOrders   || 0,  icon: '📦', color: '#ff462b' },
                   { label: 'Sudah Dibayar',    value: analytics.paidOrders    || 0,  icon: '✅', color: '#10b981' },
                   { label: 'Menunggu',         value: analytics.pendingOrders || 0,  icon: '⏳', color: '#f59e0b' },
-                  { label: 'Total Pendapatan', value: `Rp ${Number(analytics.totalRevenue || 0).toLocaleString('id-ID')}`, icon: '💰', color: '#ec4899' },
+                  { label: 'Total Pendapatan', value: `Rp ${Number(analytics.totalRevenue || 0).toLocaleString('id-ID')}`, icon: '💰', color: '#f59e0b' },
                   { label: 'Tiket Terjual',   value: analytics.soldTickets   || 0,  icon: '🎫', color: '#06b6d4' },
                   { label: 'Status Penjualan', value: sales.isSalesOpen !== false ? 'Buka' : 'Tutup', icon: '🔔', color: sales.isSalesOpen !== false ? '#10b981' : '#ef4444' },
                 ].map(item => (
@@ -808,7 +817,7 @@ export default function HomeAdminPage() {
                         <p style={{ margin: 0, fontWeight: 500, fontSize: '0.875rem' }}>{ev.title || '—'}</p>
                         <p style={{ margin: '2px 0 0', fontSize: '0.72rem', color: '#6b7280' }}>{ev.date || '—'} · {ev.location || '—'}</p>
                       </div>
-                      <span style={{ fontSize: '0.8rem', color: '#a78bfa', fontWeight: 600, flexShrink: 0, marginLeft: 8 }}>
+                      <span style={{ fontSize: '0.8rem', color: '#ff7a00', fontWeight: 600, flexShrink: 0, marginLeft: 8 }}>
                         Rp {Number(ev.price || 0).toLocaleString('id-ID')}
                       </span>
                     </div>
@@ -840,7 +849,7 @@ export default function HomeAdminPage() {
                 <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700 }}>
                   Kelola Event <span style={{ color: '#6b7280', fontWeight: 400 }}>({fEvents.length})</span>
                 </h3>
-                <button onClick={openAddEvent} style={S.btnPrimary('#7c3aed')}>+ Tambah Event</button>
+                <button onClick={openAddEvent} style={S.btnPrimary('#ff462b')}>+ Tambah Event</button>
               </div>
               {loading ? (
                 <p style={{ color: '#6b7280', textAlign: 'center', padding: '40px 0' }}>Memuat...</p>
@@ -850,14 +859,14 @@ export default function HomeAdminPage() {
                 <div style={{ display: 'grid', gap: 10 }}>
                   {fEvents.map(ev => (
                     <div key={ev.id} style={S.row}
-                      onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(124,58,237,0.35)'}
+                      onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(255,70,43,0.35)'}
                       onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'}
                     >
                       <div style={{ minWidth: 0 }}>
                         <p style={{ margin: 0, fontWeight: 600, fontSize: '0.9rem' }}>{ev.title || '—'}</p>
                         <p style={{ margin: '3px 0 0', fontSize: '0.77rem', color: '#6b7280' }}>
                           📅 {ev.date || '—'} &nbsp;·&nbsp; 📍 {ev.location || '—'} &nbsp;·&nbsp;
-                          <span style={{ color: '#a78bfa' }}>Rp {Number(ev.price || 0).toLocaleString('id-ID')}</span>
+                          <span style={{ color: '#ff7a00' }}>Rp {Number(ev.price || 0).toLocaleString('id-ID')}</span>
                           &nbsp;·&nbsp; <Badge status={ev.status || 'available'} />
                         </p>
                       </div>
@@ -879,7 +888,7 @@ export default function HomeAdminPage() {
                 <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700 }}>
                   Kelola Promo <span style={{ color: '#6b7280', fontWeight: 400 }}>({fPromos.length})</span>
                 </h3>
-                <button onClick={openAddPromo} style={S.btnPrimary('#ec4899')}>+ Tambah Promo</button>
+                <button onClick={openAddPromo} style={S.btnPrimary('#f59e0b')}>+ Tambah Promo</button>
               </div>
               {fPromos.length === 0 ? (
                 <p style={{ color: '#6b7280', textAlign: 'center', padding: '40px 0' }}>Tidak ada promo.</p>
@@ -892,7 +901,7 @@ export default function HomeAdminPage() {
                     >
                       <div style={{ minWidth: 0 }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-                          <p style={{ margin: 0, fontWeight: 700, fontSize: '0.9rem', color: '#ec4899' }}>{p.code || '—'}</p>
+                          <p style={{ margin: 0, fontWeight: 700, fontSize: '0.9rem', color: '#f59e0b' }}>{p.code || '—'}</p>
                           <span style={{ fontSize: '0.8rem', color: '#f9fafb' }}>{p.title || '—'}</span>
                         </div>
                         <p style={{ margin: '3px 0 0', fontSize: '0.77rem', color: '#6b7280' }}>
@@ -935,7 +944,7 @@ export default function HomeAdminPage() {
                       <p style={{ margin: '0 0 12px', fontSize: '0.82rem', color: '#9ca3af' }}>{c.description || '—'}</p>
                       <div style={{ display: 'flex', gap: 16, fontSize: '0.8rem', color: '#6b7280' }}>
                         <span>Kuota: <b style={{ color: '#f9fafb' }}>{c.quota || 0}</b></span>
-                        <span>Adj: <b style={{ color: '#a78bfa' }}>+Rp {Number(c.priceAdjustment || 0).toLocaleString('id-ID')}</b></span>
+                        <span>Adj: <b style={{ color: '#ff7a00' }}>+Rp {Number(c.priceAdjustment || 0).toLocaleString('id-ID')}</b></span>
                       </div>
                     </div>
                   ))}
@@ -1006,7 +1015,7 @@ export default function HomeAdminPage() {
                           <td style={{ padding: '12px 12px', fontWeight: 500 }}>{o.eventTitle || o.eventId || '—'}</td>
                           <td style={{ padding: '12px 12px', color: '#9ca3af' }}>{o.paymentMethod || '—'}</td>
                           <td style={{ padding: '12px 12px', color: '#9ca3af' }}>{o.quantity || 1}</td>
-                          <td style={{ padding: '12px 12px', color: '#a78bfa', fontWeight: 600 }}>Rp {Number(o.total || 0).toLocaleString('id-ID')}</td>
+                          <td style={{ padding: '12px 12px', color: '#ff7a00', fontWeight: 600 }}>Rp {Number(o.total || 0).toLocaleString('id-ID')}</td>
                           <td style={{ padding: '12px 12px' }}><Badge status={o.status || 'pending'} /></td>
                           <td style={{ padding: '12px 12px' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -1089,10 +1098,10 @@ export default function HomeAdminPage() {
                 <h3 style={{ margin: '0 0 16px', fontSize: '1rem', fontWeight: 700 }}>📊 Ringkasan Analytics</h3>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 14 }}>
                   {[
-                    { label: 'Total Pesanan',    value: analytics.totalOrders   || 0,  color: '#7c3aed' },
+                    { label: 'Total Pesanan',    value: analytics.totalOrders   || 0,  color: '#ff462b' },
                     { label: 'Pesanan Dibayar',  value: analytics.paidOrders    || 0,  color: '#10b981' },
                     { label: 'Menunggu Bayar',   value: analytics.pendingOrders || 0,  color: '#f59e0b' },
-                    { label: 'Total Pendapatan', value: `Rp ${Number(analytics.totalRevenue || 0).toLocaleString('id-ID')}`, color: '#ec4899' },
+                    { label: 'Total Pendapatan', value: `Rp ${Number(analytics.totalRevenue || 0).toLocaleString('id-ID')}`, color: '#f59e0b' },
                     { label: 'Tiket Terjual',   value: analytics.soldTickets   || 0,  color: '#06b6d4' },
                   ].map(item => (
                     <div key={item.label} style={{ ...S.card, border: `1px solid ${item.color}22` }}>
@@ -1117,7 +1126,7 @@ export default function HomeAdminPage() {
           onClose={() => setEventModal(false)}
           onSubmit={submitEvent}
           submitLabel={editEventId ? 'Simpan Perubahan' : 'Tambah Event'}
-          submitColor="#7c3aed"
+          submitColor="#ff462b"
         >
           <Field label="Judul Event">
             <input required style={S.input} value={eventForm.title} onChange={e => setEventForm(f => ({ ...f, title: e.target.value }))} placeholder="Nama event" />
@@ -1161,7 +1170,7 @@ export default function HomeAdminPage() {
           onClose={() => setPromoModal(false)}
           onSubmit={submitPromo}
           submitLabel={editPromoId ? 'Simpan Perubahan' : 'Tambah Promo'}
-          submitColor="#ec4899"
+          submitColor="#f59e0b"
         >
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <Field label="Kode Promo">

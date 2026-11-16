@@ -1,43 +1,52 @@
 import { useEffect, useState } from 'react'
 import Modal from './Modal'
 
+import syncFestImg from '../assets/events/synchronize-fest.jpg'
+import wtfImg from '../assets/events/wethefest.jpg'
+import pestaporaImg from '../assets/events/pestapora.jpg'
+import dwpImg from '../assets/events/dwp-fest.jpg'
+import snoopyRunImg from '../assets/events/snoopy-run.jpg'
+import standupImg from '../assets/events/standup-comedy.jpg'
+import unguImg from '../assets/artists/ungu.jpg'
+import westlifeImg from '../assets/artists/westlife.jpg'
+
 const DEMO_EVENTS = [
-  { id: 1, title: 'Beyond Eyes 15th Anniversary – Surabaya', location: 'Surabaya Convention Center', date: '2026-08-28', price: 900000, category: 'Konser',  organizer: 'Maryhouse Media',   status: 'available' },
-  { id: 2, title: 'SNOOPY RUN 2026',                         location: 'Tangerang Selatan',          date: '2026-09-06', price: 499000, category: 'Sports',  organizer: 'Provaliant Sports', status: 'available' },
-  { id: 3, title: 'UNGU – Waktu yang Dinanti Final Chapter', location: 'ICE BSD, Tangerang',         date: '2026-10-30', price: 550000, category: 'Konser',  organizer: 'TipTip',            status: 'available' },
+  { id: 101, title: 'Synchronize Festival 2026', location: 'Gambir Expo Kemayoran, Jakarta', date: '2026-10-03', price: 450000, category: 'Festival', organizer: 'Demajors x Dyandra', status: 'available', image: syncFestImg },
+  { id: 102, title: 'We The Fest (WTF) 2026', location: 'GBK Sports Complex, Jakarta', date: '2026-08-21', price: 750000, category: 'Festival', organizer: 'Ismaya Live', status: 'available', image: wtfImg },
+  { id: 103, title: 'Pestapora 2026', location: 'JIExpo Kemayoran, Jakarta', date: '2026-09-18', price: 550000, category: 'Festival', organizer: 'Boss Creator', status: 'available', image: pestaporaImg },
+  { id: 104, title: 'Djakarta Warehouse Project (DWP) 2026', location: 'JIExpo Kemayoran, Jakarta', date: '2026-12-11', price: 950000, category: 'Festival', organizer: 'Ismaya Live', status: 'available', image: dwpImg },
+  { id: 1, title: 'UNGU – Waktu yang Dinanti Final Chapter', location: 'ICE BSD, Tangerang', date: '2026-10-30', price: 550000, category: 'Konser', organizer: 'TipTip', status: 'available', image: unguImg },
+  { id: 2, title: 'Westlife World Tour 2026', location: 'GBK Stadium, Jakarta', date: '2026-09-15', price: 750000, category: 'Konser', organizer: 'PK Entertainment', status: 'available', image: westlifeImg },
+  { id: 3, title: 'SNOOPY RUN 2026', location: 'Tangerang Selatan', date: '2026-09-06', price: 499000, category: 'Sports', organizer: 'Provaliant Sports', status: 'available', image: snoopyRunImg },
+  { id: 4, title: 'Stand Up Comedy Special: Cerita Rasa', location: 'Teater Jakarta, TIM', date: '2026-11-08', price: 250000, category: 'Stand Up', organizer: 'Majelis Lucu Indonesia', status: 'available', image: standupImg },
 ]
 
-const CAT_DOT = {
-  Konser:    '#3b82f6',
-  Festival:  '#f97316',
-  'Stand Up':'#facc15',
-  Sports:    '#eab308',
-  Theater:   '#a855f7',
+function resolveImage(ev) {
+  if (ev.image && typeof ev.image !== 'string') return ev.image
+  if (ev.image && typeof ev.image === 'string' && (ev.image.startsWith('/') || ev.image.startsWith('http'))) return ev.image
+  const t = (ev.title || '').toLowerCase()
+  if (t.includes('synchronize')) return syncFestImg
+  if (t.includes('we the fest') || t.includes('wtf')) return wtfImg
+  if (t.includes('pestapora')) return pestaporaImg
+  if (t.includes('dwp') || t.includes('djakarta')) return dwpImg
+  if (t.includes('snoopy') || t.includes('run')) return snoopyRunImg
+  if (t.includes('stand up') || t.includes('comedy')) return standupImg
+  if (t.includes('ungu')) return unguImg
+  if (t.includes('westlife')) return westlifeImg
+  if (ev.category === 'Festival') return syncFestImg
+  return unguImg
 }
-
-const CAT_EMOJI = { Konser: '🎤', Festival: '🎪', 'Stand Up': '😂', Sports: '🏃', Theater: '🎭' }
 
 const formatPrice = (price) => `Rp ${Number(price).toLocaleString('id-ID')}`
 
 const parseDateParts = (dateStr) => {
   if (!dateStr) return { mon: '???', day: '??' }
   try {
-    const d   = new Date(dateStr)
+    const d = new Date(dateStr)
     const mon = d.toLocaleDateString('id-ID', { month: 'short' }).toUpperCase().replace('.', '')
     const day = String(d.getDate()).padStart(2, '0')
     return { mon, day }
-  } catch {
-    return { mon: '???', day: '??' }
-  }
-}
-
-const formatTime = (dateStr) => {
-  if (!dateStr) return '-'
-  try {
-    return new Date(dateStr).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' WIB'
-  } catch {
-    return '19:00 WIB'
-  }
+  } catch { return { mon: '???', day: '??' } }
 }
 
 const getMapsUrl = (venue) => {
@@ -50,9 +59,9 @@ const getMapsEmbedUrl = (venue) => {
   return `https://www.google.com/maps?q=${q}&output=embed`
 }
 
-export default function UpcomingEvents({ searchQuery = '' }) {
-  const [events, setEvents]                     = useState([])
-  const [fetchLoading, setFetchLoading]         = useState(true)
+export default function UpcomingEvents({ searchQuery = '', onSelectEvent }) {
+  const [events, setEvents] = useState([])
+  const [fetchLoading, setFetchLoading] = useState(true)
   const [selectedLocation, setSelectedLocation] = useState(null)
 
   useEffect(() => {
@@ -68,7 +77,6 @@ export default function UpcomingEvents({ searchQuery = '' }) {
   }, [])
 
   const normalizedQuery = searchQuery.trim().toLowerCase()
-
   const filteredList = events.filter(ev => {
     if (!normalizedQuery) return true
     const hay = [ev.title, ev.location, ev.category, ev.date, ev.organizer].join(' ').toLowerCase()
@@ -76,202 +84,150 @@ export default function UpcomingEvents({ searchQuery = '' }) {
   })
 
   return (
-    <section style={{ padding: '96px 0', background: '#0a0a0f' }}>
+    <section style={{ padding: '100px 0', background: '#161920', position: 'relative' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px' }}>
 
         {/* Header */}
-        <div style={{
+        <div className="reveal" style={{
           display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between',
-          marginBottom: 36, flexWrap: 'wrap', gap: 12,
+          marginBottom: 44, flexWrap: 'wrap', gap: 14,
         }}>
           <div>
-            <p style={{
-              fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.18em',
-              textTransform: 'uppercase', color: '#fbbf24', marginBottom: 10,
-            }}>
-              📅 Jadwal
+            <p className="label-eyebrow" style={{ marginBottom: 10 }}>Jadwal Agenda</p>
+            <h2 className="section-title">Event &amp; Festival Mendatang</h2>
+            <p style={{ color: '#6B6E7A', fontSize: '0.9rem', marginTop: 10 }}>
+              Pastikan tanggalnya tidak terlewat dan pesan tiketmu sekarang
             </p>
-            <h2 style={{
-              fontFamily: 'Poppins,sans-serif',
-              fontSize: 'clamp(1.6rem,3.5vw,2.2rem)',
-              fontWeight: 900, color: '#fff',
-            }}>
-              Event{' '}
-              <span style={{
-                background: 'linear-gradient(135deg,#a78bfa,#ec4899,#f59e0b)',
-                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}>Mendatang</span>
-            </h2>
           </div>
-          <a href="#" style={{
-            display: 'flex', alignItems: 'center', gap: 5,
-            color: '#a78bfa', fontWeight: 600, fontSize: '0.875rem', textDecoration: 'none',
+          <a href="#top-events" style={{
+            display: 'flex', alignItems: 'center', gap: 6,
+            color: '#D95D39', fontWeight: 600, fontSize: '0.86rem',
+            textDecoration: 'none', fontFamily: "'Space Grotesk', sans-serif",
           }}>
-            Lihat Semua
-            <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            Pesan Tiket
+            <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <path d="M9 5l7 7-7 7"/>
             </svg>
           </a>
         </div>
 
+        {/* Empty search state */}
         {normalizedQuery && filteredList.length === 0 && !fetchLoading && (
-          <div style={{ marginBottom: 20, padding: '14px 18px', borderRadius: 16, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', color: '#cbd5e1' }}>
-            Tidak ada event yang cocok dengan pencarian &quot;{searchQuery}&quot;.
+          <div style={{ marginBottom: 20, padding: '14px 18px', borderRadius: 9, background: 'rgba(245,243,238,0.04)', border: '1px solid rgba(245,243,238,0.08)', color: '#9095A1' }}>
+            Tidak ada event untuk pencarian "{searchQuery}".
           </div>
         )}
 
         {/* List */}
         {fetchLoading ? (
-          <div style={{ textAlign: 'center', padding: '60px 0', color: '#6b7280', fontSize: '0.95rem' }}>
+          <div style={{ textAlign: 'center', padding: '64px 0', color: '#6B6E7A', fontSize: '0.9rem' }}>
             Memuat jadwal event…
           </div>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-            {filteredList.map(ev => {
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {filteredList.map((ev, idx) => {
               const { mon, day } = parseDateParts(ev.date)
-              const emoji        = CAT_EMOJI[ev.category] || '🎵'
-              const dotColor     = CAT_DOT[ev.category]   || '#6b7280'
-              const timeStr      = formatTime(ev.date)
+              const img = resolveImage(ev)
 
               return (
                 <div
                   key={ev.id}
+                  className={`reveal-left delay-${((idx % 5) + 1) * 100}`}
+                  onClick={() => {
+                    if (onSelectEvent) onSelectEvent(ev)
+                  }}
                   style={{
                     display: 'flex', alignItems: 'center', gap: 20,
-                    padding: '22px 28px', borderRadius: 20,
-                    background: 'rgba(255,255,255,0.03)',
-                    border: '1px solid rgba(255,255,255,0.07)',
-                    transition: 'all 0.2s',
+                    padding: '18px 20px',
+                    borderBottom: '1px solid rgba(245,243,238,0.06)',
+                    transition: 'background 0.2s ease',
+                    cursor: onSelectEvent ? 'pointer' : 'default',
                   }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.background  = 'rgba(124,58,237,0.08)'
-                    e.currentTarget.style.borderColor = 'rgba(124,58,237,0.35)'
-                    e.currentTarget.style.transform   = 'translateX(6px)'
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.background  = 'rgba(255,255,255,0.03)'
-                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'
-                    e.currentTarget.style.transform   = 'translateX(0)'
-                  }}
+                  onMouseEnter={e => e.currentTarget.style.background = 'rgba(245,243,238,0.03)'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                 >
-                  {/* Date box */}
+                  {/* Date block */}
                   <div style={{
-                    flexShrink: 0, width: 64, height: 64, borderRadius: 16,
-                    background: 'rgba(255,255,255,0.05)',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    display: 'flex', flexDirection: 'column',
-                    alignItems: 'center', justifyContent: 'center',
+                    flexShrink: 0, width: 56, textAlign: 'center',
+                    borderRight: '1px solid rgba(245,243,238,0.08)',
+                    paddingRight: 18, marginRight: 4,
                   }}>
-                    <span style={{ fontSize: '0.62rem', fontWeight: 700, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                    <span style={{ fontSize: '0.62rem', fontWeight: 700, color: '#D95D39', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', fontFamily: "'Space Grotesk', sans-serif" }}>
                       {mon}
                     </span>
-                    <span style={{ fontSize: '1.4rem', fontWeight: 900, color: '#fff', lineHeight: 1.1 }}>
+                    <span style={{ fontSize: '1.6rem', fontWeight: 700, color: '#F5F3EE', lineHeight: 1, fontFamily: "'Space Grotesk', sans-serif" }}>
                       {day}
                     </span>
                   </div>
 
-                  {/* Emoji box */}
+                  {/* Thumbnail */}
                   <div style={{
-                    flexShrink: 0, width: 52, height: 52, borderRadius: 14,
-                    background: 'rgba(255,255,255,0.05)',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: 24,
+                    flexShrink: 0, width: 56, height: 56, borderRadius: 8,
+                    overflow: 'hidden', background: '#0D0F14',
+                    border: '1px solid rgba(245,243,238,0.08)',
                   }}>
-                    {emoji}
+                    <img
+                      src={img}
+                      alt={ev.title}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      onError={e => { e.currentTarget.style.display = 'none' }}
+                    />
                   </div>
 
                   {/* Info */}
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <p style={{
-                      color: '#f3f4f6', fontWeight: 700, fontSize: '1rem',
-                      marginBottom: 8,
+                      color: '#F5F3EE', fontWeight: 700, fontSize: '0.95rem',
+                      marginBottom: 5, fontFamily: "'Space Grotesk', sans-serif",
                       whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+                      letterSpacing: '-0.01em',
                     }}>
                       {ev.title}
                     </p>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center' }}>
-                      {/* Lokasi */}
                       <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                        <svg width="13" height="13" fill="none" stroke="#6b7280" strokeWidth="2" viewBox="0 0 24 24">
-                          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-                          <circle cx="12" cy="9" r="2.5"/>
+                        <svg width="11" height="11" fill="none" stroke="#6B6E7A" strokeWidth="2" viewBox="0 0 24 24">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
                         </svg>
-                        <span style={{ fontSize: '0.8rem', color: '#6b7280', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: 180 }}>
+                        <span style={{ fontSize: '0.78rem', color: '#6B6E7A', maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                           {ev.location}
                         </span>
                       </div>
-                      {/* Jam */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                        <svg width="13" height="13" fill="none" stroke="#6b7280" strokeWidth="2" viewBox="0 0 24 24">
-                          <circle cx="12" cy="12" r="10"/>
-                          <path d="M12 6v6l4 2"/>
-                        </svg>
-                        <span style={{ fontSize: '0.8rem', color: '#6b7280', whiteSpace: 'nowrap' }}>
-                          {timeStr}
-                        </span>
-                      </div>
-                      {/* Tombol Lihat Lokasi */}
+                      <span style={{
+                        padding: '3px 8px', borderRadius: 4,
+                        background: 'rgba(245,243,238,0.05)', border: '1px solid rgba(245,243,238,0.08)',
+                        color: '#6B6E7A', fontSize: '0.68rem', fontWeight: 600,
+                        fontFamily: "'Space Grotesk', sans-serif",
+                      }}>
+                        {ev.category}
+                      </span>
                       <button
-                        onClick={(e) => { e.stopPropagation(); setSelectedLocation(ev) }}
+                        onClick={e => { e.stopPropagation(); setSelectedLocation(ev) }}
                         style={{
-                          display: 'inline-flex', alignItems: 'center', gap: 5,
-                          padding: '5px 12px', borderRadius: 999,
-                          border: '1px solid rgba(124,58,237,0.4)',
-                          background: 'rgba(124,58,237,0.1)', color: '#c4b5fd',
-                          cursor: 'pointer', fontSize: '0.73rem', fontWeight: 600,
-                          transition: 'all 0.2s', whiteSpace: 'nowrap',
+                          display: 'inline-flex', alignItems: 'center', gap: 4,
+                          padding: '3px 10px', borderRadius: 5,
+                          border: '1px solid rgba(217,93,57,0.25)',
+                          background: 'rgba(217,93,57,0.07)', color: '#D95D39',
+                          cursor: 'pointer', fontSize: '0.7rem', fontWeight: 600,
+                          transition: 'background 0.2s, border-color 0.2s',
+                          fontFamily: "'Space Grotesk', sans-serif",
                         }}
-                        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(124,58,237,0.22)'; e.currentTarget.style.borderColor = 'rgba(124,58,237,0.7)' }}
-                        onMouseLeave={e => { e.currentTarget.style.background = 'rgba(124,58,237,0.1)';  e.currentTarget.style.borderColor = 'rgba(124,58,237,0.4)' }}
+                        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(217,93,57,0.15)' }}
+                        onMouseLeave={e => { e.currentTarget.style.background = 'rgba(217,93,57,0.07)' }}
                       >
-                        <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-                          <circle cx="12" cy="9" r="2.5"/>
-                        </svg>
-                        Lihat Lokasi
+                        Lokasi
                       </button>
                     </div>
                   </div>
 
-                  {/* Category dot */}
-                  <div style={{
-                    flexShrink: 0,
-                    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
-                  }}>
-                    <span style={{
-                      width: 10, height: 10, borderRadius: '50%',
-                      background: dotColor, display: 'block',
-                      boxShadow: `0 0 8px ${dotColor}`,
-                    }} />
-                    <span style={{ fontSize: '0.72rem', color: '#6b7280' }}>{ev.category}</span>
-                  </div>
-
                   {/* Price */}
                   <div style={{ flexShrink: 0, textAlign: 'right', minWidth: 100 }}>
-                    <p style={{ fontSize: '0.68rem', color: '#4b5563', marginBottom: 3 }}>Mulai dari</p>
-                    <p style={{
-                      fontWeight: 800, fontSize: '0.95rem',
-                      background: 'linear-gradient(135deg,#a78bfa,#ec4899)',
-                      WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-                      backgroundClip: 'text',
-                    }}>
-                      {formatPrice(ev.price)}
-                    </p>
+                    <p style={{ fontSize: '0.68rem', color: '#3A3D47', marginBottom: 2, fontFamily: "'Space Grotesk', sans-serif" }}>Mulai dari</p>
+                    {ev.status === 'soldout'
+                      ? <span style={{ color: '#6B6E7A', fontWeight: 600, fontSize: '0.84rem' }}>Habis</span>
+                      : <span style={{ color: '#D95D39', fontWeight: 700, fontSize: '0.95rem', fontFamily: "'Space Grotesk', sans-serif" }}>{formatPrice(ev.price)}</span>
+                    }
                   </div>
-
-                  {/* Status badge untuk soldout */}
-                  {ev.status === 'soldout' && (
-                    <div style={{
-                      flexShrink: 0, padding: '8px 14px', borderRadius: 10,
-                      background: 'rgba(39,39,42,0.6)', color: '#71717a',
-                      fontSize: '0.78rem', fontWeight: 700,
-                      border: '1px solid rgba(255,255,255,0.06)',
-                    }}>
-                      Habis
-                    </div>
-                  )}
                 </div>
               )
             })}
@@ -291,11 +247,11 @@ export default function UpcomingEvents({ searchQuery = '' }) {
         closeOnCta={false}
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <div style={{ padding: '12px 14px', borderRadius: 12, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', color: '#e2e8f0' }}>
-            <strong style={{ display: 'block', marginBottom: 4 }}>Alamat</strong>
-            <span>{selectedLocation?.location}</span>
+          <div style={{ padding: '12px 14px', borderRadius: 8, background: 'rgba(245,243,238,0.05)', border: '1px solid rgba(245,243,238,0.1)', color: '#F5F3EE' }}>
+            <strong style={{ display: 'block', marginBottom: 4, fontSize: '0.86rem', color: '#9095A1', fontWeight: 600 }}>Alamat</strong>
+            <span style={{ fontSize: '0.9rem' }}>{selectedLocation?.location}</span>
           </div>
-          <div style={{ width: '100%', height: 0, paddingBottom: '56.25%', position: 'relative', borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.12)' }}>
+          <div style={{ width: '100%', height: 0, paddingBottom: '56.25%', position: 'relative', borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(245,243,238,0.1)' }}>
             {selectedLocation && (
               <iframe
                 title="Event location map"

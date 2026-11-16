@@ -28,49 +28,47 @@ async function downloadStruk({ eventTitle, paymentLabel, total, subtotal, discou
   const CW = MR - ML
 
   // HEADER
-  fill('#6d28d9')
+  fill('#111318')
   doc.rect(0, 0, W, 36, 'F')
+  fill('#D95D39')
+  doc.rect(0, 0, 3, 36, 'F')
 
-  B(); sz(18); color('#ffffff')
-  t('KonserOjol', W / 2, 15, { align: 'center' })
-
-  N(); sz(9); color('#ddd6fe')
-  t('Struk Pembelian Tiket', W / 2, 23, { align: 'center' })
-
-  sz(7.5); color('#c4b5fd')
-  t('konserojol.id', W / 2, 30, { align: 'center' })
+  B(); sz(16); color('#F5F3EE')
+  t('KonserKu', W / 2, 14, { align: 'center' })
+  N(); sz(8); color('#9095A1')
+  t('Struk Pembelian Tiket', W / 2, 22, { align: 'center' })
+  sz(7); color('#6B6E7A')
+  t('konserku.id', W / 2, 29, { align: 'center' })
 
   // BADGE SUKSES
   fill('#f0fdf4')
   draw('#86efac'); lw(0.4)
   doc.roundedRect(ML, 41, CW, 11, 2, 2, 'FD')
-
   B(); sz(9.5); color('#166534')
   t('Pembayaran Berhasil', W / 2, 48.5, { align: 'center' })
 
   // NOMOR PESANAN
-  fill('#f5f3ff')
-  draw('#ddd6fe'); lw(0.3)
+  fill('#f8f8f6')
+  draw('#e0ddd8'); lw(0.3)
   doc.roundedRect(ML, 56, CW, 10, 2, 2, 'FD')
-
-  N(); sz(7.5); color('#7c3aed')
+  N(); sz(7.5); color('#D95D39')
   t('No. Pesanan', ML + 4, 62.5)
-  B(); sz(8.5); color('#4c1d95')
+  B(); sz(8.5); color('#111318')
   t(String(orderId), MR - 4, 62.5, { align: 'right' })
 
   // DETAIL
   let y = 72
 
   const secHead = (label, yy) => {
-    fill('#ede9fe')
+    fill('#f5f3ee')
     doc.rect(ML, yy, CW, 6.5, 'F')
-    B(); sz(7); color('#5b21b6')
+    B(); sz(7); color('#D95D39')
     t(label, ML + 3, yy + 4.8)
     return yy + 10
   }
 
-  const row = (label, val, yy, valColor = '#111827') => {
-    N(); sz(8); color('#6b7280')
+  const row = (label, val, yy, valColor = '#111318') => {
+    N(); sz(8); color('#6B6E7A')
     t(label, ML + 3, yy)
     B(); sz(8); color(valColor)
     const lines = doc.splitTextToSize(String(val ?? ''), CW * 0.5)
@@ -84,60 +82,49 @@ async function downloadStruk({ eventTitle, paymentLabel, total, subtotal, discou
   y = row('Event', eventTitle, y)
   y = row('Jumlah Tiket', `${quantity} tiket`, y)
   y = row('Metode Pembayaran', paymentLabel, y)
-
   y += 4
 
-  // RINCIAN HARGA
   y = secHead('RINCIAN HARGA', y)
   y = row(`Subtotal (${quantity} tiket)`, formatPrice(subtotal), y)
-
   if (discountAmount > 0) {
     const discLabel = promoCode ? `Diskon (${promoCode})` : 'Diskon'
     y = row(discLabel, `- ${formatPrice(discountAmount)}`, y, '#15803d')
   }
 
-  // KOTAK TOTAL
   y += 2
-  fill('#f5f3ff')
-  draw('#a78bfa'); lw(0.6)
+  fill('#fff8f5')
+  draw('#D95D39'); lw(0.6)
   doc.roundedRect(ML, y, CW, 13, 2, 2, 'FD')
-
-  B(); sz(9.5); color('#4c1d95')
+  B(); sz(9.5); color('#111318')
   t('Total Dibayar', ML + 5, y + 9)
-
-  sz(11); color('#7c3aed')
+  sz(11); color('#D95D39')
   t(formatPrice(total), MR - 5, y + 9, { align: 'right' })
-
   y += 18
 
-  // GARIS PUTUS-PUTUS
   draw('#d1d5db'); lw(0.3)
   doc.setLineDashPattern([2, 2], 0)
   doc.line(ML, y, MR, y)
   doc.setLineDashPattern([], 0)
   y += 6
 
-  // FOOTER
   const now = new Date()
   const dateStr =
     now.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' }) +
-    '  ' +
-    now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+    '  ' + now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
 
   N(); sz(7); color('#9ca3af')
   t(`Dicetak: ${dateStr}`, W / 2, y, { align: 'center' })
-  y += 5
-  sz(7.5); color('#6b7280')
-  t('Terima kasih telah memesan tiket di KonserOjol!', W / 2, y, { align: 'center' })
-  y += 4.5
-  sz(7); color('#9ca3af')
+  y += 5; sz(7.5); color('#6b7280')
+  t('Terima kasih telah memesan tiket di KonserKu!', W / 2, y, { align: 'center' })
+  y += 4.5; sz(7); color('#9ca3af')
   t('Simpan struk ini sebagai bukti pembelian Anda.', W / 2, y, { align: 'center' })
 
-  // Strip bawah
-  fill('#6d28d9')
+  fill('#111318')
   doc.rect(0, H - 5, W, 5, 'F')
+  fill('#D95D39')
+  doc.rect(0, H - 5, 3, 5, 'F')
 
-  const fileName = `Struk_${String(orderId).replace('#', '')}_KonserOjol.pdf`
+  const fileName = `Struk_${String(orderId).replace('#', '')}_KonserKu.pdf`
   doc.save(fileName)
 }
 
@@ -161,86 +148,78 @@ export default function PaymentSuccessPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#07070e',
+      background: '#111318',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       padding: '24px',
-      fontFamily: "'Inter', sans-serif",
+      fontFamily: "'Manrope', sans-serif",
       position: 'relative',
       overflow: 'hidden',
     }}>
-      <div style={{
-        position: 'absolute', top: '-10%', left: '50%', transform: 'translateX(-50%)',
-        width: 600, height: 400, borderRadius: '50%',
-        background: '#7c3aed', filter: 'blur(140px)', opacity: 0.07, pointerEvents: 'none',
-      }} />
+      {/* Background accent */}
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: '#D95D39' }} />
 
-      <div style={{ width: '100%', maxWidth: 520, position: 'relative', zIndex: 1 }}>
+      <div style={{ width: '100%', maxWidth: 500, position: 'relative', zIndex: 1 }}>
         <div style={{
-          background: 'rgba(255,255,255,0.04)',
-          border: '1px solid rgba(255,255,255,0.08)',
-          borderRadius: 24,
-          padding: '40px 36px',
-          boxShadow: '0 32px 80px rgba(0,0,0,0.4)',
+          background: '#161920',
+          border: '1px solid rgba(245,243,238,0.08)',
+          borderRadius: 14,
+          padding: '36px 32px',
         }}>
-          {/* Icon centang */}
+          {/* Success icon */}
           <div style={{
-            width: 64, height: 64, borderRadius: '50%',
-            background: 'linear-gradient(135deg,#22c55e,#16a34a)',
+            width: 56, height: 56, borderRadius: 10,
+            background: 'rgba(34,197,94,0.12)',
+            border: '1px solid rgba(34,197,94,0.25)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 28, marginBottom: 20,
-            boxShadow: '0 8px 24px rgba(34,197,94,0.35)',
-            color: '#fff',
+            marginBottom: 20,
           }}>
-            {/* SVG centang agar tidak ada masalah encoding */}
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="20 6 9 17 4 12" />
             </svg>
           </div>
 
           <h1 style={{
-            color: '#fff', fontSize: '1.65rem', fontWeight: 800,
-            marginBottom: 8, fontFamily: 'Poppins, sans-serif',
+            color: '#F5F3EE', fontSize: '1.5rem', fontWeight: 700,
+            marginBottom: 8, fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '-0.02em',
           }}>
-            Pembayaran Berhasil!
+            Pembayaran Berhasil
           </h1>
-          <p style={{ color: '#6b7280', lineHeight: 1.7, marginBottom: 28, fontSize: '0.9rem' }}>
-            Tiket kamu sudah dipesan. Simpan nomor pesanan di bawah sebagai bukti pembelian.
+          <p style={{ color: '#6B6E7A', lineHeight: 1.7, marginBottom: 28, fontSize: '0.875rem' }}>
+            Tiket kamu sudah dipesan. Simpan nomor pesanan sebagai bukti pembelian.
           </p>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 24 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 20 }}>
             <DetailRow label="Event" value={eventTitle} accent />
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
               <DetailRow label="Jumlah Tiket" value={`${quantity} tiket`} />
               <DetailRow label="Metode" value={paymentLabel} />
             </div>
 
+            {/* Price summary */}
             <div style={{
-              padding: '14px 16px', borderRadius: 12,
-              background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)',
+              padding: '14px 16px', borderRadius: 9,
+              background: 'rgba(245,243,238,0.03)', border: '1px solid rgba(245,243,238,0.08)',
             }}>
-              <div style={{ color: '#6b7280', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 10 }}>
+              <div style={{ color: '#6B6E7A', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 10, fontFamily: "'Space Grotesk', sans-serif" }}>
                 Rincian Harga
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                <PriceRow label={`Subtotal (${quantity} tiket)`} value={formatPrice(subtotal)} />
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem' }}>
+                  <span style={{ color: '#6B6E7A' }}>Subtotal ({quantity} tiket)</span>
+                  <span style={{ color: '#9095A1' }}>{formatPrice(subtotal)}</span>
+                </div>
                 {discountAmount > 0 && (
-                  <PriceRow
-                    label={`Diskon${promoCode ? ` (${promoCode})` : ''}`}
-                    value={`- ${formatPrice(discountAmount)}`}
-                    green
-                  />
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem' }}>
+                    <span style={{ color: '#4ade80' }}>Diskon{promoCode ? ` (${promoCode})` : ''}</span>
+                    <span style={{ color: '#4ade80' }}>- {formatPrice(discountAmount)}</span>
+                  </div>
                 )}
-                <div style={{ height: 1, background: 'rgba(255,255,255,0.07)', margin: '4px 0' }} />
+                <div style={{ height: 1, background: 'rgba(245,243,238,0.07)', margin: '4px 0' }} />
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ color: '#fff', fontWeight: 700, fontSize: '0.9rem' }}>Total Dibayar</span>
-                  <span style={{
-                    fontWeight: 800, fontSize: '1.1rem',
-                    background: 'linear-gradient(135deg,#a78bfa,#ec4899)',
-                    WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-                  }}>
+                  <span style={{ color: '#F5F3EE', fontWeight: 700, fontSize: '0.9rem' }}>Total Dibayar</span>
+                  <span style={{ fontWeight: 700, fontSize: '1.05rem', color: '#D95D39' }}>
                     {formatPrice(total)}
                   </span>
                 </div>
@@ -253,35 +232,17 @@ export default function PaymentSuccessPage() {
           <div style={{ display: 'flex', gap: 10 }}>
             <Link
               to="/"
-              style={{
-                flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                padding: '13px 16px', borderRadius: 12,
-                background: 'linear-gradient(135deg,#7c3aed,#ec4899)',
-                color: '#fff', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem',
-                boxShadow: '0 8px 24px rgba(124,58,237,0.35)',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(124,58,237,0.5)' }}
-              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(124,58,237,0.35)' }}
+              className="btn-primary"
+              style={{ flex: 1, textAlign: 'center', padding: '12px 16px', fontSize: '0.875rem' }}
             >
               Kembali ke Beranda
             </Link>
-
             <button
               onClick={handleDownload}
-              style={{
-                flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                padding: '13px 16px', borderRadius: 12,
-                background: 'rgba(255,255,255,0.06)',
-                border: '1px solid rgba(255,255,255,0.14)',
-                color: '#e2e8f0', fontWeight: 700, fontSize: '0.9rem',
-                cursor: 'pointer',
-                transition: 'transform 0.2s, background 0.2s, box-shadow 0.2s',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.background = 'rgba(255,255,255,0.11)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.3)' }}
-              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.boxShadow = 'none' }}
+              className="btn-outline"
+              style={{ flex: 1, padding: '12px 16px', fontSize: '0.875rem' }}
             >
-              <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                 <polyline points="7 10 12 15 17 10"/>
                 <line x1="12" y1="15" x2="12" y2="3"/>
@@ -291,8 +252,8 @@ export default function PaymentSuccessPage() {
           </div>
         </div>
 
-        <p style={{ textAlign: 'center', marginTop: 16, color: '#1f2937', fontSize: '0.72rem' }}>
-          KonserOjol &middot; Terima kasih sudah memesan
+        <p style={{ textAlign: 'center', marginTop: 16, color: '#3A3D47', fontSize: '0.72rem' }}>
+          KonserKu · Terima kasih sudah memesan
         </p>
       </div>
     </div>
@@ -302,33 +263,25 @@ export default function PaymentSuccessPage() {
 function DetailRow({ label, value, accent, mono }) {
   return (
     <div style={{
-      padding: '12px 14px', borderRadius: 12,
-      background: accent ? 'rgba(124,58,237,0.1)' : 'rgba(255,255,255,0.04)',
-      border: accent ? '1px solid rgba(124,58,237,0.22)' : '1px solid rgba(255,255,255,0.07)',
+      padding: '11px 14px', borderRadius: 8,
+      background: accent ? 'rgba(217,93,57,0.07)' : 'rgba(245,243,238,0.04)',
+      border: accent ? '1px solid rgba(217,93,57,0.2)' : '1px solid rgba(245,243,238,0.07)',
     }}>
       <div style={{
-        color: accent ? '#a78bfa' : '#6b7280',
-        fontSize: '0.7rem', fontWeight: 700,
+        color: accent ? '#D95D39' : '#6B6E7A',
+        fontSize: '0.68rem', fontWeight: 700,
         textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4,
+        fontFamily: "'Space Grotesk', sans-serif",
       }}>
         {label}
       </div>
       <div style={{
-        color: '#f8fafc', fontWeight: 700, fontSize: '0.9rem',
+        color: '#F5F3EE', fontWeight: 700, fontSize: '0.9rem',
         fontFamily: mono ? 'monospace' : 'inherit',
         letterSpacing: mono ? '0.05em' : 'inherit',
       }}>
         {value}
       </div>
-    </div>
-  )
-}
-
-function PriceRow({ label, value, green }) {
-  return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <span style={{ color: '#6b7280', fontSize: '0.82rem' }}>{label}</span>
-      <span style={{ color: green ? '#4ade80' : '#cbd5e1', fontSize: '0.82rem', fontWeight: 600 }}>{value}</span>
     </div>
   )
 }

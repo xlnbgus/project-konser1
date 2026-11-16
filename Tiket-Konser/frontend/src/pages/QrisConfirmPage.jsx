@@ -20,39 +20,56 @@ export default function QrisConfirmPage() {
 
   return (
     <div style={{
-      minHeight: '100vh', background: '#07070e',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      padding: '24px', fontFamily: "'Inter', sans-serif",
+      minHeight: '100vh',
+      background: '#111318',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '24px',
+      fontFamily: "'Manrope', sans-serif",
     }}>
       <div style={{
-        width: '100%', maxWidth: 420,
-        background: 'rgba(255,255,255,0.04)',
-        border: '1px solid rgba(255,255,255,0.08)',
-        borderRadius: 24, padding: '36px 28px',
-        boxShadow: '0 24px 80px rgba(0,0,0,0.4)',
+        width: '100%',
+        maxWidth: 440,
+        background: '#161920',
+        border: '1px solid rgba(245, 243, 238, 0.08)',
+        borderRadius: 14,
+        padding: '36px 30px',
+        boxShadow: '0 24px 60px rgba(0, 0, 0, 0.5)',
         textAlign: 'center',
       }}>
-        {/* Icon */}
+        {/* Brand Icon */}
         <div style={{
-          width: 60, height: 60, borderRadius: '50%',
-          background: 'linear-gradient(135deg,#7c3aed,#ec4899)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: 26, margin: '0 auto 20px',
-          boxShadow: '0 8px 24px rgba(124,58,237,0.4)',
-        }}>🎵</div>
+          width: 48,
+          height: 48,
+          borderRadius: 10,
+          background: '#D95D39',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          margin: '0 auto 20px',
+        }}>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 19V6l12-3v13"/><circle cx="6" cy="19" r="3"/><circle cx="18" cy="16" r="3"/>
+          </svg>
+        </div>
 
         <h1 style={{
-          color: '#fff', fontSize: '1.35rem', fontWeight: 800,
-          marginBottom: 8, fontFamily: 'Poppins, sans-serif',
+          color: '#F5F3EE',
+          fontSize: '1.4rem',
+          fontWeight: 700,
+          marginBottom: 8,
+          fontFamily: "'Space Grotesk', sans-serif",
+          letterSpacing: '-0.02em',
         }}>
           Konfirmasi Pembayaran
         </h1>
-        <p style={{ color: '#6b7280', fontSize: '0.85rem', lineHeight: 1.6, marginBottom: 24 }}>
-          Kamu membuka halaman ini dari QR KonserOjol. Ini adalah halaman konfirmasi demo — pembayaran tidak diproses secara nyata.
+        <p style={{ color: '#6B6E7A', fontSize: '0.86rem', lineHeight: 1.6, marginBottom: 24 }}>
+          Pemesanan tiket melalui simulasi QRIS KonserKu.
         </p>
 
-        {/* Detail */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 24, textAlign: 'left' }}>
+        {/* Detail Rows */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 20, textAlign: 'left' }}>
           <Row label="Event" value={eventTitle} accent />
           <Row label="Total" value={formatPrice(total)} />
           <Row label="Referensi" value={ref} mono />
@@ -60,42 +77,52 @@ export default function QrisConfirmPage() {
 
         {/* Countdown */}
         <div style={{
-          padding: '14px', borderRadius: 14, marginBottom: 24,
-          background: countdown > 0 ? 'rgba(124,58,237,0.1)' : 'rgba(239,68,68,0.1)',
-          border: countdown > 0 ? '1px solid rgba(124,58,237,0.25)' : '1px solid rgba(239,68,68,0.25)',
+          padding: '16px',
+          borderRadius: 8,
+          marginBottom: 20,
+          background: countdown > 0 ? 'rgba(217, 93, 57, 0.08)' : 'rgba(239, 68, 68, 0.08)',
+          border: countdown > 0 ? '1px solid rgba(217, 93, 57, 0.25)' : '1px solid rgba(239, 68, 68, 0.25)',
         }}>
-          <div style={{ color: '#94a3b8', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 6 }}>
-            QR berlaku selama
+          <div style={{ color: '#9095A1', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 4, fontFamily: "'Space Grotesk', sans-serif" }}>
+            Masa Berlaku QRIS
           </div>
           <div style={{
-            fontFamily: 'monospace', fontSize: '2rem', fontWeight: 800,
-            color: countdown > 0 ? '#a78bfa' : '#f87171',
+            fontFamily: "'Space Grotesk', monospace",
+            fontSize: '1.9rem',
+            fontWeight: 700,
+            color: countdown > 0 ? '#D95D39' : '#f87171',
           }}>
             {mm}:{ss}
           </div>
           {countdown === 0 && (
-            <div style={{ color: '#f87171', fontSize: '0.78rem', marginTop: 6 }}>QR sudah kadaluarsa</div>
+            <div style={{ color: '#f87171', fontSize: '0.76rem', marginTop: 4 }}>Waktu pembayaran telah habis</div>
           )}
         </div>
 
         <div style={{
-          padding: '10px 14px', borderRadius: 10, marginBottom: 24,
-          background: 'rgba(234,179,8,0.08)', border: '1px solid rgba(234,179,8,0.2)',
-          color: '#fbbf24', fontSize: '0.78rem', lineHeight: 1.6,
+          padding: '10px 14px',
+          borderRadius: 8,
+          marginBottom: 24,
+          background: 'rgba(245, 243, 238, 0.04)',
+          border: '1px solid rgba(245, 243, 238, 0.08)',
+          color: '#6B6E7A',
+          fontSize: '0.76rem',
+          lineHeight: 1.5,
         }}>
-          ⚠️ Ini adalah simulasi. Untuk pembayaran nyata, perlu integrasi dengan payment gateway seperti Midtrans atau Xendit.
+          Simulasi pembayaran terenkripsi untuk pengujian sistem checkout tiket.
         </div>
 
         <Link
           to="/"
+          className="btn-primary"
           style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            padding: '13px', borderRadius: 12,
-            background: 'linear-gradient(135deg,#7c3aed,#ec4899)',
-            color: '#fff', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem',
+            width: '100%',
+            padding: '12px',
+            fontSize: '0.88rem',
+            boxSizing: 'border-box',
           }}
         >
-          Kembali ke KonserOjol
+          Kembali ke Beranda
         </Link>
       </div>
     </div>
@@ -105,14 +132,28 @@ export default function QrisConfirmPage() {
 function Row({ label, value, accent, mono }) {
   return (
     <div style={{
-      padding: '10px 12px', borderRadius: 10,
-      background: accent ? 'rgba(124,58,237,0.1)' : 'rgba(255,255,255,0.03)',
-      border: accent ? '1px solid rgba(124,58,237,0.2)' : '1px solid rgba(255,255,255,0.06)',
+      padding: '10px 14px',
+      borderRadius: 8,
+      background: accent ? 'rgba(217, 93, 57, 0.08)' : 'rgba(245, 243, 238, 0.04)',
+      border: accent ? '1px solid rgba(217, 93, 57, 0.2)' : '1px solid rgba(245, 243, 238, 0.07)',
     }}>
-      <div style={{ color: accent ? '#a78bfa' : '#6b7280', fontSize: '0.68rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 3 }}>
+      <div style={{
+        color: accent ? '#D95D39' : '#6B6E7A',
+        fontSize: '0.68rem',
+        fontWeight: 700,
+        textTransform: 'uppercase',
+        letterSpacing: '0.08em',
+        marginBottom: 3,
+        fontFamily: "'Space Grotesk', sans-serif",
+      }}>
         {label}
       </div>
-      <div style={{ color: '#f8fafc', fontWeight: 700, fontSize: '0.88rem', fontFamily: mono ? 'monospace' : 'inherit' }}>
+      <div style={{
+        color: '#F5F3EE',
+        fontWeight: 700,
+        fontSize: '0.88rem',
+        fontFamily: mono ? 'monospace' : 'inherit',
+      }}>
         {value}
       </div>
     </div>

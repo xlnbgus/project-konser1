@@ -19,16 +19,16 @@ const inputStyle = {
   padding: '10px 14px',
   borderRadius: 8,
   outline: 'none',
-  background: 'rgba(245, 243, 238, 0.05)',
-  color: '#F5F3EE',
-  border: '1px solid rgba(245, 243, 238, 0.1)',
+  background: '#FFFFFF',
+  color: '#111827',
+  border: '1px solid #D1D5DB',
   fontSize: '0.88rem',
   boxSizing: 'border-box',
   fontFamily: "'Manrope', sans-serif",
   transition: 'border-color 0.2s',
 }
 const labelStyle = {
-  color: '#9095A1',
+  color: '#4B5563',
   fontSize: '0.72rem',
   fontWeight: 700,
   letterSpacing: '0.08em',
@@ -53,7 +53,7 @@ function QRCodeReal({ url }) {
     QRCode.toCanvas(canvasRef.current, url, {
       width: 190,
       margin: 2,
-      color: { dark: '#111318', light: '#F5F3EE' },
+      color: { dark: '#111827', light: '#FFFFFF' },
     })
   }, [url])
   return <canvas ref={canvasRef} style={{ borderRadius: 8, display: 'block' }} />
@@ -73,8 +73,8 @@ export default function PaymentDetailForm({ method, detail, onChange }) {
             value={detail.cardNumber || ''}
             maxLength={19}
             onChange={e => set('cardNumber', formatCard(e.target.value))}
-            onFocus={e => e.target.style.borderColor = 'rgba(217, 93, 57, 0.4)'}
-            onBlur={e => e.target.style.borderColor = 'rgba(245, 243, 238, 0.1)'}
+            onFocus={e => e.target.style.borderColor = '#0066CC'}
+            onBlur={e => e.target.style.borderColor = '#D1D5DB'}
           />
         </div>
         <div>
@@ -84,8 +84,8 @@ export default function PaymentDetailForm({ method, detail, onChange }) {
             placeholder="NAMA LENGKAP PEMEGANG KARTU"
             value={detail.cardName || ''}
             onChange={e => set('cardName', e.target.value.toUpperCase())}
-            onFocus={e => e.target.style.borderColor = 'rgba(217, 93, 57, 0.4)'}
-            onBlur={e => e.target.style.borderColor = 'rgba(245, 243, 238, 0.1)'}
+            onFocus={e => e.target.style.borderColor = '#0066CC'}
+            onBlur={e => e.target.style.borderColor = '#D1D5DB'}
           />
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
@@ -97,8 +97,8 @@ export default function PaymentDetailForm({ method, detail, onChange }) {
               value={detail.expiry || ''}
               maxLength={5}
               onChange={e => set('expiry', formatExpiry(e.target.value))}
-              onFocus={e => e.target.style.borderColor = 'rgba(217, 93, 57, 0.4)'}
-              onBlur={e => e.target.style.borderColor = 'rgba(245, 243, 238, 0.1)'}
+              onFocus={e => e.target.style.borderColor = '#0066CC'}
+              onBlur={e => e.target.style.borderColor = '#D1D5DB'}
             />
           </div>
           <div>
@@ -110,8 +110,8 @@ export default function PaymentDetailForm({ method, detail, onChange }) {
               maxLength={4}
               type="password"
               onChange={e => set('cvv', e.target.value.replace(/\D/g, '').slice(0, 4))}
-              onFocus={e => e.target.style.borderColor = 'rgba(217, 93, 57, 0.4)'}
-              onBlur={e => e.target.style.borderColor = 'rgba(245, 243, 238, 0.1)'}
+              onFocus={e => e.target.style.borderColor = '#0066CC'}
+              onBlur={e => e.target.style.borderColor = '#D1D5DB'}
             />
           </div>
         </div>
@@ -140,9 +140,9 @@ export default function PaymentDetailForm({ method, detail, onChange }) {
                     fontSize: '0.82rem',
                     cursor: 'pointer',
                     fontFamily: "'Space Grotesk', sans-serif",
-                    border: isSelected ? '1px solid #D95D39' : '1px solid rgba(245, 243, 238, 0.1)',
-                    background: isSelected ? 'rgba(217, 93, 57, 0.15)' : 'rgba(245, 243, 238, 0.04)',
-                    color: isSelected ? '#D95D39' : '#9095A1',
+                    border: isSelected ? '1px solid #0066CC' : '1px solid #E5E7EB',
+                    background: isSelected ? '#EFF6FF' : '#FFFFFF',
+                    color: isSelected ? '#0066CC' : '#4B5563',
                     transition: 'all 0.2s',
                   }}
                 >
@@ -153,15 +153,15 @@ export default function PaymentDetailForm({ method, detail, onChange }) {
           </div>
         </div>
 
-        <div style={{ padding: '14px 16px', borderRadius: 8, background: 'rgba(217, 93, 57, 0.08)', border: '1px solid rgba(217, 93, 57, 0.2)' }}>
-          <div style={{ color: '#9095A1', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8, fontFamily: "'Space Grotesk', sans-serif" }}>
+        <div style={{ padding: '14px 16px', borderRadius: 8, background: '#EFF6FF', border: '1px solid #BFDBFE' }}>
+          <div style={{ color: '#4B5563', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8, fontFamily: "'Space Grotesk', sans-serif" }}>
             Transfer ke Rekening
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-            <span style={{ color: '#D95D39', fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif" }}>{selected.label}</span>
-            <span style={{ color: '#F5F3EE', fontWeight: 700, fontSize: '1rem', letterSpacing: '0.04em', fontFamily: 'monospace' }}>{selected.norek}</span>
+            <span style={{ color: '#0066CC', fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif" }}>{selected.label}</span>
+            <span style={{ color: '#111827', fontWeight: 700, fontSize: '1rem', letterSpacing: '0.04em', fontFamily: 'monospace' }}>{selected.norek}</span>
           </div>
-          <div style={{ color: '#6B6E7A', fontSize: '0.78rem' }}>Atas Nama: {selected.atas}</div>
+          <div style={{ color: '#4B5563', fontSize: '0.78rem' }}>Atas Nama: {selected.atas}</div>
         </div>
 
         <div>
@@ -171,8 +171,8 @@ export default function PaymentDetailForm({ method, detail, onChange }) {
             placeholder="Nama sesuai buku tabungan"
             value={detail.senderName || ''}
             onChange={e => set('senderName', e.target.value)}
-            onFocus={e => e.target.style.borderColor = 'rgba(217, 93, 57, 0.4)'}
-            onBlur={e => e.target.style.borderColor = 'rgba(245, 243, 238, 0.1)'}
+            onFocus={e => e.target.style.borderColor = '#0066CC'}
+            onBlur={e => e.target.style.borderColor = '#D1D5DB'}
           />
         </div>
       </div>
@@ -199,9 +199,9 @@ export default function PaymentDetailForm({ method, detail, onChange }) {
                     fontSize: '0.82rem',
                     cursor: 'pointer',
                     fontFamily: "'Space Grotesk', sans-serif",
-                    border: isSelected ? '1px solid #D95D39' : '1px solid rgba(245, 243, 238, 0.1)',
-                    background: isSelected ? 'rgba(217, 93, 57, 0.15)' : 'rgba(245, 243, 238, 0.04)',
-                    color: isSelected ? '#D95D39' : '#9095A1',
+                    border: isSelected ? '1px solid #0066CC' : '1px solid #E5E7EB',
+                    background: isSelected ? '#EFF6FF' : '#FFFFFF',
+                    color: isSelected ? '#0066CC' : '#4B5563',
                     transition: 'all 0.2s',
                   }}
                 >
@@ -219,8 +219,8 @@ export default function PaymentDetailForm({ method, detail, onChange }) {
             type="tel"
             value={detail.phone || ''}
             onChange={e => set('phone', e.target.value.replace(/\D/g, '').slice(0, 13))}
-            onFocus={e => e.target.style.borderColor = 'rgba(217, 93, 57, 0.4)'}
-            onBlur={e => e.target.style.borderColor = 'rgba(245, 243, 238, 0.1)'}
+            onFocus={e => e.target.style.borderColor = '#0066CC'}
+            onBlur={e => e.target.style.borderColor = '#D1D5DB'}
           />
         </div>
       </div>
@@ -232,18 +232,18 @@ export default function PaymentDetailForm({ method, detail, onChange }) {
     const qrUrl = `${baseUrl}/payment-confirm?event=${encodeURIComponent(detail.eventTitle || 'Konser')}&total=${detail.total || 0}&ref=${detail.orderId || Date.now()}&cfbypass=1`
     return (
       <div style={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-        <div style={{ padding: 14, borderRadius: 10, background: '#F5F3EE', border: '1px solid rgba(245, 243, 238, 0.2)', display: 'inline-block' }}>
+        <div style={{ padding: 14, borderRadius: 10, background: '#FFFFFF', border: '1px solid #E5E7EB', display: 'inline-block' }}>
           <QRCodeReal url={qrUrl} />
         </div>
         <div style={{ textAlign: 'center' }}>
-          <div style={{ color: '#F5F3EE', fontWeight: 700, fontSize: '0.88rem', fontFamily: "'Space Grotesk', sans-serif" }}>
+          <div style={{ color: '#111827', fontWeight: 700, fontSize: '0.88rem', fontFamily: "'Space Grotesk', sans-serif" }}>
             Pindai QR dengan Kamera HP
           </div>
-          <div style={{ color: '#6B6E7A', fontSize: '0.76rem', marginTop: 3 }}>
+          <div style={{ color: '#4B5563', fontSize: '0.76rem', marginTop: 3 }}>
             Arahkan kamera smartphone ke kode QR untuk membuka rincian konfirmasi
           </div>
         </div>
-        <div style={{ padding: '6px 14px', borderRadius: 6, background: 'rgba(217, 93, 57, 0.1)', border: '1px solid rgba(217, 93, 57, 0.25)', color: '#D95D39', fontSize: '0.74rem', fontWeight: 600 }}>
+        <div style={{ padding: '6px 14px', borderRadius: 6, background: '#FEF3C7', border: '1px solid #FDE68A', color: '#D97706', fontSize: '0.74rem', fontWeight: 600 }}>
           Berlaku selama 10 menit
         </div>
       </div>

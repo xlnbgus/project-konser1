@@ -14,25 +14,25 @@ export default function TickerBanner() {
   return (
     <div style={{
       overflow: 'hidden',
-      background: '#161920',
-      borderTop: '1px solid rgba(245,243,238,0.07)',
-      borderBottom: '1px solid rgba(245,243,238,0.07)',
+      background: '#F4F5F7',
+      borderTop: '1px solid #E5E7EB',
+      borderBottom: '1px solid #E5E7EB',
       padding: '13px 0',
       position: 'relative',
     }}>
       {/* Fade edges */}
-      <div style={{ position:'absolute',left:0,top:0,bottom:0,width:80,background:'linear-gradient(to right,#161920,transparent)',zIndex:2,pointerEvents:'none' }} />
-      <div style={{ position:'absolute',right:0,top:0,bottom:0,width:80,background:'linear-gradient(to left,#161920,transparent)',zIndex:2,pointerEvents:'none' }} />
+      <div style={{ position:'absolute',left:0,top:0,bottom:0,width:80,background:'linear-gradient(to right,#F4F5F7,transparent)',zIndex:2,pointerEvents:'none' }} />
+      <div style={{ position:'absolute',right:0,top:0,bottom:0,width:80,background:'linear-gradient(to left,#F4F5F7,transparent)',zIndex:2,pointerEvents:'none' }} />
 
       <div className="animate-ticker" style={{ display:'flex', whiteSpace:'nowrap', willChange:'transform' }}>
         {doubled.map((item, i) => (
           <span key={i} style={{
             display:'inline-flex', alignItems:'center', gap:12,
-            marginRight: 48, fontSize:'0.8rem', fontWeight:500,
-            color:'rgba(245,243,238,0.4)',
+            marginRight: 48, fontSize:'0.82rem', fontWeight:600,
+            color:'#4B5563',
             fontFamily: "'Manrope', sans-serif",
           }}>
-            <span style={{ width:4, height:4, borderRadius:'50%', background:'#D95D39', display:'inline-block', opacity:0.8 }} />
+            <span style={{ width:5, height:5, borderRadius:'50%', background:'#0066CC', display:'inline-block' }} />
             {item}
           </span>
         ))}

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import CountUpNumber from './CountUpNumber'
 import syncImg from '../assets/events/synchronize-fest.jpg'
 import westlifeImg from '../assets/artists/westlife.jpg'
 import wtfImg from '../assets/events/wethefest.jpg'
@@ -87,22 +88,23 @@ export default function HeroSection({ onSelectEvent }) {
   return (
     <>
       <section
+        id="hero"
         style={{
           position: 'relative',
           minHeight: '100vh',
           display: 'flex',
           alignItems: 'center',
           overflow: 'hidden',
-          background: '#0D0F14',
+          background: '#FFFFFF',
         }}
       >
-        {/* Background image with high-contrast dark overlay */}
+        {/* Background image with clean light overlay */}
         <div
           style={{
             position: 'absolute',
             inset: 0,
-            opacity: fading ? 0 : 0.5,
-            transition: 'opacity 0.5s ease',
+            opacity: fading ? 0 : 0.6,
+            transition: 'opacity 0.4s ease',
           }}
         >
           <img
@@ -110,20 +112,20 @@ export default function HeroSection({ onSelectEvent }) {
             alt=""
             style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
           />
-          {/* Multi-layer gradient backdrop to ensure 100% readability */}
+          {/* Light gradient overlays for 100% text readability */}
           <div
             style={{
               position: 'absolute',
               inset: 0,
               background:
-                'linear-gradient(to right, rgba(13,15,20,0.98) 0%, rgba(13,15,20,0.92) 48%, rgba(13,15,20,0.6) 80%, rgba(13,15,20,0.4) 100%)',
+                'linear-gradient(to right, #FFFFFF 0%, #FFFFFF 45%, rgba(255,255,255,0.88) 68%, rgba(255,255,255,0.25) 100%)',
             }}
           />
           <div
             style={{
               position: 'absolute',
               inset: 0,
-              background: 'linear-gradient(to top, rgba(13,15,20,1) 0%, rgba(13,15,20,0.4) 40%, transparent 80%)',
+              background: 'linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.4) 30%, transparent 70%)',
             }}
           />
         </div>
@@ -137,7 +139,7 @@ export default function HeroSection({ onSelectEvent }) {
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: '5rem',
             fontWeight: 800,
-            color: 'rgba(255,255,255,0.06)',
+            color: 'rgba(17, 24, 39, 0.05)',
             lineHeight: 1,
             userSelect: 'none',
             letterSpacing: '-0.04em',
@@ -173,15 +175,14 @@ export default function HeroSection({ onSelectEvent }) {
                   gap: 7,
                   padding: '6px 14px',
                   borderRadius: 6,
-                  background: 'rgba(217,93,57,0.25)',
-                  border: '1.5px solid #D95D39',
+                  background: '#EFF6FF',
+                  border: '1px solid #BFDBFE',
                   fontSize: '0.72rem',
                   fontWeight: 700,
-                  letterSpacing: '0.12em',
-                  color: '#FFFFFF',
+                  letterSpacing: '0.1em',
+                  color: '#0066CC',
                   textTransform: 'uppercase',
                   fontFamily: "'Space Grotesk', sans-serif",
-                  boxShadow: '0 2px 10px rgba(217,93,57,0.3)',
                 }}
               >
                 <span
@@ -189,8 +190,7 @@ export default function HeroSection({ onSelectEvent }) {
                     width: 6,
                     height: 6,
                     borderRadius: '50%',
-                    background: '#FF6B4A',
-                    boxShadow: '0 0 8px #FF6B4A',
+                    background: '#0066CC',
                     display: 'inline-block',
                   }}
                 />
@@ -201,11 +201,11 @@ export default function HeroSection({ onSelectEvent }) {
                 style={{
                   padding: '5px 12px',
                   borderRadius: 6,
-                  background: 'rgba(255,255,255,0.12)',
-                  border: '1px solid rgba(255,255,255,0.25)',
-                  color: '#FFFFFF',
+                  background: '#FEE2E2',
+                  border: '1px solid #FECACA',
+                  color: '#DC2626',
                   fontSize: '0.72rem',
-                  fontWeight: 600,
+                  fontWeight: 700,
                   fontFamily: "'Space Grotesk', sans-serif",
                 }}
               >
@@ -213,17 +213,16 @@ export default function HeroSection({ onSelectEvent }) {
               </span>
             </div>
 
-            {/* Headline Title: FORCED HIGH-CONTRAST BRIGHT WHITE */}
+            {/* Headline Title */}
             <h1
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: 'clamp(3.2rem, 7.5vw, 5.5rem)',
+                fontSize: 'clamp(3.2rem, 7.5vw, 5.2rem)',
                 fontWeight: 800,
-                lineHeight: 0.95,
-                color: '#FFFFFF',
+                lineHeight: 0.98,
+                color: '#111827',
                 margin: '0 0 4px',
                 letterSpacing: '-0.03em',
-                textShadow: '0 4px 24px rgba(0,0,0,0.9)',
               }}
             >
               {s.title}
@@ -231,18 +230,15 @@ export default function HeroSection({ onSelectEvent }) {
             <h1
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: 'clamp(3.2rem, 7.5vw, 5.5rem)',
+                fontSize: 'clamp(3.2rem, 7.5vw, 5.2rem)',
                 fontWeight: 800,
-                lineHeight: 0.95,
+                lineHeight: 0.98,
                 margin: '0 0 20px',
                 letterSpacing: '-0.03em',
-                color: '#FFFFFF',
-                textShadow: '0 4px 24px rgba(0,0,0,0.9)',
+                color: '#0066CC',
               }}
             >
-              <span style={{ color: '#D95D39', textShadow: '0 0 30px rgba(217,93,57,0.5)' }}>
-                {s.accent}
-              </span>
+              {s.accent}
             </h1>
 
             {/* Sub-label */}
@@ -250,27 +246,24 @@ export default function HeroSection({ onSelectEvent }) {
               style={{
                 fontSize: '0.75rem',
                 fontWeight: 700,
-                letterSpacing: '0.22em',
-                color: '#FFFFFF',
-                opacity: 0.9,
+                letterSpacing: '0.2em',
+                color: '#4B5563',
                 textTransform: 'uppercase',
-                marginBottom: 20,
+                marginBottom: 16,
                 fontFamily: "'Space Grotesk', sans-serif",
-                textShadow: '0 2px 10px rgba(0,0,0,0.8)',
               }}
             >
               {s.sub}
             </p>
 
-            {/* Description: FORCED BRIGHT WHITE */}
+            {/* Description */}
             <p
               style={{
                 fontSize: '1rem',
-                color: '#FFFFFF',
-                lineHeight: 1.75,
+                color: '#4B5563',
+                lineHeight: 1.7,
                 maxWidth: 580,
                 marginBottom: 28,
-                textShadow: '0 2px 12px rgba(0,0,0,0.9)',
                 fontWeight: 400,
               }}
             >
@@ -287,25 +280,25 @@ export default function HeroSection({ onSelectEvent }) {
                   gap: 8,
                   padding: '9px 16px',
                   borderRadius: 8,
-                  background: 'rgba(255,255,255,0.1)',
-                  border: '1px solid rgba(255,255,255,0.22)',
+                  background: '#FFFFFF',
+                  border: '1px solid #E5E7EB',
                   fontSize: '0.84rem',
                   fontWeight: 600,
-                  color: '#FFFFFF',
+                  color: '#111827',
                   cursor: 'pointer',
                   transition: 'background 0.2s, border-color 0.2s',
-                  backdropFilter: 'blur(8px)',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(217,93,57,0.25)'
-                  e.currentTarget.style.borderColor = '#D95D39'
+                  e.currentTarget.style.background = '#F4F5F7'
+                  e.currentTarget.style.borderColor = '#0066CC'
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.1)'
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.22)'
+                  e.currentTarget.style.background = '#FFFFFF'
+                  e.currentTarget.style.borderColor = '#E5E7EB'
                 }}
               >
-                <svg width="14" height="14" fill="none" stroke="#D95D39" strokeWidth="2.5" viewBox="0 0 24 24">
+                <svg width="14" height="14" fill="none" stroke="#0066CC" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" />
                 </svg>
                 {s.venue}
@@ -318,15 +311,15 @@ export default function HeroSection({ onSelectEvent }) {
                   gap: 8,
                   padding: '9px 16px',
                   borderRadius: 8,
-                  background: 'rgba(255,255,255,0.1)',
-                  border: '1px solid rgba(255,255,255,0.22)',
+                  background: '#FFFFFF',
+                  border: '1px solid #E5E7EB',
                   fontSize: '0.84rem',
                   fontWeight: 600,
-                  color: '#FFFFFF',
-                  backdropFilter: 'blur(8px)',
+                  color: '#111827',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
                 }}
               >
-                <svg width="14" height="14" fill="none" stroke="#D95D39" strokeWidth="2.5" viewBox="0 0 24 24">
+                <svg width="14" height="14" fill="none" stroke="#0066CC" strokeWidth="2.5" viewBox="0 0 24 24">
                   <rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" />
                 </svg>
                 {s.date}
@@ -339,8 +332,7 @@ export default function HeroSection({ onSelectEvent }) {
                 <p
                   style={{
                     fontSize: '0.72rem',
-                    color: '#FFFFFF',
-                    opacity: 0.85,
+                    color: '#6B7280',
                     marginBottom: 2,
                     fontFamily: "'Space Grotesk', sans-serif",
                     letterSpacing: '0.1em',
@@ -354,10 +346,9 @@ export default function HeroSection({ onSelectEvent }) {
                   style={{
                     fontSize: '1.75rem',
                     fontWeight: 800,
-                    color: '#FFFFFF',
+                    color: '#111827',
                     fontFamily: "'Space Grotesk', sans-serif",
                     letterSpacing: '-0.02em',
-                    textShadow: '0 2px 14px rgba(0,0,0,0.9)',
                   }}
                 >
                   {s.price}
@@ -365,30 +356,27 @@ export default function HeroSection({ onSelectEvent }) {
               </div>
 
               <div style={{ display: 'flex', gap: 12 }}>
-                {/* Vibrant Burnt Orange Main Button */}
+                {/* Royal Blue Main Button */}
                 <button
                   onClick={handleBuyClick}
                   style={{
-                    padding: '14px 30px',
+                    padding: '13px 28px',
                     borderRadius: 8,
-                    background: '#D95D39',
+                    background: '#0066CC',
                     color: '#FFFFFF',
                     border: 'none',
-                    fontWeight: 800,
+                    fontWeight: 700,
                     fontSize: '0.92rem',
                     cursor: 'pointer',
-                    boxShadow: '0 6px 25px rgba(217,93,57,0.5)',
-                    transition: 'all 0.2s ease',
+                    boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+                    transition: 'background 0.15s ease',
                     fontFamily: "'Space Grotesk', sans-serif",
-                    letterSpacing: '0.02em',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#C04E2D'
-                    e.currentTarget.style.transform = 'translateY(-2px)'
+                    e.currentTarget.style.background = '#004C99'
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = '#D95D39'
-                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.style.background = '#0066CC'
                   }}
                 >
                   Beli Tiket Sekarang →
@@ -398,25 +386,24 @@ export default function HeroSection({ onSelectEvent }) {
                 <button
                   onClick={() => document.getElementById('top-events')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
                   style={{
-                    padding: '14px 24px',
+                    padding: '13px 24px',
                     borderRadius: 8,
-                    background: 'rgba(255,255,255,0.1)',
-                    border: '1.5px solid rgba(255,255,255,0.3)',
-                    color: '#FFFFFF',
-                    fontWeight: 700,
+                    background: '#FFFFFF',
+                    border: '1px solid #E5E7EB',
+                    color: '#111827',
+                    fontWeight: 600,
                     fontSize: '0.9rem',
                     cursor: 'pointer',
-                    transition: 'all 0.2s ease',
+                    transition: 'all 0.15s ease',
                     fontFamily: "'Space Grotesk', sans-serif",
-                    backdropFilter: 'blur(8px)',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.2)'
-                    e.currentTarget.style.borderColor = '#FFFFFF'
+                    e.currentTarget.style.background = '#F4F5F7'
+                    e.currentTarget.style.borderColor = '#D1D5DB'
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.1)'
-                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'
+                    e.currentTarget.style.background = '#FFFFFF'
+                    e.currentTarget.style.borderColor = '#E5E7EB'
                   }}
                 >
                   Lihat Detail
@@ -424,27 +411,25 @@ export default function HeroSection({ onSelectEvent }) {
               </div>
             </div>
 
-            {/* Statistics: Bright White Text & High Contrast */}
+            {/* Statistics */}
             <div style={{ display: 'flex', gap: 36 }}>
               {s.stats.map((st) => (
-                <div key={st.l} style={{ borderLeft: '3px solid #D95D39', paddingLeft: 14 }}>
+                <div key={st.l} style={{ borderLeft: '3px solid #0066CC', paddingLeft: 14 }}>
                   <p
                     style={{
                       fontFamily: "'Space Grotesk', sans-serif",
                       fontSize: '1.25rem',
                       fontWeight: 800,
-                      color: '#FFFFFF',
+                      color: '#111827',
                       margin: 0,
-                      textShadow: '0 2px 10px rgba(0,0,0,0.8)',
                     }}
                   >
-                    {st.v}
+                    <CountUpNumber value={st.v} />
                   </p>
                   <p
                     style={{
                       fontSize: '0.78rem',
-                      color: '#FFFFFF',
-                      opacity: 0.85,
+                      color: '#6B7280',
                       margin: 0,
                       fontWeight: 500,
                     }}
@@ -479,11 +464,10 @@ export default function HeroSection({ onSelectEvent }) {
                   height: 4,
                   borderRadius: 2,
                   width: i === idx ? 32 : 12,
-                  background: i === idx ? '#D95D39' : 'rgba(255,255,255,0.35)',
+                  background: i === idx ? '#0066CC' : '#E5E7EB',
                   border: 'none',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
-                  boxShadow: i === idx ? '0 0 10px rgba(217,93,57,0.8)' : 'none',
                 }}
               />
             ))}
@@ -501,25 +485,26 @@ export default function HeroSection({ onSelectEvent }) {
                   width: 38,
                   height: 38,
                   borderRadius: 8,
-                  background: 'rgba(255,255,255,0.12)',
-                  border: '1px solid rgba(255,255,255,0.25)',
-                  color: '#FFFFFF',
+                  background: '#FFFFFF',
+                  border: '1px solid #E5E7EB',
+                  color: '#111827',
                   fontSize: 16,
                   fontWeight: 700,
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  transition: 'background 0.2s, transform 0.2s',
-                  backdropFilter: 'blur(8px)',
+                  transition: 'background 0.15s, border-color 0.15s, color 0.15s',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#D95D39'
-                  e.currentTarget.style.borderColor = '#D95D39'
+                  e.currentTarget.style.background = '#0066CC'
+                  e.currentTarget.style.borderColor = '#0066CC'
+                  e.currentTarget.style.color = '#FFFFFF'
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.12)'
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'
+                  e.currentTarget.style.background = '#FFFFFF'
+                  e.currentTarget.style.borderColor = '#E5E7EB'
+                  e.currentTarget.style.color = '#111827'
                 }}
               >
                 {btn.label}
@@ -545,7 +530,7 @@ export default function HeroSection({ onSelectEvent }) {
             style={{
               fontSize: '0.65rem',
               letterSpacing: '0.2em',
-              color: 'rgba(255,255,255,0.6)',
+              color: '#6B7280',
               textTransform: 'uppercase',
               fontFamily: "'Space Grotesk', sans-serif",
               fontWeight: 600,
@@ -557,7 +542,7 @@ export default function HeroSection({ onSelectEvent }) {
             style={{
               width: 1.5,
               height: 32,
-              background: 'linear-gradient(to bottom, #D95D39, transparent)',
+              background: 'linear-gradient(to bottom, #0066CC, transparent)',
             }}
           />
         </div>
@@ -573,29 +558,29 @@ export default function HeroSection({ onSelectEvent }) {
             position: 'fixed',
             inset: 0,
             zIndex: 999,
-            background: 'rgba(10,11,15,0.85)',
+            background: 'rgba(17, 24, 39, 0.45)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             padding: '24px',
-            backdropFilter: 'blur(8px)',
+            backdropFilter: 'blur(4px)',
           }}
         >
           <div
             style={{
               width: '100%',
               maxWidth: 480,
-              borderRadius: 14,
-              background: '#161920',
-              border: '1px solid rgba(245,243,238,0.12)',
-              boxShadow: '0 24px 60px rgba(0,0,0,0.6)',
+              borderRadius: 12,
+              background: '#FFFFFF',
+              border: '1px solid #E5E7EB',
+              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
               padding: '24px',
             }}
           >
             <h3
               style={{
                 margin: '0 0 8px',
-                color: '#F5F3EE',
+                color: '#111827',
                 fontSize: '1.05rem',
                 fontWeight: 700,
                 fontFamily: "'Space Grotesk', sans-serif",
@@ -603,16 +588,16 @@ export default function HeroSection({ onSelectEvent }) {
             >
               {locationModal}
             </h3>
-            <p style={{ margin: '0 0 14px', color: '#9095A1', fontSize: '0.84rem' }}>
+            <p style={{ margin: '0 0 14px', color: '#4B5563', fontSize: '0.84rem' }}>
               Buka navigasi lokasi venue konser langsung di Google Maps.
             </p>
             <div
               style={{
                 padding: '12px 14px',
                 borderRadius: 8,
-                background: 'rgba(245,243,238,0.04)',
-                border: '1px solid rgba(245,243,238,0.08)',
-                color: '#F5F3EE',
+                background: '#F4F5F7',
+                border: '1px solid #E5E7EB',
+                color: '#111827',
                 marginBottom: 16,
                 fontSize: '0.88rem',
               }}
@@ -627,12 +612,12 @@ export default function HeroSection({ onSelectEvent }) {
                 style={{
                   flex: 1,
                   textAlign: 'center',
-                  padding: '11px 20px',
+                  padding: '10px 20px',
                   borderRadius: 8,
-                  background: '#D95D39',
+                  background: '#0066CC',
                   color: '#fff',
                   textDecoration: 'none',
-                  fontWeight: 700,
+                  fontWeight: 600,
                   fontSize: '0.88rem',
                   fontFamily: "'Space Grotesk', sans-serif",
                 }}
@@ -642,14 +627,14 @@ export default function HeroSection({ onSelectEvent }) {
               <button
                 onClick={() => setLocationModal(null)}
                 style={{
-                  padding: '11px 20px',
+                  padding: '10px 18px',
                   borderRadius: 8,
-                  background: 'rgba(245,243,238,0.06)',
-                  border: '1px solid rgba(245,243,238,0.12)',
-                  color: '#F5F3EE',
-                  cursor: 'pointer',
-                  fontWeight: 600,
+                  background: '#FFFFFF',
+                  border: '1px solid #E5E7EB',
+                  color: '#4B5563',
                   fontSize: '0.88rem',
+                  cursor: 'pointer',
+                  fontFamily: "'Space Grotesk', sans-serif",
                 }}
               >
                 Tutup

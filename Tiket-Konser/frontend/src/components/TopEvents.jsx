@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Modal from './Modal'
 import PaymentDetailForm from './PaymentDetailForm'
@@ -75,23 +75,23 @@ const CAT_LABEL = {
 }
 
 const EVENT_QUOTAS = {
-  101: { quota: 34, label: 'PRESALE 2', bg: '#D95D39', color: '#fff' },
-  102: { quota: 18, label: 'SEGERA HABIS', bg: '#ef4444', color: '#fff' },
-  103: { quota: 53, label: 'PRESALE 2', bg: '#D95D39', color: '#fff' },
-  104: { quota: 62, label: 'TERSEDIA', bg: 'rgba(74,222,128,0.2)', color: '#4ade80' },
-  1:   { quota: 9,  label: 'SEGERA HABIS', bg: '#ef4444', color: '#fff' },
-  2:   { quota: 7,  label: 'SEGERA HABIS', bg: '#ef4444', color: '#fff' },
-  3:   { quota: 88, label: 'TERSEDIA', bg: 'rgba(74,222,128,0.2)', color: '#4ade80' },
-  4:   { quota: 24, label: 'SEGERA HABIS', bg: '#ef4444', color: '#fff' },
-  5:   { quota: 43, label: 'PRESALE 2', bg: '#D95D39', color: '#fff' },
-  6:   { quota: 15, label: 'SEGERA HABIS', bg: '#ef4444', color: '#fff' },
-  7:   { quota: 31, label: 'PRESALE 2', bg: '#D95D39', color: '#fff' },
-  8:   { quota: 77, label: 'TERSEDIA', bg: 'rgba(74,222,128,0.2)', color: '#4ade80' },
+  101: { quota: 34, label: 'PRESALE 2', bg: '#FEF3C7', color: '#D97706', border: '1px solid #FDE68A' },
+  102: { quota: 18, label: 'SEGERA HABIS', bg: '#FEE2E2', color: '#DC2626', border: '1px solid #FECACA' },
+  103: { quota: 53, label: 'PRESALE 2', bg: '#FEF3C7', color: '#D97706', border: '1px solid #FDE68A' },
+  104: { quota: 62, label: 'TERSEDIA', bg: '#D1FAE5', color: '#059669', border: '1px solid #A7F3D0' },
+  1:   { quota: 9,  label: 'SEGERA HABIS', bg: '#FEE2E2', color: '#DC2626', border: '1px solid #FECACA' },
+  2:   { quota: 7,  label: 'SEGERA HABIS', bg: '#FEE2E2', color: '#DC2626', border: '1px solid #FECACA' },
+  3:   { quota: 88, label: 'TERSEDIA', bg: '#D1FAE5', color: '#059669', border: '1px solid #A7F3D0' },
+  4:   { quota: 24, label: 'SEGERA HABIS', bg: '#FEE2E2', color: '#DC2626', border: '1px solid #FECACA' },
+  5:   { quota: 43, label: 'PRESALE 2', bg: '#FEF3C7', color: '#D97706', border: '1px solid #FDE68A' },
+  6:   { quota: 15, label: 'SEGERA HABIS', bg: '#FEE2E2', color: '#DC2626', border: '1px solid #FECACA' },
+  7:   { quota: 31, label: 'PRESALE 2', bg: '#FEF3C7', color: '#D97706', border: '1px solid #FDE68A' },
+  8:   { quota: 77, label: 'TERSEDIA', bg: '#D1FAE5', color: '#059669', border: '1px solid #A7F3D0' },
 }
 
 function getCardBadge(ev, idx) {
   if (ev.status === 'soldout') {
-    return { label: 'HABIS', bg: 'rgba(50,50,50,0.9)', color: '#9095A1', quota: 0 }
+    return { label: 'HABIS', bg: '#F3F4F6', color: '#6B7280', border: '1px solid #E5E7EB', quota: 0 }
   }
 
   const found = EVENT_QUOTAS[ev.id]
@@ -100,167 +100,239 @@ function getCardBadge(ev, idx) {
   // Fallback deterministic unique percentage per event (between 6% and 89%)
   const seed = ((String(ev.title || '').length * 19 + (Number(ev.id) || idx + 1) * 37) % 84) + 6
   if (seed <= 25) {
-    return { quota: seed, label: 'SEGERA HABIS', bg: '#ef4444', color: '#fff' }
+    return { quota: seed, label: 'SEGERA HABIS', bg: '#FEE2E2', color: '#DC2626', border: '1px solid #FECACA' }
   }
   if (seed <= 58) {
-    return { quota: seed, label: 'PRESALE 2', bg: '#D95D39', color: '#fff' }
+    return { quota: seed, label: 'PRESALE 2', bg: '#FEF3C7', color: '#D97706', border: '1px solid #FDE68A' }
   }
-  return { quota: seed, label: 'TERSEDIA', bg: 'rgba(74,222,128,0.2)', color: '#4ade80' }
+  return { quota: seed, label: 'TERSEDIA', bg: '#D1FAE5', color: '#059669', border: '1px solid #A7F3D0' }
 }
 
 function EventCard({ ev, idx, onBuy, salesOpen }) {
   const imgSrc = resolveEventImage(ev)
   const [hovered, setHovered] = useState(false)
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const [barActive, setBarActive] = useState(false)
+  const cardRef = useRef(null)
   const badgeInfo = getCardBadge(ev, idx)
+
+  // Trigger quota progress animation when card is scrolled into view
+  useEffect(() => {
+    const el = cardRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => setBarActive(true), 150)
+        observer.unobserve(entry.target)
+      }
+    }, { threshold: 0.15 })
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return
+    const rect = cardRef.current.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    const centerX = rect.width / 2
+    const centerY = rect.height / 2
+    const rotateX = ((y - centerY) / centerY) * -5
+    const rotateY = ((x - centerX) / centerX) * 5
+    setTilt({ x: rotateX, y: rotateY })
+  }
+
+  const handleMouseEnter = () => {
+    setHovered(true)
+  }
+
+  const handleMouseLeave = () => {
+    setTilt({ x: 0, y: 0 })
+    setHovered(false)
+  }
+
+  const staggerDelay = (idx % 4) * 90 // 80-100ms interval: 0ms, 90ms, 180ms, 270ms
 
   return (
     <div
-      className={`reveal-scale delay-${((idx % 4) + 1) * 100}`}
+      ref={cardRef}
+      className="reveal-scale card-3d-wrap"
       style={{
-        background: '#161920',
-        borderRadius: 12,
-        overflow: 'hidden',
-        cursor: 'pointer',
-        border: hovered ? '1px solid rgba(217,93,57,0.4)' : '1px solid rgba(245,243,238,0.07)',
-        transform: hovered ? 'translateY(-5px)' : 'translateY(0)',
-        boxShadow: hovered ? '0 16px 40px rgba(0,0,0,0.3)' : '0 2px 12px rgba(0,0,0,0.15)',
-        transition: 'transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease, border-color 0.3s ease',
-        display: 'flex', flexDirection: 'column',
+        transitionDelay: `${staggerDelay}ms`,
+        willChange: 'transform, box-shadow',
       }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       onClick={() => onBuy(ev)}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-      {/* Image */}
-      <div style={{ position: 'relative', width: '100%', paddingTop: '62%', overflow: 'hidden', background: '#0D0F14' }}>
-        <img
-          src={imgSrc}
-          alt={ev.title}
-          style={{
-            position: 'absolute', inset: 0, width: '100%', height: '100%',
-            objectFit: 'cover',
-            transform: hovered ? 'scale(1.05)' : 'scale(1)',
-            transition: 'transform 0.5s cubic-bezier(0.16,1,0.3,1)',
-          }}
-        />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(22,25,32,1) 0%, rgba(22,25,32,0.1) 55%, transparent 100%)' }} />
+      <div
+        style={{
+          background: '#FFFFFF',
+          borderRadius: 12,
+          overflow: 'hidden',
+          cursor: 'pointer',
+          border: hovered ? '1px solid #0066CC' : '1px solid #E5E7EB',
+          transform: hovered
+            ? `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) translateY(-4px) scale3d(1.01, 1.01, 1.01)`
+            : 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0) scale3d(1, 1, 1)',
+          boxShadow: hovered
+            ? '0 10px 20px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04)'
+            : '0 1px 3px rgba(0,0,0,0.05)',
+          transition: hovered
+            ? 'transform 0.1s ease-out, box-shadow 0.2s ease, border-color 0.2s ease'
+            : 'transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s ease, border-color 0.2s ease',
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+          position: 'relative',
+        }}
+      >
+        {/* Image */}
+        <div style={{ position: 'relative', width: '100%', paddingTop: '62%', overflow: 'hidden', background: '#F4F5F7' }}>
+          <img
+            src={imgSrc}
+            alt={ev.title}
+            style={{
+              position: 'absolute', inset: 0, width: '100%', height: '100%',
+              objectFit: 'cover',
+              transform: hovered ? 'scale(1.06)' : 'scale(1)',
+              transition: 'transform 0.5s cubic-bezier(0.16,1,0.3,1)',
+            }}
+          />
 
-        {/* Category badge */}
-        <div style={{
-          position: 'absolute', top: 12, left: 12,
-          padding: '4px 10px', borderRadius: 5,
-          background: 'rgba(17,19,24,0.85)',
-          color: 'rgba(245,243,238,0.9)',
-          fontSize: '0.65rem', fontWeight: 700,
-          letterSpacing: '0.08em',
-          fontFamily: "'Space Grotesk', sans-serif",
-          textTransform: 'uppercase',
-          border: '1px solid rgba(245,243,238,0.1)',
-        }}>
-          {CAT_LABEL[ev.category] || ev.category}
-        </div>
-
-        {/* Dynamic Status badge */}
-        <div style={{
-          position: 'absolute', bottom: 12, left: 12,
-          padding: '4px 10px', borderRadius: 5,
-          background: badgeInfo.bg,
-          color: badgeInfo.color,
-          fontSize: '0.63rem', fontWeight: 700,
-          letterSpacing: '0.06em',
-          fontFamily: "'Space Grotesk', sans-serif",
-          boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
-        }}>
-          {badgeInfo.label}
-        </div>
-      </div>
-
-      {/* Info */}
-      <div style={{ padding: '16px 16px 18px', display: 'flex', flexDirection: 'column', flex: 1 }}>
-        <h3 style={{
-          fontSize: '0.9rem', fontWeight: 700, color: '#F5F3EE',
-          fontFamily: "'Space Grotesk', sans-serif",
-          lineHeight: 1.35, marginBottom: 8,
-          display: '-webkit-box', WebkitLineClamp: 2,
-          WebkitBoxOrient: 'vertical', overflow: 'hidden',
-          minHeight: '2.4em', letterSpacing: '-0.01em',
-        }}>
-          {ev.title}
-        </h3>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 6 }}>
-          <svg width="11" height="11" fill="none" stroke="#6B6E7A" strokeWidth="2" viewBox="0 0 24 24">
-            <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-          </svg>
-          <span style={{ fontSize: '0.76rem', color: '#6B6E7A', fontWeight: 500 }}>{formatDate(ev.date)}</span>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 12 }}>
-          <svg width="11" height="11" fill="none" stroke="#6B6E7A" strokeWidth="2" viewBox="0 0 24 24">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
-          </svg>
-          <span style={{ fontSize: '0.74rem', color: '#9095A1', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {ev.location}
-          </span>
-        </div>
-
-        {/* Quota Progress Bar */}
-        {badgeInfo.quota > 0 && (
-          <div style={{ marginBottom: 14 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.68rem', marginBottom: 4 }}>
-              <span style={{ color: '#6B6E7A' }}>Sisa Kuota</span>
-              <span style={{ color: badgeInfo.quota <= 20 ? '#ef4444' : '#D95D39', fontWeight: 700 }}>
-                {badgeInfo.quota}%
-              </span>
-            </div>
-            <div style={{ width: '100%', height: 4, background: 'rgba(245,243,238,0.08)', borderRadius: 2, overflow: 'hidden' }}>
-              <div style={{
-                width: `${badgeInfo.quota}%`,
-                height: '100%',
-                background: badgeInfo.quota <= 20 ? '#ef4444' : '#D95D39',
-                borderRadius: 2,
-              }} />
-            </div>
-          </div>
-        )}
-
-        <div style={{ height: 1, background: 'rgba(245,243,238,0.06)', marginBottom: 14 }} />
-
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-          <div>
-            {ev.status === 'soldout'
-              ? <span style={{ color: '#6B6E7A', fontWeight: 600, fontSize: '0.82rem' }}>Habis Terjual</span>
-              : <span style={{ color: '#D95D39', fontWeight: 700, fontSize: '1.05rem', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '-0.01em' }}>{formatPrice(ev.price)}</span>
-            }
+          {/* Category badge */}
+          <div style={{
+            position: 'absolute', top: 12, left: 12,
+            padding: '4px 10px', borderRadius: 6,
+            background: 'rgba(255,255,255,0.92)',
+            color: '#111827',
+            fontSize: '0.68rem', fontWeight: 700,
+            letterSpacing: '0.06em',
+            fontFamily: "'Space Grotesk', sans-serif",
+            textTransform: 'uppercase',
+            border: '1px solid #E5E7EB',
+            backdropFilter: 'blur(4px)',
+          }}>
+            {CAT_LABEL[ev.category] || ev.category}
           </div>
 
-          {ev.status !== 'soldout' && (
-            salesOpen ? (
-              <button
-                onClick={(e) => { e.stopPropagation(); onBuy(ev) }}
+          {/* Dynamic Status badge */}
+          <div style={{
+            position: 'absolute', bottom: 12, left: 12,
+            padding: '4px 10px', borderRadius: 6,
+            background: badgeInfo.bg,
+            color: badgeInfo.color,
+            border: badgeInfo.border || 'none',
+            fontSize: '0.65rem', fontWeight: 700,
+            letterSpacing: '0.04em',
+            fontFamily: "'Space Grotesk', sans-serif",
+          }}>
+            {badgeInfo.label}
+          </div>
+        </div>
+
+        {/* Info */}
+        <div style={{ padding: '16px 16px 18px', display: 'flex', flexDirection: 'column', flex: 1, background: '#FFFFFF' }}>
+          <h3 style={{
+            fontSize: '0.95rem', fontWeight: 700, color: '#111827',
+            fontFamily: "'Space Grotesk', sans-serif",
+            lineHeight: 1.35, marginBottom: 8,
+            display: '-webkit-box', WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical', overflow: 'hidden',
+            minHeight: '2.4em', letterSpacing: '-0.01em',
+          }}>
+            {ev.title}
+          </h3>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 6 }}>
+            <svg width="12" height="12" fill="none" stroke="#6B7280" strokeWidth="2" viewBox="0 0 24 24">
+              <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+            </svg>
+            <span style={{ fontSize: '0.78rem', color: '#4B5563', fontWeight: 500 }}>{formatDate(ev.date)}</span>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 12 }}>
+            <svg width="12" height="12" fill="none" stroke="#6B7280" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
+            </svg>
+            <span style={{ fontSize: '0.76rem', color: '#4B5563', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {ev.location}
+            </span>
+          </div>
+
+          {/* Quota Progress Bar with smooth filling animation */}
+          {badgeInfo.quota > 0 && (
+            <div style={{ marginBottom: 14 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.7rem', marginBottom: 5 }}>
+                <span style={{ color: '#4B5563' }}>Sisa Kuota</span>
+                <span style={{ color: badgeInfo.quota <= 20 ? '#DC2626' : '#0066CC', fontWeight: 700 }}>
+                  {badgeInfo.quota}%
+                </span>
+              </div>
+              <div
+                className="quota-progress-track"
                 style={{
-                  flexShrink: 0, padding: '7px 16px', borderRadius: 6,
-                  background: '#D95D39',
-                  color: '#fff', fontSize: '0.72rem', fontWeight: 700,
-                  border: 'none', cursor: 'pointer',
-                  transition: 'background 0.2s, transform 0.2s',
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  letterSpacing: '0.02em',
+                  '--target-quota': `${badgeInfo.quota}%`,
+                  width: '100%',
+                  height: 6,
+                  background: '#E5E7EB',
+                  borderRadius: 3,
+                  overflow: 'hidden',
+                  position: 'relative',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.background = '#C04E2D'; e.currentTarget.style.transform = 'translateY(-1px)' }}
-                onMouseLeave={e => { e.currentTarget.style.background = '#D95D39'; e.currentTarget.style.transform = 'translateY(0)' }}
               >
-                Beli →
-              </button>
-            ) : (
-              <span style={{
-                flexShrink: 0, padding: '6px 12px', borderRadius: 6,
-                background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)',
-                color: '#f87171', fontSize: '0.68rem', fontWeight: 700,
-                fontFamily: "'Space Grotesk', sans-serif",
-              }}>Tutup</span>
-            )
+                <div
+                  className={`quota-progress-fill ${barActive ? 'filled' : ''}`}
+                  style={{
+                    width: barActive ? `${badgeInfo.quota}%` : '0%',
+                    height: '100%',
+                    background: badgeInfo.quota <= 20 ? '#DC2626' : '#0066CC',
+                    borderRadius: 3,
+                    transition: 'width 1.1s cubic-bezier(0.16, 1, 0.3, 1)',
+                  }}
+                />
+              </div>
+            </div>
           )}
+
+          <div style={{ height: 1, background: '#E5E7EB', marginBottom: 14 }} />
+
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, marginTop: 'auto' }}>
+            <div>
+              {ev.status === 'soldout'
+                ? <span style={{ color: '#6B7280', fontWeight: 600, fontSize: '0.85rem' }}>Habis Terjual</span>
+                : <span style={{ color: '#111827', fontWeight: 800, fontSize: '1.05rem', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '-0.01em' }}>{formatPrice(ev.price)}</span>
+              }
+            </div>
+
+            {ev.status !== 'soldout' && (
+              salesOpen ? (
+                <button
+                  onClick={(e) => { e.stopPropagation(); onBuy(ev) }}
+                  style={{
+                    flexShrink: 0, padding: '8px 16px', borderRadius: 8,
+                    background: '#0066CC',
+                    color: '#fff', fontSize: '0.76rem', fontWeight: 700,
+                    border: 'none', cursor: 'pointer',
+                    transition: 'background 0.15s ease',
+                    fontFamily: "'Space Grotesk', sans-serif",
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.background = '#004C99' }}
+                  onMouseLeave={e => { e.currentTarget.style.background = '#0066CC' }}
+                >
+                  Beli →
+                </button>
+              ) : (
+                <span style={{
+                  flexShrink: 0, padding: '6px 12px', borderRadius: 6,
+                  background: '#FEE2E2', border: '1px solid #FECACA',
+                  color: '#DC2626', fontSize: '0.7rem', fontWeight: 700,
+                  fontFamily: "'Space Grotesk', sans-serif",
+                }}>Tutup</span>
+              )
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -410,7 +482,9 @@ export default function TopEvents({ searchQuery = '', activeCategory: externalCa
   }
 
   return (
-    <section id="top-events" style={{ padding: '100px 0', background: '#111318', position: 'relative' }}>
+    <section id="top-events" className="reveal-section" style={{ padding: '90px 0', background: '#F4F5F7', position: 'relative' }}>
+      <div id="jelajahi-festival" style={{ position: 'absolute', top: -70 }} />
+      <div id="event-unggulan" style={{ position: 'absolute', top: -70 }} />
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px' }}>
 
         {/* Header */}
@@ -423,7 +497,7 @@ export default function TopEvents({ searchQuery = '', activeCategory: externalCa
             <h2 className="section-title">
               Jelajahi Festival &amp; Konser
             </h2>
-            <p style={{ color: '#6B6E7A', fontSize: '0.9rem', marginTop: 10 }}>
+            <p style={{ color: '#4B5563', fontSize: '0.9rem', marginTop: 8 }}>
               Tiket resmi festival musik bergengsi dan konser spektakuler di KonserKu
             </p>
           </div>
@@ -431,7 +505,7 @@ export default function TopEvents({ searchQuery = '', activeCategory: externalCa
             onClick={() => setShowAll(!showAll)}
             style={{
               display: 'flex', alignItems: 'center', gap: 6,
-              color: '#D95D39', fontWeight: 600, fontSize: '0.86rem',
+              color: '#0066CC', fontWeight: 600, fontSize: '0.88rem',
               background: 'none', border: 'none', cursor: 'pointer',
               fontFamily: "'Space Grotesk', sans-serif",
             }}
@@ -446,13 +520,13 @@ export default function TopEvents({ searchQuery = '', activeCategory: externalCa
         {/* Sales closed banner */}
         {!salesOpen && (
           <div style={{
-            marginBottom: 24, padding: '12px 16px', borderRadius: 9,
-            background: 'rgba(239,68,68,0.07)', border: '1px solid rgba(239,68,68,0.2)',
-            display: 'flex', alignItems: 'center', gap: 10, color: '#fca5a5', fontSize: '0.86rem',
+            marginBottom: 24, padding: '12px 16px', borderRadius: 8,
+            background: '#FEE2E2', border: '1px solid #FECACA',
+            display: 'flex', alignItems: 'center', gap: 10, color: '#DC2626', fontSize: '0.86rem',
           }}>
-            <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#ef4444', flexShrink: 0 }} />
+            <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#DC2626', flexShrink: 0 }} />
             <span style={{ fontWeight: 700 }}>Penjualan tiket sedang ditutup sementara.</span>
-            <span style={{ color: '#6B6E7A', marginLeft: 6 }}>Pembelian tidak tersedia saat ini.</span>
+            <span style={{ color: '#4B5563', marginLeft: 6 }}>Pembelian tidak tersedia saat ini.</span>
           </div>
         )}
 
@@ -465,7 +539,7 @@ export default function TopEvents({ searchQuery = '', activeCategory: externalCa
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: 16,
-            marginBottom: 36,
+            marginBottom: 32,
           }}
         >
           {/* Category filter */}
@@ -484,8 +558,8 @@ export default function TopEvents({ searchQuery = '', activeCategory: externalCa
           {/* Location & Sort dropdowns */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
             {/* Lokasi Filter */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#161920', border: '1px solid rgba(245,243,238,0.1)', borderRadius: 8, padding: '4px 10px' }}>
-              <svg width="13" height="13" fill="none" stroke="#D95D39" strokeWidth="2" viewBox="0 0 24 24">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: 8, padding: '6px 12px' }}>
+              <svg width="13" height="13" fill="none" stroke="#0066CC" strokeWidth="2" viewBox="0 0 24 24">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
               </svg>
               <select
@@ -494,8 +568,8 @@ export default function TopEvents({ searchQuery = '', activeCategory: externalCa
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: '#F5F3EE',
-                  fontSize: '0.8rem',
+                  color: '#111827',
+                  fontSize: '0.82rem',
                   fontWeight: 600,
                   outline: 'none',
                   cursor: 'pointer',
@@ -503,7 +577,7 @@ export default function TopEvents({ searchQuery = '', activeCategory: externalCa
                 }}
               >
                 {LOCATIONS.map(loc => (
-                  <option key={loc} value={loc} style={{ background: '#161920', color: '#F5F3EE' }}>
+                  <option key={loc} value={loc} style={{ background: '#FFFFFF', color: '#111827' }}>
                     {loc}
                   </option>
                 ))}
@@ -511,8 +585,8 @@ export default function TopEvents({ searchQuery = '', activeCategory: externalCa
             </div>
 
             {/* Urutkan Filter */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#161920', border: '1px solid rgba(245,243,238,0.1)', borderRadius: 8, padding: '4px 10px' }}>
-              <svg width="13" height="13" fill="none" stroke="#D95D39" strokeWidth="2" viewBox="0 0 24 24">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: 8, padding: '6px 12px' }}>
+              <svg width="13" height="13" fill="none" stroke="#0066CC" strokeWidth="2" viewBox="0 0 24 24">
                 <path d="M3 6h18M6 12h12M10 18h4" />
               </svg>
               <select
@@ -521,8 +595,8 @@ export default function TopEvents({ searchQuery = '', activeCategory: externalCa
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: '#F5F3EE',
-                  fontSize: '0.8rem',
+                  color: '#111827',
+                  fontSize: '0.82rem',
                   fontWeight: 600,
                   outline: 'none',
                   cursor: 'pointer',
@@ -530,7 +604,7 @@ export default function TopEvents({ searchQuery = '', activeCategory: externalCa
                 }}
               >
                 {SORT_OPTIONS.map(opt => (
-                  <option key={opt.value} value={opt.value} style={{ background: '#161920', color: '#F5F3EE' }}>
+                  <option key={opt.value} value={opt.value} style={{ background: '#FFFFFF', color: '#111827' }}>
                     {opt.label}
                   </option>
                 ))}
@@ -541,7 +615,7 @@ export default function TopEvents({ searchQuery = '', activeCategory: externalCa
 
         {/* Search empty */}
         {normalizedQuery && filtered.length === 0 && !fetchLoading && (
-          <div style={{ marginBottom: 24, padding: '14px 18px', borderRadius: 10, background: 'rgba(245,243,238,0.04)', border: '1px solid rgba(245,243,238,0.08)', color: '#9095A1', fontSize: '0.9rem' }}>
+          <div style={{ marginBottom: 24, padding: '16px 20px', borderRadius: 8, background: '#FFFFFF', border: '1px solid #E5E7EB', color: '#4B5563', fontSize: '0.9rem' }}>
             Tidak ada event untuk filter atau pencarian "{searchQuery}".
           </div>
         )}
@@ -582,22 +656,22 @@ export default function TopEvents({ searchQuery = '', activeCategory: externalCa
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           {/* Event info */}
-          <div style={{ padding: '12px 14px', borderRadius: 9, background: 'rgba(217,93,57,0.07)', border: '1px solid rgba(217,93,57,0.2)', color: '#F5F3EE' }}>
+          <div style={{ padding: '12px 14px', borderRadius: 9, background: '#EFF6FF', border: '1px solid #BFDBFE', color: '#111827' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-              <span style={{ fontSize: '0.68rem', fontWeight: 700, textTransform: 'uppercase', color: '#D95D39', letterSpacing: '0.08em', fontFamily: "'Space Grotesk', sans-serif" }}>{selectedEvent?.category}</span>
-              <span style={{ fontSize: '0.76rem', color: '#6B6E7A' }}>{formatDate(selectedEvent?.date)}</span>
+              <span style={{ fontSize: '0.68rem', fontWeight: 700, textTransform: 'uppercase', color: '#0066CC', letterSpacing: '0.08em', fontFamily: "'Space Grotesk', sans-serif" }}>{selectedEvent?.category}</span>
+              <span style={{ fontSize: '0.76rem', color: '#6B7280' }}>{formatDate(selectedEvent?.date)}</span>
             </div>
-            <strong style={{ color: '#F5F3EE', fontSize: '0.9rem' }}>{selectedEvent?.title}</strong>
+            <strong style={{ color: '#111827', fontSize: '0.9rem' }}>{selectedEvent?.title}</strong>
           </div>
 
           {/* Quantity + subtotal */}
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6, flex: 1, minWidth: 130 }}>
-              <label style={{ color: '#9095A1', fontSize: '0.82rem', fontWeight: 700 }}>Jumlah Tiket (Maks 4)</label>
+              <label style={{ color: '#4B5563', fontSize: '0.82rem', fontWeight: 700 }}>Jumlah Tiket (Maks 4)</label>
               <select
                 value={quantity}
                 onChange={e => { setQuantity(Number(e.target.value)); setAppliedPromo(null); setPromoError('') }}
-                style={{ padding: '10px 12px', borderRadius: 8, background: '#0D0F14', color: '#F5F3EE', border: '1px solid rgba(245,243,238,0.1)', fontSize: '0.88rem', outline: 'none' }}
+                style={{ padding: '10px 12px', borderRadius: 8, background: '#FFFFFF', color: '#111827', border: '1px solid #D1D5DB', fontSize: '0.88rem', outline: 'none' }}
               >
                 {[1, 2, 3, 4].map(v => (
                   <option key={v} value={v}>{v} tiket</option>
@@ -605,8 +679,8 @@ export default function TopEvents({ searchQuery = '', activeCategory: externalCa
               </select>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6, flex: 1, minWidth: 150 }}>
-              <label style={{ color: '#9095A1', fontSize: '0.82rem', fontWeight: 700 }}>Subtotal</label>
-              <div style={{ padding: '10px 12px', borderRadius: 8, background: 'rgba(245,243,238,0.04)', border: '1px solid rgba(245,243,238,0.08)', color: '#F5F3EE', fontWeight: 700, fontSize: '0.92rem' }}>
+              <label style={{ color: '#4B5563', fontSize: '0.82rem', fontWeight: 700 }}>Subtotal</label>
+              <div style={{ padding: '10px 12px', borderRadius: 8, background: '#F9FAFB', border: '1px solid #E5E7EB', color: '#111827', fontWeight: 700, fontSize: '0.92rem' }}>
                 {formatPrice(subtotal)}
               </div>
             </div>
@@ -614,7 +688,7 @@ export default function TopEvents({ searchQuery = '', activeCategory: externalCa
 
           {/* Promo */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <label style={{ color: '#9095A1', fontSize: '0.82rem', fontWeight: 700 }}>Kode Promo</label>
+            <label style={{ color: '#4B5563', fontSize: '0.82rem', fontWeight: 700 }}>Kode Promo</label>
             <div style={{ display: 'flex', gap: 8 }}>
               <input
                 type="text"
@@ -622,31 +696,31 @@ export default function TopEvents({ searchQuery = '', activeCategory: externalCa
                 onChange={e => { setPromoCode(e.target.value.toUpperCase()); setAppliedPromo(null); setPromoError('') }}
                 onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleApplyPromo() } }}
                 placeholder="Contoh: EARLYBIRD30"
-                style={{ flex: 1, padding: '10px 12px', borderRadius: 8, background: '#0D0F14', color: '#F5F3EE', border: appliedPromo ? '1px solid rgba(34,197,94,0.4)' : promoError ? '1px solid rgba(239,68,68,0.4)' : '1px solid rgba(245,243,238,0.1)', fontSize: '0.88rem', outline: 'none', fontFamily: "'Manrope', sans-serif" }}
+                style={{ flex: 1, padding: '10px 12px', borderRadius: 8, background: '#FFFFFF', color: '#111827', border: appliedPromo ? '1px solid #059669' : promoError ? '1px solid #DC2626' : '1px solid #D1D5DB', fontSize: '0.88rem', outline: 'none', fontFamily: "'Manrope', sans-serif" }}
               />
               <button type="button" onClick={handleApplyPromo} disabled={!promoCode.trim() || promoLoading} className="btn-primary" style={{ padding: '10px 18px', borderRadius: 8, fontSize: '0.84rem', whiteSpace: 'nowrap' }}>
                 {promoLoading ? '…' : 'Gunakan'}
               </button>
             </div>
             {appliedPromo && (
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', borderRadius: 8, background: 'rgba(34,197,94,0.07)', border: '1px solid rgba(34,197,94,0.2)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', borderRadius: 8, background: '#D1FAE5', border: '1px solid #A7F3D0' }}>
                 <div>
-                  <div style={{ color: '#86efac', fontSize: '0.78rem', fontWeight: 700 }}>{appliedPromo.title}</div>
-                  <div style={{ color: '#4ade80', fontSize: '0.7rem' }}>Diskon {appliedPromo.discountPercent}% — hemat Rp {discountAmount.toLocaleString('id-ID')}</div>
+                  <div style={{ color: '#059669', fontSize: '0.78rem', fontWeight: 700 }}>{appliedPromo.title}</div>
+                  <div style={{ color: '#059669', fontSize: '0.7rem' }}>Diskon {appliedPromo.discountPercent}% — hemat Rp {discountAmount.toLocaleString('id-ID')}</div>
                 </div>
-                <button onClick={() => { setAppliedPromo(null); setPromoCode(''); setPromoError('') }} style={{ background: 'none', border: 'none', color: '#6B6E7A', cursor: 'pointer', fontSize: 16 }}>×</button>
+                <button onClick={() => { setAppliedPromo(null); setPromoCode(''); setPromoError('') }} style={{ background: 'none', border: 'none', color: '#059669', cursor: 'pointer', fontSize: 16 }}>×</button>
               </div>
             )}
-            {promoError && <div style={{ padding: '8px 12px', borderRadius: 8, background: 'rgba(239,68,68,0.07)', border: '1px solid rgba(239,68,68,0.2)', color: '#fca5a5', fontSize: '0.76rem' }}>{promoError}</div>}
+            {promoError && <div style={{ padding: '8px 12px', borderRadius: 8, background: '#FEE2E2', border: '1px solid #FECACA', color: '#DC2626', fontSize: '0.76rem' }}>{promoError}</div>}
           </div>
 
           {/* Payment method */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <label style={{ color: '#9095A1', fontSize: '0.82rem', fontWeight: 700 }}>Metode Pembayaran</label>
+            <label style={{ color: '#4B5563', fontSize: '0.82rem', fontWeight: 700 }}>Metode Pembayaran</label>
             <select
               value={selectedMethod}
               onChange={e => { setSelectedMethod(e.target.value); setPaymentDetail(e.target.value === 'qris' ? { eventTitle: selectedEvent?.title, total: totalPrice, orderId: `KO-${Date.now()}` } : {}); setMessage('') }}
-              style={{ padding: '10px 12px', borderRadius: 8, background: '#0D0F14', color: '#F5F3EE', border: '1px solid rgba(245,243,238,0.1)', fontSize: '0.88rem', outline: 'none' }}
+              style={{ padding: '10px 12px', borderRadius: 8, background: '#FFFFFF', color: '#111827', border: '1px solid #D1D5DB', fontSize: '0.88rem', outline: 'none' }}
             >
               {paymentMethods.map(m => <option key={m.value} value={m.value}>{m.label}</option>)}
             </select>
@@ -654,31 +728,31 @@ export default function TopEvents({ searchQuery = '', activeCategory: externalCa
 
           {/* Payment detail form */}
           {selectedMethod && (
-            <div style={{ padding: '14px', borderRadius: 9, background: 'rgba(245,243,238,0.03)', border: '1px solid rgba(245,243,238,0.07)' }}>
+            <div style={{ padding: '14px', borderRadius: 9, background: '#F9FAFB', border: '1px solid #E5E7EB' }}>
               <PaymentDetailForm method={selectedMethod} detail={paymentDetail} onChange={setPaymentDetail} />
             </div>
           )}
 
           {/* Price summary */}
-          <div style={{ padding: '12px 14px', borderRadius: 9, background: 'rgba(245,243,238,0.03)', border: '1px solid rgba(245,243,238,0.07)' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', color: '#6B6E7A', marginBottom: 6 }}>
-              <span>Subtotal</span><span style={{ color: '#9095A1' }}>{formatPrice(subtotal)}</span>
+          <div style={{ padding: '12px 14px', borderRadius: 9, background: '#F9FAFB', border: '1px solid #E5E7EB' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', color: '#6B7280', marginBottom: 6 }}>
+              <span>Subtotal</span><span style={{ color: '#111827' }}>{formatPrice(subtotal)}</span>
             </div>
             {discountAmount > 0 && (
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', color: '#4ade80', marginBottom: 6 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', color: '#059669', marginBottom: 6 }}>
                 <span>Diskon ({appliedPromo?.discountPercent}%)</span>
                 <span>− {formatPrice(discountAmount)}</span>
               </div>
             )}
-            <div style={{ height: 1, background: 'rgba(245,243,238,0.07)', margin: '8px 0' }} />
+            <div style={{ height: 1, background: '#E5E7EB', margin: '8px 0' }} />
             <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 700 }}>
-              <span style={{ color: '#F5F3EE' }}>Total</span>
-              <span style={{ color: '#D95D39', fontSize: '1.05rem' }}>{formatPrice(totalPrice)}</span>
+              <span style={{ color: '#111827' }}>Total</span>
+              <span style={{ color: '#0066CC', fontSize: '1.05rem' }}>{formatPrice(totalPrice)}</span>
             </div>
           </div>
 
           {message && (
-            <div style={{ padding: '10px 14px', borderRadius: 8, background: 'rgba(239,68,68,0.07)', border: '1px solid rgba(239,68,68,0.2)', color: '#fca5a5', fontSize: '0.82rem' }}>
+            <div style={{ padding: '10px 14px', borderRadius: 8, background: '#FEE2E2', border: '1px solid #FECACA', color: '#DC2626', fontSize: '0.82rem' }}>
               {message}
             </div>
           )}

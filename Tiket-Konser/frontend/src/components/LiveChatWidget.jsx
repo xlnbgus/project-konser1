@@ -64,7 +64,7 @@ export default function LiveChatWidget() {
           <button
             onClick={() => setIsOpen(true)}
             style={{
-              background: '#D95D39',
+              background: '#0066CC',
               color: '#fff',
               border: 'none',
               borderRadius: 30,
@@ -73,7 +73,7 @@ export default function LiveChatWidget() {
               alignItems: 'center',
               gap: 10,
               cursor: 'pointer',
-              boxShadow: '0 8px 24px rgba(217,93,57,0.35)',
+              boxShadow: '0 8px 24px rgba(0, 102, 204, 0.3)',
               transition: 'transform 0.2s, background 0.2s',
               fontFamily: "'Space Grotesk', sans-serif",
               fontWeight: 700,
@@ -87,8 +87,8 @@ export default function LiveChatWidget() {
                 width: 8,
                 height: 8,
                 borderRadius: '50%',
-                background: '#4ade80',
-                boxShadow: '0 0 8px #4ade80',
+                background: '#10B981',
+                boxShadow: '0 0 6px #10B981',
               }}
             />
             <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -104,11 +104,11 @@ export default function LiveChatWidget() {
             style={{
               width: 360,
               maxWidth: 'calc(100vw - 32px)',
-              background: '#161920',
-              border: '1px solid rgba(245,243,238,0.12)',
+              background: '#FFFFFF',
+              border: '1px solid #E5E7EB',
               borderRadius: 16,
               overflow: 'hidden',
-              boxShadow: '0 16px 48px rgba(0,0,0,0.6)',
+              boxShadow: '0 16px 40px rgba(0,0,0,0.12)',
               display: 'flex',
               flexDirection: 'column',
               animation: 'fadeInUp 0.2s ease-out',
@@ -118,8 +118,8 @@ export default function LiveChatWidget() {
             <div
               style={{
                 padding: '16px 20px',
-                background: 'linear-gradient(135deg, #1A1D25 0%, #111318 100%)',
-                borderBottom: '1px solid rgba(245,243,238,0.08)',
+                background: '#FFFFFF',
+                borderBottom: '1px solid #E5E7EB',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
@@ -131,11 +131,11 @@ export default function LiveChatWidget() {
                     width: 34,
                     height: 34,
                     borderRadius: '50%',
-                    background: '#D95D39',
+                    background: '#EFF6FF',
+                    color: '#0066CC',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: '#fff',
                     fontWeight: 700,
                     fontSize: '0.84rem',
                   }}
@@ -146,7 +146,7 @@ export default function LiveChatWidget() {
                   <h4
                     style={{
                       margin: 0,
-                      color: '#F5F3EE',
+                      color: '#111827',
                       fontSize: '0.88rem',
                       fontWeight: 700,
                       fontFamily: "'Space Grotesk', sans-serif",
@@ -155,8 +155,8 @@ export default function LiveChatWidget() {
                     Support KonserKu
                   </h4>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ade80' }} />
-                    <span style={{ color: '#4ade80', fontSize: '0.7rem', fontWeight: 600 }}>Online 24/7</span>
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#059669' }} />
+                    <span style={{ color: '#059669', fontSize: '0.7rem', fontWeight: 600 }}>Online 24/7</span>
                   </div>
                 </div>
               </div>
@@ -168,9 +168,9 @@ export default function LiveChatWidget() {
                   rel="noreferrer"
                   title="Buka WhatsApp Langsung"
                   style={{
-                    background: 'rgba(74,222,128,0.15)',
-                    color: '#4ade80',
-                    border: 'none',
+                    background: '#D1FAE5',
+                    color: '#059669',
+                    border: '1px solid #A7F3D0',
                     borderRadius: 6,
                     padding: '6px 10px',
                     fontSize: '0.72rem',
@@ -188,7 +188,7 @@ export default function LiveChatWidget() {
                   style={{
                     background: 'none',
                     border: 'none',
-                    color: '#9095A1',
+                    color: '#4B5563',
                     fontSize: '1rem',
                     cursor: 'pointer',
                     padding: '4px 8px',
@@ -208,7 +208,7 @@ export default function LiveChatWidget() {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 12,
-                background: '#111318',
+                background: '#F9FAFB',
               }}
             >
               {messages.map((m, idx) => {
@@ -225,11 +225,12 @@ export default function LiveChatWidget() {
                       style={{
                         padding: '10px 14px',
                         borderRadius: isUser ? '12px 12px 2px 12px' : '12px 12px 12px 2px',
-                        background: isUser ? '#D95D39' : '#161920',
-                        color: isUser ? '#fff' : '#F5F3EE',
+                        background: isUser ? '#0066CC' : '#FFFFFF',
+                        color: isUser ? '#fff' : '#111827',
                         fontSize: '0.82rem',
                         lineHeight: 1.45,
-                        border: isUser ? 'none' : '1px solid rgba(245,243,238,0.08)',
+                        border: isUser ? 'none' : '1px solid #E5E7EB',
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
                       }}
                     >
                       {m.text}
@@ -246,8 +247,8 @@ export default function LiveChatWidget() {
             <div
               style={{
                 padding: '8px 12px',
-                background: '#161920',
-                borderTop: '1px solid rgba(245,243,238,0.06)',
+                background: '#FFFFFF',
+                borderTop: '1px solid #E5E7EB',
                 display: 'flex',
                 gap: 6,
                 overflowX: 'auto',
@@ -257,9 +258,9 @@ export default function LiveChatWidget() {
                 type="button"
                 onClick={() => handleQuickQuestion('Cara Beli Tiket?')}
                 style={{
-                  background: 'rgba(245,243,238,0.05)',
-                  border: '1px solid rgba(245,243,238,0.1)',
-                  color: '#9095A1',
+                  background: '#F3F4F6',
+                  border: '1px solid #E5E7EB',
+                  color: '#4B5563',
                   borderRadius: 20,
                   padding: '4px 10px',
                   fontSize: '0.7rem',
@@ -273,9 +274,9 @@ export default function LiveChatWidget() {
                 type="button"
                 onClick={() => handleQuickQuestion('Kendala Pembayaran?')}
                 style={{
-                  background: 'rgba(245,243,238,0.05)',
-                  border: '1px solid rgba(245,243,238,0.1)',
-                  color: '#9095A1',
+                  background: '#F3F4F6',
+                  border: '1px solid #E5E7EB',
+                  color: '#4B5563',
                   borderRadius: 20,
                   padding: '4px 10px',
                   fontSize: '0.7rem',
@@ -292,8 +293,8 @@ export default function LiveChatWidget() {
               onSubmit={handleSend}
               style={{
                 padding: '12px 14px',
-                background: '#161920',
-                borderTop: '1px solid rgba(245,243,238,0.08)',
+                background: '#FFFFFF',
+                borderTop: '1px solid #E5E7EB',
                 display: 'flex',
                 gap: 8,
               }}
@@ -307,17 +308,19 @@ export default function LiveChatWidget() {
                   flex: 1,
                   padding: '8px 12px',
                   borderRadius: 8,
-                  background: 'rgba(245,243,238,0.05)',
-                  border: '1px solid rgba(245,243,238,0.1)',
-                  color: '#F5F3EE',
+                  background: '#FFFFFF',
+                  border: '1px solid #D1D5DB',
+                  color: '#111827',
                   fontSize: '0.82rem',
                   outline: 'none',
                 }}
+                onFocus={(e) => (e.target.style.borderColor = '#0066CC')}
+                onBlur={(e) => (e.target.style.borderColor = '#D1D5DB')}
               />
               <button
                 type="submit"
                 style={{
-                  background: '#D95D39',
+                  background: '#0066CC',
                   color: '#fff',
                   border: 'none',
                   borderRadius: 8,

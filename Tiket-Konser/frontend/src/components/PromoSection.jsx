@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { showToast } from './Toast'
+import CountUpNumber from './CountUpNumber'
 
 const promos = [
   {
@@ -56,40 +57,44 @@ export default function PromoSection() {
   }
 
   return (
-    <section style={{ padding: '100px 0', background: '#111318' }}>
+    <section id="promo" className="reveal-section" style={{ padding: '90px 0', background: '#FFFFFF' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px' }}>
 
-        {/* Stats row */}
-        <div className="reveal" style={{ marginBottom: 72 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 1, border: '1px solid rgba(245,243,238,0.07)', borderRadius: 10, overflow: 'hidden' }}>
+        {/* Stats row with Count-Up animation */}
+        <div className="reveal" style={{ marginBottom: 64 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 1, border: '1px solid #E5E7EB', borderRadius: 10, overflow: 'hidden', background: '#E5E7EB' }}>
             {stats.map((s, i) => (
-              <div key={s.label} style={{
-                padding: '28px 24px', textAlign: 'center',
-                background: '#161920',
-                borderRight: i < stats.length - 1 ? '1px solid rgba(245,243,238,0.07)' : 'none',
-              }}>
-                <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: '1.75rem', color: '#F5F3EE', marginBottom: 4, letterSpacing: '-0.03em' }}>
-                  {s.val}
+              <div
+                key={s.label}
+                className={`reveal-scale delay-${(i % 4) * 90}`}
+                style={{
+                  padding: '28px 24px', textAlign: 'center',
+                  background: '#FFFFFF',
+                  borderRight: i < stats.length - 1 ? '1px solid #E5E7EB' : 'none',
+                }}
+              >
+                <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: '1.75rem', color: '#111827', marginBottom: 4, letterSpacing: '-0.03em' }}>
+                  <CountUpNumber value={s.val} />
                 </p>
-                <p style={{ color: '#6B6E7A', fontSize: '0.8rem' }}>{s.label}</p>
+                <p style={{ color: '#4B5563', fontSize: '0.82rem', fontWeight: 500 }}>{s.label}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Header */}
-        <div className="reveal" style={{ marginBottom: 44 }}>
+        <div className="reveal" style={{ marginBottom: 40 }}>
           <p className="label-eyebrow" style={{ marginBottom: 10 }}>Penawaran Spesial</p>
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
             <h2 className="section-title">Promo &amp; Diskon Menarik</h2>
-            <p style={{ color: '#6B6E7A', fontSize: '0.88rem', maxWidth: 320, lineHeight: 1.6 }}>
+            <p style={{ color: '#4B5563', fontSize: '0.88rem', maxWidth: 320, lineHeight: 1.6 }}>
               Gunakan voucher dan nikmati pengalaman nonton lebih hemat
             </p>
           </div>
         </div>
 
         {/* Promo cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20 }}>
           {promos.map((p, idx) => {
             const isCopied = copiedCode === p.code
             const isUsed = usedCode === p.code
@@ -99,36 +104,45 @@ export default function PromoSection() {
                 className={`reveal-scale ${idx === 1 ? 'delay-200' : 'delay-100'}`}
                 style={{
                   borderRadius: 12, padding: '36px 32px',
-                  background: '#161920',
-                  border: '1px solid rgba(217,93,57,0.2)',
+                  background: '#FFFFFF',
+                  border: '1px solid #E5E7EB',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
                   position: 'relative', overflow: 'hidden',
-                  transition: 'transform 0.3s, border-color 0.3s',
+                  transition: 'border-color 0.2s, box-shadow 0.2s, transform 0.2s',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = 'rgba(217,93,57,0.4)' }}
-                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = 'rgba(217,93,57,0.2)' }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.transform = 'translateY(-3px)'
+                  e.currentTarget.style.borderColor = '#0066CC'
+                  e.currentTarget.style.boxShadow = '0 10px 20px -3px rgba(0, 0, 0, 0.08)'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.borderColor = '#E5E7EB'
+                  e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.05)'
+                }}
               >
-                {/* Accent line */}
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: '#D95D39' }} />
+                {/* Accent top line */}
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: '#0066CC' }} />
 
                 <div style={{ position: 'relative', zIndex: 1 }}>
                   <span style={{
-                    display: 'inline-block', padding: '4px 10px', borderRadius: 5,
-                    background: 'rgba(217,93,57,0.15)',
-                    border: '1px solid rgba(217,93,57,0.25)',
-                    color: '#D95D39',
-                    fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.12em',
-                    marginBottom: 18, fontFamily: "'Space Grotesk', sans-serif",
+                    display: 'inline-block', padding: '4px 10px', borderRadius: 6,
+                    background: '#EFF6FF',
+                    border: '1px solid #BFDBFE',
+                    color: '#0066CC',
+                    fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.1em',
+                    marginBottom: 16, fontFamily: "'Space Grotesk', sans-serif",
                   }}>
                     {p.tag}
                   </span>
 
-                  <h3 style={{ color: '#F5F3EE', fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: '1.2rem', marginBottom: 4 }}>
+                  <h3 style={{ color: '#111827', fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: '1.25rem', marginBottom: 4 }}>
                     {p.title}
                   </h3>
-                  <p style={{ color: '#D95D39', fontWeight: 700, fontSize: '1.65rem', marginBottom: 12, fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '-0.02em' }}>
+                  <p style={{ color: '#0066CC', fontWeight: 800, fontSize: '1.65rem', marginBottom: 12, fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '-0.02em' }}>
                     {p.sub}
                   </p>
-                  <p style={{ color: 'rgba(245,243,238,0.6)', fontSize: '0.88rem', lineHeight: 1.65, marginBottom: 24 }}>
+                  <p style={{ color: '#4B5563', fontSize: '0.88rem', lineHeight: 1.65, marginBottom: 24 }}>
                     {p.desc}
                   </p>
 
@@ -136,18 +150,18 @@ export default function PromoSection() {
                     {/* Code pill */}
                     <div style={{
                       display: 'flex', alignItems: 'center', gap: 10,
-                      background: 'rgba(245,243,238,0.05)', border: '1px solid rgba(245,243,238,0.12)',
-                      borderRadius: 7, padding: '9px 14px',
+                      background: '#F4F5F7', border: '1px dashed #D1D5DB',
+                      borderRadius: 8, padding: '9px 14px',
                     }}>
-                      <span style={{ fontSize: '0.72rem', color: '#6B6E7A' }}>KODE:</span>
-                      <span style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '0.95rem', color: '#F5F3EE', letterSpacing: '0.1em' }}>
+                      <span style={{ fontSize: '0.72rem', color: '#6B7280', fontWeight: 600 }}>KODE:</span>
+                      <span style={{ fontFamily: 'monospace', fontWeight: 700, fontSize: '0.95rem', color: '#111827', letterSpacing: '0.1em' }}>
                         {p.code}
                       </span>
                       <button
                         type="button"
                         onClick={(e) => handleCopyIcon(p.code, e)}
                         title={isCopied ? 'Tersalin!' : 'Salin kode'}
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '2px 4px', borderRadius: 4, color: isCopied ? '#4ade80' : '#6B6E7A', transition: 'color 0.2s' }}
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '2px 4px', borderRadius: 4, color: isCopied ? '#059669' : '#6B7280', transition: 'color 0.15s' }}
                       >
                         {isCopied ? (
                           <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
@@ -166,28 +180,28 @@ export default function PromoSection() {
                       type="button"
                       onClick={() => handleUsePromo(p.code)}
                       style={{
-                        padding: '10px 20px', borderRadius: 7,
-                        background: isUsed ? 'rgba(74,222,128,0.12)' : '#D95D39',
-                        color: isUsed ? '#4ade80' : '#fff',
+                        padding: '10px 20px', borderRadius: 8,
+                        background: isUsed ? '#D1FAE5' : '#0066CC',
+                        color: isUsed ? '#059669' : '#FFFFFF',
                         fontWeight: 700, fontSize: '0.84rem',
                         border: 'none', cursor: 'pointer',
-                        transition: 'background 0.2s, color 0.2s, transform 0.2s',
+                        transition: 'background 0.15s, color 0.15s',
                         display: 'flex', alignItems: 'center', gap: 5,
                         fontFamily: "'Space Grotesk', sans-serif",
                       }}
-                      onMouseEnter={e => { if (!isUsed) e.currentTarget.style.transform = 'translateY(-1px)' }}
-                      onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)' }}
+                      onMouseEnter={e => { if (!isUsed) e.currentTarget.style.background = '#004C99' }}
+                      onMouseLeave={e => { if (!isUsed) e.currentTarget.style.background = '#0066CC' }}
                     >
                       {isUsed ? '✓ Disalin' : 'Pakai →'}
                     </button>
                   </div>
 
-                  <p style={{ color: '#3A3D47', fontSize: '0.75rem', marginTop: 14 }}>
+                  <p style={{ color: '#6B7280', fontSize: '0.75rem', marginTop: 14 }}>
                     Berlaku hingga: {p.expires}
                   </p>
 
                   {(isCopied || isUsed) && (
-                    <div style={{ marginTop: 10, padding: '8px 12px', borderRadius: 7, background: 'rgba(74,222,128,0.07)', border: '1px solid rgba(74,222,128,0.2)', color: '#86efac', fontSize: '0.78rem', fontWeight: 600 }}>
+                    <div style={{ marginTop: 10, padding: '8px 12px', borderRadius: 8, background: '#D1FAE5', border: '1px solid #A7F3D0', color: '#059669', fontSize: '0.78rem', fontWeight: 600 }}>
                       {isUsed
                         ? `Kode "${p.code}" disalin! Tempel di kolom promo saat checkout.`
                         : `Kode "${p.code}" berhasil disalin ke clipboard.`

@@ -46,10 +46,10 @@ export default function ToastContainer() {
             minWidth: 280,
             maxWidth: 380,
             padding: '12px 18px',
-            borderRadius: 8,
-            background: '#161920',
-            border: t.type === 'error' ? '1px solid #ef4444' : '1px solid #D95D39',
-            boxShadow: '0 12px 30px rgba(0,0,0,0.5)',
+            borderRadius: 10,
+            background: '#FFFFFF',
+            border: t.type === 'error' ? '1px solid #FECACA' : '1px solid #BFDBFE',
+            boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.05)',
             display: 'flex',
             alignItems: 'center',
             gap: 12,
@@ -61,12 +61,12 @@ export default function ToastContainer() {
               width: 28,
               height: 28,
               borderRadius: 6,
-              background: t.type === 'error' ? 'rgba(239,68,68,0.15)' : 'rgba(217,93,57,0.15)',
+              background: t.type === 'error' ? '#FEE2E2' : '#EFF6FF',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               flexShrink: 0,
-              color: t.type === 'error' ? '#ef4444' : '#D95D39',
+              color: t.type === 'error' ? '#DC2626' : '#0066CC',
             }}
           >
             {t.type === 'error' ? (
@@ -84,9 +84,9 @@ export default function ToastContainer() {
           <p
             style={{
               margin: 0,
-              color: '#F5F3EE',
+              color: '#111827',
               fontSize: '0.85rem',
-              fontWeight: 500,
+              fontWeight: 600,
               fontFamily: "'Manrope', sans-serif",
               lineHeight: 1.4,
             }}

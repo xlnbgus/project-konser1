@@ -26,11 +26,11 @@ function StepBar({ step }) {
               <div style={{
                 width: 32, height: 32, borderRadius: 8,
                 border: '1.5px solid',
-                borderColor: done || active ? '#D95D39' : 'rgba(245,243,238,0.15)',
-                background: done ? '#D95D39' : active ? 'rgba(217,93,57,0.15)' : 'transparent',
+                borderColor: done || active ? '#0066CC' : '#E5E7EB',
+                background: done ? '#0066CC' : active ? '#EFF6FF' : '#FFFFFF',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: '0.8rem', fontWeight: 700,
-                color: done ? '#fff' : active ? '#D95D39' : '#6B6E7A',
+                color: done ? '#fff' : active ? '#0066CC' : '#9CA3AF',
                 fontFamily: "'Space Grotesk', sans-serif",
                 transition: 'all 0.3s ease',
               }}>
@@ -38,7 +38,7 @@ function StepBar({ step }) {
               </div>
               <span style={{
                 fontSize: '0.82rem', fontWeight: active ? 700 : 500,
-                color: active ? '#F5F3EE' : done ? '#9095A1' : '#6B6E7A',
+                color: active ? '#111827' : done ? '#4B5563' : '#9CA3AF',
                 whiteSpace: 'nowrap', fontFamily: "'Space Grotesk', sans-serif",
               }}>
                 {label}
@@ -47,7 +47,7 @@ function StepBar({ step }) {
             {i < steps.length - 1 && (
               <div style={{
                 flex: 1, height: 1.5, margin: '0 16px',
-                background: step > 1 ? '#D95D39' : 'rgba(245,243,238,0.1)',
+                background: step > 1 ? '#0066CC' : '#E5E7EB',
                 transition: 'background 0.4s ease',
               }} />
             )}
@@ -207,9 +207,9 @@ export default function EventDetailView({ event, onBack }) {
     flex: 1,
     padding: '12px 14px',
     borderRadius: 8,
-    background: 'rgba(245, 243, 238, 0.05)',
-    color: '#F5F3EE',
-    border: '1px solid rgba(245, 243, 238, 0.1)',
+    background: '#FFFFFF',
+    color: '#111827',
+    border: '1px solid #D1D5DB',
     fontSize: '0.88rem',
     outline: 'none',
     fontFamily: "'Manrope', sans-serif",
@@ -224,8 +224,8 @@ export default function EventDetailView({ event, onBack }) {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#111318',
-      color: '#F5F3EE',
+      background: '#F4F5F7',
+      color: '#111827',
       fontFamily: "'Manrope', sans-serif",
       position: 'relative',
       paddingBottom: 80,
@@ -236,9 +236,9 @@ export default function EventDetailView({ event, onBack }) {
         position: 'sticky',
         top: 0,
         zIndex: 100,
-        background: 'rgba(17, 19, 24, 0.95)',
+        background: 'rgba(255, 255, 255, 0.95)',
         backdropFilter: 'blur(16px)',
-        borderBottom: '1px solid rgba(245, 243, 238, 0.08)',
+        borderBottom: '1px solid #E5E7EB',
         padding: '16px 24px',
       }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -250,17 +250,17 @@ export default function EventDetailView({ event, onBack }) {
               gap: 8,
               padding: '8px 16px',
               borderRadius: 8,
-              background: 'rgba(245, 243, 238, 0.06)',
-              border: '1px solid rgba(245, 243, 238, 0.1)',
-              color: '#F5F3EE',
+              background: '#FFFFFF',
+              border: '1px solid #E5E7EB',
+              color: '#111827',
               fontSize: '0.84rem',
               fontWeight: 600,
               cursor: 'pointer',
               fontFamily: "'Space Grotesk', sans-serif",
-              transition: 'background 0.2s, border-color 0.2s',
+              transition: 'all 0.2s',
             }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(217,93,57,0.15)'; e.currentTarget.style.borderColor = 'rgba(217,93,57,0.3)' }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(245, 243, 238, 0.06)'; e.currentTarget.style.borderColor = 'rgba(245, 243, 238, 0.1)' }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#EFF6FF'; e.currentTarget.style.borderColor = '#0066CC' }}
+            onMouseLeave={e => { e.currentTarget.style.background = '#FFFFFF'; e.currentTarget.style.borderColor = '#E5E7EB' }}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
@@ -273,9 +273,9 @@ export default function EventDetailView({ event, onBack }) {
               fontSize: '0.72rem',
               padding: '4px 10px',
               borderRadius: 6,
-              background: 'rgba(217, 93, 57, 0.12)',
-              border: '1px solid rgba(217, 93, 57, 0.25)',
-              color: '#D95D39',
+              background: '#EFF6FF',
+              border: '1px solid #BFDBFE',
+              color: '#0066CC',
               fontWeight: 700,
               textTransform: 'uppercase',
               letterSpacing: '0.08em',
@@ -283,7 +283,7 @@ export default function EventDetailView({ event, onBack }) {
             }}>
               {displayBadge}
             </span>
-            <span style={{ color: '#6B6E7A', fontSize: '0.82rem' }}>Pemesanan Tiket Resmi</span>
+            <span style={{ color: '#4B5563', fontSize: '0.82rem' }}>Pemesanan Tiket Resmi</span>
           </div>
         </div>
       </header>
@@ -304,13 +304,13 @@ export default function EventDetailView({ event, onBack }) {
 
           {/* LEFT COLUMN: Event Visual Poster, Details & Description */}
           <div style={{
-            background: '#161920',
+            background: '#FFFFFF',
             borderRadius: 14,
-            border: '1px solid rgba(245, 243, 238, 0.08)',
+            border: '1px solid #E5E7EB',
             overflow: 'hidden',
           }}>
             {/* Visual Event Banner */}
-            <div style={{ position: 'relative', width: '100%', height: 320, background: '#0D0F14' }}>
+            <div style={{ position: 'relative', width: '100%', height: 320, background: '#F3F4F6' }}>
               {displayImage && (
                 <img
                   src={displayImage}
@@ -321,7 +321,7 @@ export default function EventDetailView({ event, onBack }) {
               <div style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'linear-gradient(to top, rgba(22, 25, 32, 1) 0%, rgba(22, 25, 32, 0.2) 60%, transparent 100%)',
+                background: 'linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.2) 60%, transparent 100%)',
               }} />
 
               <div style={{ position: 'absolute', bottom: 20, left: 24, right: 24 }}>
@@ -329,7 +329,7 @@ export default function EventDetailView({ event, onBack }) {
                   display: 'inline-block',
                   padding: '4px 10px',
                   borderRadius: 5,
-                  background: '#D95D39',
+                  background: '#0066CC',
                   color: '#fff',
                   fontSize: '0.68rem',
                   fontWeight: 700,
@@ -340,7 +340,7 @@ export default function EventDetailView({ event, onBack }) {
                   {displayBadge}
                 </span>
                 <h1 style={{
-                  color: '#F5F3EE',
+                  color: '#111827',
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontWeight: 700,
                   fontSize: 'clamp(1.5rem, 2.5vw, 2.1rem)',
@@ -348,7 +348,7 @@ export default function EventDetailView({ event, onBack }) {
                   lineHeight: 1.15,
                   letterSpacing: '-0.02em',
                 }}>
-                  {displayTitle} {event.accent ? <span style={{ color: '#D95D39' }}>{event.accent}</span> : ''}
+                  {displayTitle} {event.accent ? <span style={{ color: '#0066CC' }}>{event.accent}</span> : ''}
                 </h1>
               </div>
             </div>
@@ -360,14 +360,14 @@ export default function EventDetailView({ event, onBack }) {
                   fontSize: '0.7rem',
                   fontWeight: 700,
                   letterSpacing: '0.12em',
-                  color: '#D95D39',
+                  color: '#0066CC',
                   textTransform: 'uppercase',
                   marginBottom: 8,
                   fontFamily: "'Space Grotesk', sans-serif",
                 }}>
                   Tentang Acara
                 </p>
-                <p style={{ color: '#9095A1', fontSize: '0.9rem', lineHeight: 1.75, margin: 0 }}>
+                <p style={{ color: '#4B5563', fontSize: '0.9rem', lineHeight: 1.75, margin: 0 }}>
                   {event.description || 'Saksikan pertunjukan spektakuler dengan tata panggung audio visual berstandar internasional dan pengalaman konser tak terlupakan.'}
                 </p>
               </div>
@@ -382,13 +382,13 @@ export default function EventDetailView({ event, onBack }) {
                   <div key={item.label} style={{
                     padding: '12px 14px',
                     borderRadius: 8,
-                    background: 'rgba(245, 243, 238, 0.04)',
-                    border: '1px solid rgba(245, 243, 238, 0.07)',
+                    background: '#F9FAFB',
+                    border: '1px solid #E5E7EB',
                   }}>
                     <span style={{ color: '#6B6E7A', fontSize: '0.72rem', fontWeight: 600, display: 'block', marginBottom: 2 }}>
                       {item.label}
                     </span>
-                    <span style={{ color: '#F5F3EE', fontSize: '0.86rem', fontWeight: 700 }}>
+                    <span style={{ color: '#111827', fontSize: '0.86rem', fontWeight: 700 }}>
                       {item.value}
                     </span>
                   </div>
@@ -401,13 +401,13 @@ export default function EventDetailView({ event, onBack }) {
                   gap: 16,
                   padding: '14px 18px',
                   borderRadius: 8,
-                  background: 'rgba(217, 93, 57, 0.08)',
-                  border: '1px solid rgba(217, 93, 57, 0.18)',
+                  background: '#EFF6FF',
+                  border: '1px solid #BFDBFE',
                 }}>
                   {event.stats.map(st => (
                     <div key={st.l} style={{ textAlign: 'center', flex: 1 }}>
-                      <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, color: '#D95D39', fontSize: '1.15rem', margin: 0 }}>{st.v}</p>
-                      <p style={{ color: '#6B6E7A', fontSize: '0.72rem', margin: 0 }}>{st.l}</p>
+                      <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, color: '#0066CC', fontSize: '1.15rem', margin: 0 }}>{st.v}</p>
+                      <p style={{ color: '#4B5563', fontSize: '0.72rem', margin: 0 }}>{st.l}</p>
                     </div>
                   ))}
                 </div>
@@ -417,9 +417,9 @@ export default function EventDetailView({ event, onBack }) {
 
           {/* RIGHT COLUMN: Interactive Stepper (Detail Tiket -> Pembayaran) */}
           <div style={{
-            background: '#161920',
+            background: '#FFFFFF',
             borderRadius: 14,
-            border: '1px solid rgba(245, 243, 238, 0.08)',
+            border: '1px solid #E5E7EB',
             padding: '32px 28px',
           }}>
 
@@ -431,13 +431,13 @@ export default function EventDetailView({ event, onBack }) {
                     fontFamily: "'Space Grotesk', sans-serif",
                     fontWeight: 700,
                     fontSize: '1.25rem',
-                    color: '#F5F3EE',
+                    color: '#111827',
                     marginBottom: 6,
                     letterSpacing: '-0.01em',
                   }}>
                     Pilih Jumlah &amp; Promo Tiket
                   </h3>
-                  <p style={{ color: '#6B6E7A', fontSize: '0.84rem', margin: 0 }}>
+                  <p style={{ color: '#4B5563', fontSize: '0.84rem', margin: 0 }}>
                     Tentukan kuota tiket yang ingin dipesan dan gunakan kode voucher diskon.
                   </p>
                 </div>
@@ -445,7 +445,7 @@ export default function EventDetailView({ event, onBack }) {
                 {/* Ticket Quantity Stepper */}
                 <div>
                   <label style={{
-                    color: '#9095A1',
+                    color: '#4B5563',
                     fontSize: '0.72rem',
                     fontWeight: 700,
                     letterSpacing: '0.08em',
@@ -461,9 +461,9 @@ export default function EventDetailView({ event, onBack }) {
                       onClick={() => { if (quantity > 1) { setQuantity(q => q - 1); setAppliedPromo(null) } }}
                       style={{
                         width: 44, height: 44, borderRadius: 8,
-                        border: `1px solid rgba(245,243,238,${quantity > 1 ? '0.18' : '0.06'})`,
-                        background: 'rgba(245,243,238,0.05)',
-                        color: '#F5F3EE', fontSize: 22,
+                        border: '1px solid #E5E7EB',
+                        background: '#F3F4F6',
+                        color: '#111827', fontSize: 22,
                         cursor: quantity > 1 ? 'pointer' : 'not-allowed',
                         opacity: quantity > 1 ? 1 : 0.3,
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -475,9 +475,9 @@ export default function EventDetailView({ event, onBack }) {
 
                     <div style={{
                       flex: 1, textAlign: 'center', padding: '10px 0', borderRadius: 8,
-                      background: 'rgba(245,243,238,0.05)',
-                      border: '1px solid rgba(245,243,238,0.1)',
-                      color: '#F5F3EE', fontWeight: 700, fontSize: '1.25rem',
+                      background: '#FFFFFF',
+                      border: '1px solid #E5E7EB',
+                      color: '#111827', fontWeight: 700, fontSize: '1.25rem',
                       fontFamily: "'Space Grotesk', sans-serif",
                     }}>
                       {quantity} Tiket
@@ -487,9 +487,9 @@ export default function EventDetailView({ event, onBack }) {
                       onClick={() => { if (quantity < 10) { setQuantity(q => q + 1); setAppliedPromo(null) } }}
                       style={{
                         width: 44, height: 44, borderRadius: 8,
-                        border: `1px solid rgba(245,243,238,${quantity < 10 ? '0.18' : '0.06'})`,
-                        background: 'rgba(245,243,238,0.05)',
-                        color: '#F5F3EE', fontSize: 22,
+                        border: '1px solid #E5E7EB',
+                        background: '#F3F4F6',
+                        color: '#111827', fontSize: 22,
                         cursor: quantity < 10 ? 'pointer' : 'not-allowed',
                         opacity: quantity < 10 ? 1 : 0.3,
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -507,7 +507,7 @@ export default function EventDetailView({ event, onBack }) {
                 {/* Promo Code Input */}
                 <div>
                   <label style={{
-                    color: '#9095A1',
+                    color: '#4B5563',
                     fontSize: '0.72rem',
                     fontWeight: 700,
                     letterSpacing: '0.08em',
@@ -527,7 +527,7 @@ export default function EventDetailView({ event, onBack }) {
                       placeholder="Masukkan kode promo (contoh: EARLYBIRD30)"
                       style={{
                         ...inputStyle,
-                        border: appliedPromo ? '1px solid rgba(34,197,94,0.4)' : promoError ? '1px solid rgba(239,68,68,0.4)' : '1px solid rgba(245,243,238,0.1)',
+                        border: appliedPromo ? '1px solid #A7F3D0' : promoError ? '1px solid #FECACA' : '1px solid #D1D5DB',
                       }}
                     />
                     <button
@@ -551,11 +551,11 @@ export default function EventDetailView({ event, onBack }) {
                     <div style={{
                       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                       marginTop: 10, padding: '10px 14px', borderRadius: 8,
-                      background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.22)',
+                      background: '#D1FAE5', border: '1px solid #A7F3D0',
                     }}>
                       <div>
-                        <div style={{ color: '#86efac', fontSize: '0.82rem', fontWeight: 700 }}>{appliedPromo.title}</div>
-                        <div style={{ color: '#4ade80', fontSize: '0.74rem' }}>
+                        <div style={{ color: '#065F46', fontSize: '0.82rem', fontWeight: 700 }}>{appliedPromo.title}</div>
+                        <div style={{ color: '#059669', fontSize: '0.74rem' }}>
                           Diskon {appliedPromo.discountPercent}% — hemat {formatPrice(discountAmount)}
                         </div>
                       </div>
@@ -571,8 +571,8 @@ export default function EventDetailView({ event, onBack }) {
                   {promoError && (
                     <div style={{
                       marginTop: 10, padding: '9px 12px', borderRadius: 8,
-                      background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)',
-                      color: '#fca5a5', fontSize: '0.78rem',
+                      background: '#FEE2E2', border: '1px solid #FECACA',
+                      color: '#DC2626', fontSize: '0.78rem',
                     }}>
                       {promoError}
                     </div>
@@ -583,8 +583,8 @@ export default function EventDetailView({ event, onBack }) {
                 <div style={{
                   padding: '18px 20px',
                   borderRadius: 10,
-                  background: 'rgba(245, 243, 238, 0.03)',
-                  border: '1px solid rgba(245, 243, 238, 0.08)',
+                  background: '#F9FAFB',
+                  border: '1px solid #E5E7EB',
                 }}>
                   <p style={{
                     color: '#6B6E7A',
@@ -597,20 +597,20 @@ export default function EventDetailView({ event, onBack }) {
                   }}>
                     Rincian Biaya
                   </p>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', color: '#6B6E7A', fontSize: '0.86rem', marginBottom: 8 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', color: '#4B5563', fontSize: '0.86rem', marginBottom: 8 }}>
                     <span>{formatPrice(rawPrice)} × {quantity} tiket</span>
-                    <span style={{ color: '#F5F3EE', fontWeight: 600 }}>{formatPrice(subtotal)}</span>
+                    <span style={{ color: '#111827', fontWeight: 600 }}>{formatPrice(subtotal)}</span>
                   </div>
                   {discountAmount > 0 && (
-                    <div style={{ display: 'flex', justifyContent: 'space-between', color: '#4ade80', fontSize: '0.86rem', marginBottom: 8 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', color: '#059669', fontSize: '0.86rem', marginBottom: 8 }}>
                       <span>Diskon ({appliedPromo?.discountPercent}%)</span>
                       <span>− {formatPrice(discountAmount)}</span>
                     </div>
                   )}
-                  <div style={{ height: 1, background: 'rgba(245,243,238,0.08)', margin: '12px 0' }} />
+                  <div style={{ height: 1, background: '#E5E7EB', margin: '12px 0' }} />
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ color: '#F5F3EE', fontWeight: 700, fontSize: '0.95rem' }}>Total Pembayaran</span>
-                    <span style={{ color: '#D95D39', fontSize: '1.25rem', fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif" }}>
+                    <span style={{ color: '#111827', fontWeight: 700, fontSize: '0.95rem' }}>Total Pembayaran</span>
+                    <span style={{ color: '#0066CC', fontSize: '1.25rem', fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif" }}>
                       {formatPrice(totalPrice)}
                     </span>
                   </div>
@@ -635,13 +635,13 @@ export default function EventDetailView({ event, onBack }) {
                     fontFamily: "'Space Grotesk', sans-serif",
                     fontWeight: 700,
                     fontSize: '1.25rem',
-                    color: '#F5F3EE',
+                    color: '#111827',
                     marginBottom: 6,
                     letterSpacing: '-0.01em',
                   }}>
                     Pilih Metode Pembayaran
                   </h3>
-                  <p style={{ color: '#6B6E7A', fontSize: '0.84rem', margin: 0 }}>
+                  <p style={{ color: '#4B5563', fontSize: '0.84rem', margin: 0 }}>
                     Transaksi aman dan terenkripsi. Konfirmasi instan setelah pembayaran.
                   </p>
                 </div>
@@ -653,15 +653,15 @@ export default function EventDetailView({ event, onBack }) {
                   justifyContent: 'space-between',
                   padding: '14px 16px',
                   borderRadius: 8,
-                  background: 'rgba(217, 93, 57, 0.08)',
-                  border: '1px solid rgba(217, 93, 57, 0.2)',
+                  background: '#EFF6FF',
+                  border: '1px solid #BFDBFE',
                 }}>
                   <div>
-                    <p style={{ color: '#F5F3EE', fontWeight: 700, fontSize: '0.9rem', margin: '0 0 2px' }}>{displayTitle}</p>
-                    <p style={{ color: '#6B6E7A', fontSize: '0.78rem', margin: 0 }}>{quantity} tiket · {displayDate}</p>
+                    <p style={{ color: '#111827', fontWeight: 700, fontSize: '0.9rem', margin: '0 0 2px' }}>{displayTitle}</p>
+                    <p style={{ color: '#4B5563', fontSize: '0.78rem', margin: 0 }}>{quantity} tiket · {displayDate}</p>
                   </div>
                   <div style={{ textAlign: 'right' }}>
-                    <p style={{ color: '#D95D39', fontWeight: 700, fontSize: '1.1rem', margin: 0, fontFamily: "'Space Grotesk', sans-serif" }}>
+                    <p style={{ color: '#0066CC', fontWeight: 700, fontSize: '1.1rem', margin: 0, fontFamily: "'Space Grotesk', sans-serif" }}>
                       {formatPrice(totalPrice)}
                     </p>
                   </div>
@@ -670,7 +670,7 @@ export default function EventDetailView({ event, onBack }) {
                 {/* Payment Methods Grid */}
                 <div>
                   <label style={{
-                    color: '#9095A1',
+                    color: '#4B5563',
                     fontSize: '0.72rem',
                     fontWeight: 700,
                     letterSpacing: '0.08em',
@@ -701,14 +701,14 @@ export default function EventDetailView({ event, onBack }) {
                             fontSize: '0.86rem',
                             textAlign: 'left',
                             transition: 'all 0.2s ease',
-                            background: isSelected ? 'rgba(217,93,57,0.15)' : 'rgba(245,243,238,0.04)',
-                            color: '#F5F3EE',
-                            border: isSelected ? '1px solid #D95D39' : '1px solid rgba(245,243,238,0.08)',
+                            background: isSelected ? '#EFF6FF' : '#FFFFFF',
+                            color: '#111827',
+                            border: isSelected ? '1px solid #0066CC' : '1px solid #E5E7EB',
                             fontFamily: "'Manrope', sans-serif",
                           }}
                         >
-                          <div style={{ fontWeight: 700, color: isSelected ? '#D95D39' : '#F5F3EE' }}>{method.label}</div>
-                          <div style={{ color: 'rgba(245,243,238,0.4)', fontSize: '0.72rem', fontWeight: 400, marginTop: 4 }}>
+                          <div style={{ fontWeight: 700, color: isSelected ? '#0066CC' : '#111827' }}>{method.label}</div>
+                          <div style={{ color: '#6B6E7A', fontSize: '0.72rem', fontWeight: 400, marginTop: 4 }}>
                             {method.description}
                           </div>
                         </button>
@@ -722,11 +722,11 @@ export default function EventDetailView({ event, onBack }) {
                   <div style={{
                     padding: '20px',
                     borderRadius: 10,
-                    background: 'rgba(245, 243, 238, 0.03)',
-                    border: '1px solid rgba(245, 243, 238, 0.08)',
+                    background: '#F9FAFB',
+                    border: '1px solid #E5E7EB',
                   }}>
                     <p style={{
-                      color: '#9095A1',
+                      color: '#4B5563',
                       fontSize: '0.72rem',
                       fontWeight: 700,
                       letterSpacing: '0.08em',
@@ -744,9 +744,9 @@ export default function EventDetailView({ event, onBack }) {
                   <div style={{
                     padding: '12px 16px',
                     borderRadius: 8,
-                    background: 'rgba(239, 68, 68, 0.08)',
-                    border: '1px solid rgba(239, 68, 68, 0.2)',
-                    color: '#fca5a5',
+                    background: '#FEE2E2',
+                    border: '1px solid #FECACA',
+                    color: '#DC2626',
                     fontSize: '0.84rem',
                   }}>
                     {message}
@@ -760,14 +760,17 @@ export default function EventDetailView({ event, onBack }) {
                     style={{
                       padding: '14px 22px',
                       borderRadius: 8,
-                      border: '1px solid rgba(245, 243, 238, 0.12)',
-                      background: 'transparent',
-                      color: '#9095A1',
+                      border: '1px solid #E5E7EB',
+                      background: '#FFFFFF',
+                      color: '#4B5563',
                       cursor: 'pointer',
                       fontWeight: 600,
                       fontSize: '0.88rem',
                       fontFamily: "'Manrope', sans-serif",
+                      transition: 'all 0.2s',
                     }}
+                    onMouseEnter={e => { e.currentTarget.style.color = '#111827'; e.currentTarget.style.background = '#F9FAFB' }}
+                    onMouseLeave={e => { e.currentTarget.style.color = '#4B5563'; e.currentTarget.style.background = '#FFFFFF' }}
                   >
                     ← Kembali
                   </button>

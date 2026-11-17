@@ -65,17 +65,17 @@ export default function MyTicketsModal({ isOpen, onClose }) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'rgba(0,0,0,0.75)',
-        backdropFilter: 'blur(10px)',
-        WebkitBackdropFilter: 'blur(10px)',
+        background: 'rgba(17, 24, 39, 0.45)',
+        backdropFilter: 'blur(4px)',
+        WebkitBackdropFilter: 'blur(4px)',
         padding: '20px',
       }}
       onClick={onClose}
     >
       <div
         style={{
-          background: '#161920',
-          border: '1px solid rgba(245,243,238,0.12)',
+          background: '#FFFFFF',
+          border: '1px solid #E5E7EB',
           borderRadius: 16,
           width: '100%',
           maxWidth: 920,
@@ -83,7 +83,7 @@ export default function MyTicketsModal({ isOpen, onClose }) {
           display: 'flex',
           flexDirection: 'column',
           overflow: 'hidden',
-          boxShadow: '0 24px 60px rgba(0,0,0,0.6)',
+          boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)',
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -91,7 +91,7 @@ export default function MyTicketsModal({ isOpen, onClose }) {
         <div
           style={{
             padding: '20px 24px',
-            borderBottom: '1px solid rgba(245,243,238,0.08)',
+            borderBottom: '1px solid #E5E7EB',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -103,8 +103,8 @@ export default function MyTicketsModal({ isOpen, onClose }) {
                 width: 32,
                 height: 32,
                 borderRadius: 8,
-                background: 'rgba(217,93,57,0.15)',
-                color: '#D95D39',
+                background: '#EFF6FF',
+                color: '#0066CC',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -119,7 +119,7 @@ export default function MyTicketsModal({ isOpen, onClose }) {
               <h2
                 style={{
                   margin: 0,
-                  color: '#F5F3EE',
+                  color: '#111827',
                   fontSize: '1.15rem',
                   fontWeight: 700,
                   fontFamily: "'Space Grotesk', sans-serif",
@@ -127,7 +127,7 @@ export default function MyTicketsModal({ isOpen, onClose }) {
               >
                 Tiket Saya ({tickets.length})
               </h2>
-              <p style={{ margin: 0, color: '#6B6E7A', fontSize: '0.78rem' }}>
+              <p style={{ margin: 0, color: '#4B5563', fontSize: '0.78rem' }}>
                 Daftar E-Tiket resmi dengan QR Code untuk akses gate venue
               </p>
             </div>
@@ -135,9 +135,9 @@ export default function MyTicketsModal({ isOpen, onClose }) {
           <button
             onClick={onClose}
             style={{
-              background: 'rgba(245,243,238,0.06)',
-              border: '1px solid rgba(245,243,238,0.1)',
-              color: '#9095A1',
+              background: '#F3F4F6',
+              border: '1px solid #E5E7EB',
+              color: '#4B5563',
               borderRadius: 8,
               width: 34,
               height: 34,
@@ -171,12 +171,12 @@ export default function MyTicketsModal({ isOpen, onClose }) {
                   width: 64,
                   height: 64,
                   borderRadius: 16,
-                  background: 'rgba(245,243,238,0.04)',
+                  background: '#F3F4F6',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginBottom: 16,
-                  color: '#6B6E7A',
+                  color: '#6B7280',
                 }}
               >
                 <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
@@ -185,7 +185,7 @@ export default function MyTicketsModal({ isOpen, onClose }) {
               </div>
               <h3
                 style={{
-                  color: '#F5F3EE',
+                  color: '#111827',
                   fontSize: '1rem',
                   fontWeight: 700,
                   fontFamily: "'Space Grotesk', sans-serif",
@@ -194,13 +194,13 @@ export default function MyTicketsModal({ isOpen, onClose }) {
               >
                 Belum Ada E-Tiket
               </h3>
-              <p style={{ color: '#6B6E7A', fontSize: '0.82rem', maxWidth: 300, lineHeight: 1.5, marginBottom: 20 }}>
+              <p style={{ color: '#4B5563', fontSize: '0.82rem', maxWidth: 300, lineHeight: 1.5, marginBottom: 20 }}>
                 Kamu belum memiliki transaksi tiket aktif. Jelajahi konser menarik dan pesan tiket sekarang.
               </p>
               <button
                 onClick={onClose}
                 style={{
-                  background: '#D95D39',
+                  background: '#0066CC',
                   color: '#fff',
                   border: 'none',
                   borderRadius: 7,
@@ -220,12 +220,13 @@ export default function MyTicketsModal({ isOpen, onClose }) {
               <div
                 style={{
                   width: '42%',
-                  borderRight: '1px solid rgba(245,243,238,0.08)',
+                  borderRight: '1px solid #E5E7EB',
                   overflowY: 'auto',
                   padding: '16px',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: 12,
+                  background: '#F9FAFB',
                 }}
               >
                 {tickets.map((t) => {
@@ -237,8 +238,8 @@ export default function MyTicketsModal({ isOpen, onClose }) {
                       style={{
                         padding: '14px',
                         borderRadius: 10,
-                        background: isSelected ? 'rgba(217,93,57,0.1)' : 'rgba(245,243,238,0.03)',
-                        border: isSelected ? '1px solid #D95D39' : '1px solid rgba(245,243,238,0.06)',
+                        background: isSelected ? '#EFF6FF' : '#FFFFFF',
+                        border: isSelected ? '1px solid #0066CC' : '1px solid #E5E7EB',
                         cursor: 'pointer',
                         transition: 'all 0.2s ease',
                       }}
@@ -248,21 +249,21 @@ export default function MyTicketsModal({ isOpen, onClose }) {
                           style={{
                             fontSize: '0.68rem',
                             fontWeight: 700,
-                            color: '#D95D39',
+                            color: '#0066CC',
                             fontFamily: "'Space Grotesk', sans-serif",
                             letterSpacing: '0.05em',
                           }}
                         >
                           {t.tier || 'FESTIVAL'} • {t.quantity || 1} TIKET
                         </span>
-                        <span style={{ fontSize: '0.68rem', color: '#6B6E7A', fontFamily: 'monospace' }}>
+                        <span style={{ fontSize: '0.68rem', color: '#6B7280', fontFamily: 'monospace' }}>
                           #{t.ticketCode || t.id}
                         </span>
                       </div>
                       <h4
                         style={{
                           margin: '0 0 6px',
-                          color: '#F5F3EE',
+                          color: '#111827',
                           fontSize: '0.9rem',
                           fontWeight: 700,
                           fontFamily: "'Space Grotesk', sans-serif",
@@ -273,7 +274,7 @@ export default function MyTicketsModal({ isOpen, onClose }) {
                       >
                         {t.eventTitle || t.title || 'Event Musik'}
                       </h4>
-                      <p style={{ margin: 0, color: '#9095A1', fontSize: '0.74rem' }}>
+                      <p style={{ margin: 0, color: '#4B5563', fontSize: '0.74rem' }}>
                         📅 {t.eventDate || t.date || '2026'} • 📍 {t.location || 'Jakarta'}
                       </p>
                     </div>
@@ -290,7 +291,7 @@ export default function MyTicketsModal({ isOpen, onClose }) {
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  background: '#111318',
+                  background: '#FFFFFF',
                 }}
               >
                 {selectedTicket && (
@@ -298,17 +299,17 @@ export default function MyTicketsModal({ isOpen, onClose }) {
                     style={{
                       width: '100%',
                       maxWidth: 420,
-                      background: '#161920',
+                      background: '#FFFFFF',
                       borderRadius: 14,
-                      border: '1px solid rgba(245,243,238,0.1)',
+                      border: '1px solid #E5E7EB',
                       overflow: 'hidden',
-                      boxShadow: '0 8px 30px rgba(0,0,0,0.4)',
+                      boxShadow: '0 4px 15px rgba(0,0,0,0.06)',
                     }}
                   >
                     {/* Ticket Header Banner */}
                     <div
                       style={{
-                        background: 'linear-gradient(135deg, #D95D39 0%, #a43818 100%)',
+                        background: '#0066CC',
                         padding: '16px 20px',
                         color: '#fff',
                         position: 'relative',
@@ -349,17 +350,19 @@ export default function MyTicketsModal({ isOpen, onClose }) {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        borderBottom: '1px dashed rgba(245,243,238,0.15)',
+                        borderBottom: '1px dashed #E5E7EB',
                         position: 'relative',
+                        background: '#FFFFFF',
                       }}
                     >
                       <div
                         style={{
-                          background: '#F5F3EE',
+                          background: '#FFFFFF',
                           padding: 12,
                           borderRadius: 10,
+                          border: '1px solid #E5E7EB',
                           display: 'inline-block',
-                          boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
+                          boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
                           marginBottom: 12,
                         }}
                       >
@@ -370,7 +373,7 @@ export default function MyTicketsModal({ isOpen, onClose }) {
                             style={{ width: 150, height: 150, display: 'block' }}
                           />
                         ) : (
-                          <div style={{ width: 150, height: 150, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#111318', fontSize: '0.75rem' }}>
+                          <div style={{ width: 150, height: 150, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#111827', fontSize: '0.75rem' }}>
                             Membuat QR...
                           </div>
                         )}
@@ -380,7 +383,7 @@ export default function MyTicketsModal({ isOpen, onClose }) {
                           fontFamily: 'monospace',
                           fontWeight: 700,
                           letterSpacing: '0.15em',
-                          color: '#D95D39',
+                          color: '#0066CC',
                           fontSize: '0.95rem',
                         }}
                       >
@@ -392,34 +395,34 @@ export default function MyTicketsModal({ isOpen, onClose }) {
                     </div>
 
                     {/* Ticket Metadata */}
-                    <div style={{ padding: '16px 20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                    <div style={{ padding: '16px 20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', background: '#FAFAFA' }}>
                       <div>
                         <span style={{ fontSize: '0.68rem', color: '#6B6E7A', display: 'block' }}>Kategori / Tier</span>
-                        <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#F5F3EE' }}>
+                        <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#111827' }}>
                           {selectedTicket.tier || 'FESTIVAL'} ({selectedTicket.quantity || 1}x)
                         </span>
                       </div>
                       <div>
                         <span style={{ fontSize: '0.68rem', color: '#6B6E7A', display: 'block' }}>Pemegang Tiket</span>
-                        <span style={{ fontSize: '0.82rem', fontWeight: 600, color: '#F5F3EE' }}>
+                        <span style={{ fontSize: '0.82rem', fontWeight: 600, color: '#111827' }}>
                           {selectedTicket.buyerName || selectedTicket.customerName || 'Penonton Konser'}
                         </span>
                       </div>
                       <div>
                         <span style={{ fontSize: '0.68rem', color: '#6B6E7A', display: 'block' }}>Tanggal Acara</span>
-                        <span style={{ fontSize: '0.82rem', fontWeight: 600, color: '#F5F3EE' }}>
+                        <span style={{ fontSize: '0.82rem', fontWeight: 600, color: '#111827' }}>
                           {selectedTicket.eventDate || selectedTicket.date || 'Oktober 2026'}
                         </span>
                       </div>
                       <div>
                         <span style={{ fontSize: '0.68rem', color: '#6B6E7A', display: 'block' }}>Lokasi Venue</span>
-                        <span style={{ fontSize: '0.82rem', fontWeight: 600, color: '#F5F3EE' }}>
+                        <span style={{ fontSize: '0.82rem', fontWeight: 600, color: '#111827' }}>
                           {selectedTicket.location || 'Jakarta'}
                         </span>
                       </div>
                       <div style={{ gridColumn: 'span 2' }}>
                         <span style={{ fontSize: '0.68rem', color: '#6B6E7A', display: 'block' }}>Total Pembayaran</span>
-                        <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#D95D39', fontFamily: "'Space Grotesk', sans-serif" }}>
+                        <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0066CC', fontFamily: "'Space Grotesk', sans-serif" }}>
                           Rp {Number(selectedTicket.total || selectedTicket.price || 0).toLocaleString('id-ID')} ({selectedTicket.paymentMethod?.toUpperCase() || 'QRIS'})
                         </span>
                       </div>
@@ -429,8 +432,8 @@ export default function MyTicketsModal({ isOpen, onClose }) {
                     <div
                       style={{
                         padding: '12px 20px',
-                        background: 'rgba(245,243,238,0.02)',
-                        borderTop: '1px solid rgba(245,243,238,0.06)',
+                        background: '#FFFFFF',
+                        borderTop: '1px solid #E5E7EB',
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
@@ -441,10 +444,10 @@ export default function MyTicketsModal({ isOpen, onClose }) {
                         style={{
                           background: 'transparent',
                           border: 'none',
-                          color: '#ef4444',
+                          color: '#DC2626',
                           fontSize: '0.72rem',
                           cursor: 'pointer',
-                          opacity: 0.8,
+                          fontWeight: 600,
                         }}
                       >
                         Hapus Riwayat
@@ -452,9 +455,9 @@ export default function MyTicketsModal({ isOpen, onClose }) {
                       <button
                         onClick={handlePrint}
                         style={{
-                          background: 'rgba(245,243,238,0.08)',
-                          border: '1px solid rgba(245,243,238,0.15)',
-                          color: '#F5F3EE',
+                          background: '#F3F4F6',
+                          border: '1px solid #E5E7EB',
+                          color: '#111827',
                           fontSize: '0.74rem',
                           fontWeight: 600,
                           borderRadius: 6,

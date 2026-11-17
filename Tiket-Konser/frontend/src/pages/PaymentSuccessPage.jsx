@@ -148,7 +148,7 @@ export default function PaymentSuccessPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#111318',
+      background: '#F4F5F7',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -158,36 +158,37 @@ export default function PaymentSuccessPage() {
       overflow: 'hidden',
     }}>
       {/* Background accent */}
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: '#D95D39' }} />
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: '#0066CC' }} />
 
       <div style={{ width: '100%', maxWidth: 500, position: 'relative', zIndex: 1 }}>
         <div style={{
-          background: '#161920',
-          border: '1px solid rgba(245,243,238,0.08)',
+          background: '#FFFFFF',
+          border: '1px solid #E5E7EB',
           borderRadius: 14,
           padding: '36px 32px',
+          boxShadow: '0 20px 25px -5px rgba(0,0,0,0.05)',
         }}>
           {/* Success icon */}
           <div style={{
-            width: 56, height: 56, borderRadius: 10,
-            background: 'rgba(34,197,94,0.12)',
-            border: '1px solid rgba(34,197,94,0.25)',
+            width: 56, height: 56, borderRadius: 12,
+            background: '#D1FAE5',
+            border: '1px solid #A7F3D0',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             marginBottom: 20,
           }}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="20 6 9 17 4 12" />
             </svg>
           </div>
 
           <h1 style={{
-            color: '#F5F3EE', fontSize: '1.5rem', fontWeight: 700,
+            color: '#111827', fontSize: '1.5rem', fontWeight: 700,
             marginBottom: 8, fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '-0.02em',
           }}>
             Pembayaran Berhasil
           </h1>
-          <p style={{ color: '#6B6E7A', lineHeight: 1.7, marginBottom: 28, fontSize: '0.875rem' }}>
-            Tiket kamu sudah dipesan. Simpan nomor pesanan sebagai bukti pembelian.
+          <p style={{ color: '#4B5563', lineHeight: 1.7, marginBottom: 28, fontSize: '0.875rem' }}>
+            Tiket kamu sudah dipesan. Simpan nomor pesanan sebagai bukti pembelian resmi.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 20 }}>
@@ -200,26 +201,26 @@ export default function PaymentSuccessPage() {
             {/* Price summary */}
             <div style={{
               padding: '14px 16px', borderRadius: 9,
-              background: 'rgba(245,243,238,0.03)', border: '1px solid rgba(245,243,238,0.08)',
+              background: '#F9FAFB', border: '1px solid #E5E7EB',
             }}>
               <div style={{ color: '#6B6E7A', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 10, fontFamily: "'Space Grotesk', sans-serif" }}>
                 Rincian Harga
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem' }}>
-                  <span style={{ color: '#6B6E7A' }}>Subtotal ({quantity} tiket)</span>
-                  <span style={{ color: '#9095A1' }}>{formatPrice(subtotal)}</span>
+                  <span style={{ color: '#4B5563' }}>Subtotal ({quantity} tiket)</span>
+                  <span style={{ color: '#111827' }}>{formatPrice(subtotal)}</span>
                 </div>
                 {discountAmount > 0 && (
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem' }}>
-                    <span style={{ color: '#4ade80' }}>Diskon{promoCode ? ` (${promoCode})` : ''}</span>
-                    <span style={{ color: '#4ade80' }}>- {formatPrice(discountAmount)}</span>
+                    <span style={{ color: '#059669' }}>Diskon{promoCode ? ` (${promoCode})` : ''}</span>
+                    <span style={{ color: '#059669' }}>- {formatPrice(discountAmount)}</span>
                   </div>
                 )}
-                <div style={{ height: 1, background: 'rgba(245,243,238,0.07)', margin: '4px 0' }} />
+                <div style={{ height: 1, background: '#E5E7EB', margin: '4px 0' }} />
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ color: '#F5F3EE', fontWeight: 700, fontSize: '0.9rem' }}>Total Dibayar</span>
-                  <span style={{ fontWeight: 700, fontSize: '1.05rem', color: '#D95D39' }}>
+                  <span style={{ color: '#111827', fontWeight: 700, fontSize: '0.9rem' }}>Total Dibayar</span>
+                  <span style={{ fontWeight: 700, fontSize: '1.05rem', color: '#0066CC', fontFamily: "'Space Grotesk', sans-serif" }}>
                     {formatPrice(total)}
                   </span>
                 </div>
@@ -252,7 +253,7 @@ export default function PaymentSuccessPage() {
           </div>
         </div>
 
-        <p style={{ textAlign: 'center', marginTop: 16, color: '#3A3D47', fontSize: '0.72rem' }}>
+        <p style={{ textAlign: 'center', marginTop: 16, color: '#6B6E7A', fontSize: '0.72rem' }}>
           KonserKu · Terima kasih sudah memesan
         </p>
       </div>
@@ -264,11 +265,11 @@ function DetailRow({ label, value, accent, mono }) {
   return (
     <div style={{
       padding: '11px 14px', borderRadius: 8,
-      background: accent ? 'rgba(217,93,57,0.07)' : 'rgba(245,243,238,0.04)',
-      border: accent ? '1px solid rgba(217,93,57,0.2)' : '1px solid rgba(245,243,238,0.07)',
+      background: accent ? '#EFF6FF' : '#F9FAFB',
+      border: accent ? '1px solid #BFDBFE' : '1px solid #E5E7EB',
     }}>
       <div style={{
-        color: accent ? '#D95D39' : '#6B6E7A',
+        color: accent ? '#0066CC' : '#6B6E7A',
         fontSize: '0.68rem', fontWeight: 700,
         textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4,
         fontFamily: "'Space Grotesk', sans-serif",
@@ -276,7 +277,7 @@ function DetailRow({ label, value, accent, mono }) {
         {label}
       </div>
       <div style={{
-        color: '#F5F3EE', fontWeight: 700, fontSize: '0.9rem',
+        color: '#111827', fontWeight: 700, fontSize: '0.9rem',
         fontFamily: mono ? 'monospace' : 'inherit',
         letterSpacing: mono ? '0.05em' : 'inherit',
       }}>

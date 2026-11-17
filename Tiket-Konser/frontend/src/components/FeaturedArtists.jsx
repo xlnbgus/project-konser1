@@ -17,15 +17,16 @@ const artists = [
 
 export default function FeaturedArtists() {
   return (
-    <section style={{ padding: '100px 0', background: '#0D0F14' }}>
+    <section id="artis-favorit" className="reveal-section" style={{ padding: '90px 0', background: '#FFFFFF', position: 'relative' }}>
+      <div id="artists" style={{ position: 'absolute', top: -70 }} />
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px' }}>
 
         {/* Header */}
-        <div className="reveal" style={{ marginBottom: 56 }}>
+        <div className="reveal" style={{ marginBottom: 48 }}>
           <p className="label-eyebrow" style={{ marginBottom: 10 }}>Lineup Musisi</p>
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
             <h2 className="section-title">Artis &amp; Band Favorit</h2>
-            <p style={{ color: '#6B6E7A', fontSize: '0.88rem', maxWidth: 320, lineHeight: 1.6 }}>
+            <p style={{ color: '#4B5563', fontSize: '0.88rem', maxWidth: 320, lineHeight: 1.6 }}>
               Temukan konser artis idola kamu sebelum kehabisan tiket
             </p>
           </div>
@@ -48,54 +49,55 @@ export default function FeaturedArtists() {
 
 function ArtistCard({ artist: a, idx }) {
   const [hovered, setHovered] = React.useState(false)
+  const staggerDelay = (idx % 6) * 90 // 80ms-100ms interval (0ms, 90ms, 180ms, 270ms, 360ms, 450ms)
 
   return (
     <div
-      className={`reveal-scale delay-${((idx % 6) + 1) * 100}`}
+      className="reveal-scale"
       style={{
         borderRadius: 10, overflow: 'hidden', cursor: 'pointer',
-        border: hovered ? '1px solid rgba(217,93,57,0.3)' : '1px solid rgba(245,243,238,0.07)',
-        transform: hovered ? 'translateY(-6px)' : 'translateY(0)',
-        boxShadow: hovered ? '0 20px 40px rgba(0,0,0,0.35)' : 'none',
-        transition: 'transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s, border-color 0.3s',
-        background: '#161920',
+        border: hovered ? '1px solid #0066CC' : '1px solid #E5E7EB',
+        transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
+        boxShadow: hovered ? '0 10px 20px -3px rgba(0,0,0,0.08)' : '0 1px 3px rgba(0,0,0,0.05)',
+        transition: 'transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease',
+        transitionDelay: `${staggerDelay}ms`,
+        background: '#FFFFFF',
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       {/* Photo */}
-      <div style={{ height: 200, position: 'relative', overflow: 'hidden', background: '#0D0F14' }}>
+      <div style={{ height: 200, position: 'relative', overflow: 'hidden', background: '#F4F5F7' }}>
         <img
           src={a.img}
           alt={a.name}
           style={{
             width: '100%', height: '100%',
             objectFit: 'cover', objectPosition: 'center top',
-            transform: hovered ? 'scale(1.06)' : 'scale(1)',
-            transition: 'transform 0.5s cubic-bezier(0.16,1,0.3,1)',
+            transform: hovered ? 'scale(1.05)' : 'scale(1)',
+            transition: 'transform 0.4s ease',
           }}
         />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(22,25,32,1) 0%, rgba(22,25,32,0.1) 55%, transparent 100%)' }} />
       </div>
 
       {/* Info */}
-      <div style={{ padding: '14px 14px 16px' }}>
-        <p style={{ color: '#F5F3EE', fontWeight: 700, fontSize: '0.95rem', marginBottom: 3, fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '-0.01em' }}>
+      <div style={{ padding: '14px 14px 16px', background: '#FFFFFF' }}>
+        <p style={{ color: '#111827', fontWeight: 700, fontSize: '0.95rem', marginBottom: 3, fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '-0.01em' }}>
           {a.name}
         </p>
-        <p style={{ color: '#6B6E7A', fontSize: '0.76rem', marginBottom: 10 }}>
+        <p style={{ color: '#4B5563', fontSize: '0.78rem', marginBottom: 10 }}>
           {a.genre}
         </p>
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: 5,
-          padding: '4px 10px', borderRadius: 5,
-          background: 'rgba(217,93,57,0.1)',
-          border: '1px solid rgba(217,93,57,0.2)',
+          padding: '4px 10px', borderRadius: 6,
+          background: '#EFF6FF',
+          border: '1px solid #BFDBFE',
         }}>
-          <svg width="10" height="10" fill="none" stroke="#D95D39" strokeWidth="2" viewBox="0 0 24 24">
+          <svg width="11" height="11" fill="none" stroke="#0066CC" strokeWidth="2" viewBox="0 0 24 24">
             <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
           </svg>
-          <span style={{ color: '#D95D39', fontSize: '0.72rem', fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif" }}>{a.date}</span>
+          <span style={{ color: '#0066CC', fontSize: '0.72rem', fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif" }}>{a.date}</span>
         </div>
       </div>
     </div>

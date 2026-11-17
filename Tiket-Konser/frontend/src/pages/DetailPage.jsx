@@ -164,8 +164,8 @@ export default function DetailPage() {
       <div
         style={{
           minHeight: '100vh',
-          background: '#111318',
-          color: '#F5F3EE',
+          background: '#F4F5F7',
+          color: '#111827',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -173,7 +173,7 @@ export default function DetailPage() {
           gap: 16,
         }}
       >
-        <p style={{ color: '#9095A1', fontSize: '1rem', fontFamily: "'Space Grotesk', sans-serif" }}>Memuat detail konser…</p>
+        <p style={{ color: '#4B5563', fontSize: '1rem', fontFamily: "'Space Grotesk', sans-serif" }}>Memuat detail konser…</p>
         <button onClick={() => navigate('/')} className="btn-primary">
           ← Kembali ke Beranda
         </button>
@@ -275,12 +275,12 @@ export default function DetailPage() {
   const displayImage = resolveImage(event)
 
   return (
-    <div style={{ minHeight: '100vh', background: '#111318', color: '#F5F3EE', paddingBottom: 80 }}>
+    <div style={{ minHeight: '100vh', background: '#F4F5F7', color: '#111827', paddingBottom: 80 }}>
       {/* Top Navigation Bar */}
       <div
         style={{
-          background: 'rgba(17,19,24,0.96)',
-          borderBottom: '1px solid rgba(245,243,238,0.08)',
+          background: 'rgba(255,255,255,0.96)',
+          borderBottom: '1px solid #E5E7EB',
           position: 'sticky',
           top: 0,
           zIndex: 90,
@@ -303,11 +303,11 @@ export default function DetailPage() {
               else navigate('/')
             }}
             style={{
-              background: 'rgba(245,243,238,0.06)',
-              border: '1px solid rgba(245,243,238,0.1)',
+              background: '#FFFFFF',
+              border: '1px solid #E5E7EB',
               borderRadius: 8,
               padding: '8px 14px',
-              color: '#F5F3EE',
+              color: '#111827',
               fontSize: '0.82rem',
               fontWeight: 600,
               cursor: 'pointer',
@@ -315,7 +315,10 @@ export default function DetailPage() {
               alignItems: 'center',
               gap: 8,
               fontFamily: "'Space Grotesk', sans-serif",
+              transition: 'all 0.2s',
             }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#0066CC'; e.currentTarget.style.background = '#EFF6FF' }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#E5E7EB'; e.currentTarget.style.background = '#FFFFFF' }}
           >
             ← {step === 2 && !paymentCompleted ? 'Kembali ke Seat Map' : 'Kembali ke Beranda'}
           </button>
@@ -328,7 +331,7 @@ export default function DetailPage() {
                   width: 24,
                   height: 24,
                   borderRadius: '50%',
-                  background: step >= 1 ? '#D95D39' : 'rgba(245,243,238,0.1)',
+                  background: step >= 1 ? '#0066CC' : '#E5E7EB',
                   color: '#fff',
                   fontSize: '0.72rem',
                   fontWeight: 700,
@@ -339,18 +342,18 @@ export default function DetailPage() {
               >
                 1
               </span>
-              <span style={{ fontSize: '0.78rem', color: step === 1 ? '#F5F3EE' : '#9095A1', fontWeight: 600 }}>
+              <span style={{ fontSize: '0.78rem', color: step === 1 ? '#111827' : '#6B7280', fontWeight: 600 }}>
                 Pilih Seat Map
               </span>
             </div>
-            <div style={{ width: 24, height: 1, background: 'rgba(245,243,238,0.15)' }} />
+            <div style={{ width: 24, height: 1, background: '#E5E7EB' }} />
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <span
                 style={{
                   width: 24,
                   height: 24,
                   borderRadius: '50%',
-                  background: step === 2 ? '#D95D39' : 'rgba(245,243,238,0.1)',
+                  background: step === 2 ? '#0066CC' : '#E5E7EB',
                   color: '#fff',
                   fontSize: '0.72rem',
                   fontWeight: 700,
@@ -361,7 +364,7 @@ export default function DetailPage() {
               >
                 2
               </span>
-              <span style={{ fontSize: '0.78rem', color: step === 2 ? '#F5F3EE' : '#9095A1', fontWeight: 600 }}>
+              <span style={{ fontSize: '0.78rem', color: step === 2 ? '#111827' : '#6B7280', fontWeight: 600 }}>
                 Checkout &amp; Bayar
               </span>
             </div>
@@ -381,27 +384,27 @@ export default function DetailPage() {
               {/* Event Header Banner */}
               <div
                 style={{
-                  background: '#161920',
+                  background: '#FFFFFF',
                   borderRadius: 16,
-                  border: '1px solid rgba(245,243,238,0.08)',
+                  border: '1px solid #E5E7EB',
                   overflow: 'hidden',
                 }}
               >
-                <div style={{ position: 'relative', height: 260, background: '#0D0F14' }}>
+                <div style={{ position: 'relative', height: 260, background: '#F3F4F6' }}>
                   <img
                     src={displayImage}
                     alt={event.title}
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #161920 0%, transparent 70%)' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #FFFFFF 0%, transparent 70%)' }} />
                   <div style={{ position: 'absolute', top: 16, left: 16 }}>
                     <span
                       style={{
                         padding: '6px 12px',
                         borderRadius: 6,
-                        background: 'rgba(17,19,24,0.85)',
-                        border: '1px solid rgba(245,243,238,0.12)',
-                        color: '#F5F3EE',
+                        background: '#EFF6FF',
+                        border: '1px solid #BFDBFE',
+                        color: '#0066CC',
                         fontSize: '0.72rem',
                         fontWeight: 700,
                         letterSpacing: '0.06em',
@@ -417,7 +420,7 @@ export default function DetailPage() {
                   <h1
                     style={{
                       margin: '0 0 10px',
-                      color: '#F5F3EE',
+                      color: '#111827',
                       fontSize: '1.65rem',
                       fontWeight: 700,
                       fontFamily: "'Space Grotesk', sans-serif",
@@ -426,21 +429,21 @@ export default function DetailPage() {
                   >
                     {event.title}
                   </h1>
-                  <p style={{ color: '#9095A1', fontSize: '0.86rem', lineHeight: 1.6, margin: '0 0 16px' }}>
+                  <p style={{ color: '#4B5563', fontSize: '0.86rem', lineHeight: 1.6, margin: '0 0 16px' }}>
                     {event.description}
                   </p>
 
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 18, color: '#F5F3EE', fontSize: '0.82rem' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 18, color: '#111827', fontSize: '0.82rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-                      <span style={{ color: '#D95D39' }}>📅</span>
+                      <span style={{ color: '#0066CC' }}>📅</span>
                       <span>{formatDate(event.date)}</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-                      <span style={{ color: '#D95D39' }}>📍</span>
+                      <span style={{ color: '#0066CC' }}>📍</span>
                       <span>{event.location}</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-                      <span style={{ color: '#D95D39' }}>🎤</span>
+                      <span style={{ color: '#0066CC' }}>🎤</span>
                       <span>Promotor: {event.organizer || 'Official'}</span>
                     </div>
                   </div>
@@ -459,9 +462,9 @@ export default function DetailPage() {
             <div>
               <div
                 style={{
-                  background: '#161920',
+                  background: '#FFFFFF',
                   borderRadius: 16,
-                  border: '1px solid rgba(245,243,238,0.1)',
+                  border: '1px solid #E5E7EB',
                   padding: '24px',
                   position: 'sticky',
                   top: 96,
@@ -473,7 +476,7 @@ export default function DetailPage() {
                     fontSize: '1.1rem',
                     fontWeight: 700,
                     fontFamily: "'Space Grotesk', sans-serif",
-                    color: '#F5F3EE',
+                    color: '#111827',
                   }}
                 >
                   Ringkasan Pilihan
@@ -484,23 +487,23 @@ export default function DetailPage() {
                   style={{
                     padding: '14px',
                     borderRadius: 10,
-                    background: 'rgba(217,93,57,0.1)',
-                    border: '1px solid rgba(217,93,57,0.25)',
+                    background: '#EFF6FF',
+                    border: '1px solid #BFDBFE',
                     marginBottom: 20,
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                    <span style={{ fontSize: '0.72rem', color: '#D95D39', fontWeight: 700, letterSpacing: '0.06em' }}>
+                    <span style={{ fontSize: '0.72rem', color: '#0066CC', fontWeight: 700, letterSpacing: '0.06em' }}>
                       KATEGORI TERPILIH
                     </span>
-                    <span style={{ fontSize: '0.75rem', color: '#4ade80', fontWeight: 600 }}>
+                    <span style={{ fontSize: '0.75rem', color: '#059669', fontWeight: 600 }}>
                       ● Tiket Tersedia
                     </span>
                   </div>
-                  <h4 style={{ margin: '0 0 4px', fontSize: '1rem', fontWeight: 700, color: '#F5F3EE' }}>
+                  <h4 style={{ margin: '0 0 4px', fontSize: '1rem', fontWeight: 700, color: '#111827' }}>
                     {TIER_CONFIG[selectedTier]?.name}
                   </h4>
-                  <span style={{ fontSize: '1.05rem', fontWeight: 700, color: '#D95D39', fontFamily: "'Space Grotesk', sans-serif" }}>
+                  <span style={{ fontSize: '1.05rem', fontWeight: 700, color: '#0066CC', fontFamily: "'Space Grotesk', sans-serif" }}>
                     {formatPrice(unitPrice)} <span style={{ fontSize: '0.75rem', color: '#6B6E7A', fontWeight: 400 }}>/ tiket</span>
                   </span>
                 </div>
@@ -508,10 +511,10 @@ export default function DetailPage() {
                 {/* Ticket Quantity Selector (Max 4) */}
                 <div style={{ marginBottom: 24 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                    <label style={{ fontSize: '0.84rem', fontWeight: 600, color: '#F5F3EE' }}>
+                    <label style={{ fontSize: '0.84rem', fontWeight: 600, color: '#111827' }}>
                       Jumlah Tiket
                     </label>
-                    <span style={{ fontSize: '0.72rem', color: '#D95D39', fontWeight: 700 }}>
+                    <span style={{ fontSize: '0.72rem', color: '#0066CC', fontWeight: 700 }}>
                       (Maks. 4 tiket)
                     </span>
                   </div>
@@ -525,9 +528,9 @@ export default function DetailPage() {
                         width: 40,
                         height: 40,
                         borderRadius: 8,
-                        background: 'rgba(245,243,238,0.06)',
-                        border: '1px solid rgba(245,243,238,0.12)',
-                        color: quantity <= 1 ? '#4B4F5C' : '#F5F3EE',
+                        background: '#F3F4F6',
+                        border: '1px solid #E5E7EB',
+                        color: quantity <= 1 ? '#9CA3AF' : '#111827',
                         fontSize: '1.2rem',
                         fontWeight: 700,
                         cursor: quantity <= 1 ? 'not-allowed' : 'pointer',
@@ -543,12 +546,13 @@ export default function DetailPage() {
                       style={{
                         flex: 1,
                         padding: '10px 0',
-                        background: '#0D0F14',
-                        border: '1px solid rgba(245,243,238,0.1)',
+                        background: '#FFFFFF',
+                        border: '1px solid #E5E7EB',
                         borderRadius: 8,
                         textAlign: 'center',
                         fontWeight: 700,
                         fontSize: '1rem',
+                        color: '#111827',
                         fontFamily: "'Space Grotesk', sans-serif",
                       }}
                     >
@@ -563,9 +567,9 @@ export default function DetailPage() {
                         width: 40,
                         height: 40,
                         borderRadius: 8,
-                        background: 'rgba(245,243,238,0.06)',
-                        border: '1px solid rgba(245,243,238,0.12)',
-                        color: quantity >= 4 ? '#4B4F5C' : '#F5F3EE',
+                        background: '#F3F4F6',
+                        border: '1px solid #E5E7EB',
+                        color: quantity >= 4 ? '#9CA3AF' : '#111827',
                         fontSize: '1.2rem',
                         fontWeight: 700,
                         cursor: quantity >= 4 ? 'not-allowed' : 'pointer',
@@ -583,18 +587,18 @@ export default function DetailPage() {
                 </div>
 
                 {/* Subtotal Preview */}
-                <div style={{ borderTop: '1px solid rgba(245,243,238,0.08)', paddingTop: 16, marginBottom: 24 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.84rem', color: '#9095A1', marginBottom: 8 }}>
+                <div style={{ borderTop: '1px solid #E5E7EB', paddingTop: 16, marginBottom: 24 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.84rem', color: '#4B5563', marginBottom: 8 }}>
                     <span>Subtotal Tiket ({quantity}x)</span>
-                    <span style={{ color: '#F5F3EE', fontWeight: 600 }}>{formatPrice(subtotal)}</span>
+                    <span style={{ color: '#111827', fontWeight: 600 }}>{formatPrice(subtotal)}</span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.84rem', color: '#9095A1', marginBottom: 12 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.84rem', color: '#4B5563', marginBottom: 12 }}>
                     <span>Biaya Layanan &amp; Pajak</span>
-                    <span style={{ color: '#F5F3EE', fontWeight: 600 }}>{formatPrice(adminFee)}</span>
+                    <span style={{ color: '#111827', fontWeight: 600 }}>{formatPrice(adminFee)}</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.05rem', fontWeight: 700 }}>
-                    <span style={{ color: '#F5F3EE' }}>Total Sementara</span>
-                    <span style={{ color: '#D95D39', fontFamily: "'Space Grotesk', sans-serif" }}>
+                    <span style={{ color: '#111827' }}>Total Sementara</span>
+                    <span style={{ color: '#0066CC', fontFamily: "'Space Grotesk', sans-serif" }}>
                       {formatPrice(subtotal + adminFee)}
                     </span>
                   </div>
@@ -604,23 +608,14 @@ export default function DetailPage() {
                 <button
                   type="button"
                   onClick={handleProceedToStep2}
+                  className="btn-primary"
                   style={{
                     width: '100%',
                     padding: '14px',
                     borderRadius: 10,
-                    background: '#D95D39',
-                    color: '#fff',
-                    border: 'none',
                     fontWeight: 700,
                     fontSize: '0.92rem',
-                    cursor: 'pointer',
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    letterSpacing: '0.02em',
-                    boxShadow: '0 8px 24px rgba(217,93,57,0.3)',
-                    transition: 'all 0.2s',
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = '#C04E2D')}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = '#D95D39')}
                 >
                   Lanjut ke Pembayaran →
                 </button>
@@ -636,8 +631,8 @@ export default function DetailPage() {
             {/* Sticky 15-Minute Timer Bar */}
             <div
               style={{
-                background: 'rgba(217,93,57,0.12)',
-                border: '1px solid rgba(217,93,57,0.35)',
+                background: '#EFF6FF',
+                border: '1px solid #BFDBFE',
                 borderRadius: 12,
                 padding: '14px 20px',
                 display: 'flex',
@@ -650,10 +645,10 @@ export default function DetailPage() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <span style={{ fontSize: '1.2rem' }}>⏱️</span>
                 <div>
-                  <h4 style={{ margin: 0, color: '#F5F3EE', fontSize: '0.88rem', fontWeight: 700 }}>
+                  <h4 style={{ margin: 0, color: '#111827', fontSize: '0.88rem', fontWeight: 700 }}>
                     Selesaikan Pembayaran Sebelum Sesi Berakhir
                   </h4>
-                  <p style={{ margin: 0, color: '#9095A1', fontSize: '0.74rem' }}>
+                  <p style={{ margin: 0, color: '#4B5563', fontSize: '0.74rem' }}>
                     Tiketmu dikunci sementara. Kursi akan dilepas kembali ke publik jika timer habis.
                   </p>
                 </div>
@@ -661,11 +656,11 @@ export default function DetailPage() {
 
               <div
                 style={{
-                  background: '#161920',
-                  border: '1.5px solid #D95D39',
+                  background: '#FFFFFF',
+                  border: '1.5px solid #0066CC',
                   borderRadius: 8,
                   padding: '6px 14px',
-                  color: '#D95D39',
+                  color: '#0066CC',
                   fontFamily: 'monospace',
                   fontSize: '1.25rem',
                   fontWeight: 700,
@@ -682,14 +677,14 @@ export default function DetailPage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
 
                 {/* Form Data Pemesan */}
-                <div style={{ background: '#161920', borderRadius: 14, border: '1px solid rgba(245,243,238,0.1)', padding: '20px' }}>
-                  <h3 style={{ margin: '0 0 16px', fontSize: '1rem', fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif" }}>
+                <div style={{ background: '#FFFFFF', borderRadius: 14, border: '1px solid #E5E7EB', padding: '20px' }}>
+                  <h3 style={{ margin: '0 0 16px', fontSize: '1rem', fontWeight: 700, color: '#111827' }}>
                     1. Data Pemesan (E-Tiket Receiver)
                   </h3>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.78rem', color: '#9095A1', marginBottom: 5 }}>
+                      <label style={{ display: 'block', fontSize: '0.78rem', color: '#4B5563', marginBottom: 5 }}>
                         Nama Lengkap (Sesuai KTP / SIM) *
                       </label>
                       <input
@@ -702,9 +697,9 @@ export default function DetailPage() {
                           width: '100%',
                           padding: '11px 14px',
                           borderRadius: 8,
-                          background: 'rgba(245,243,238,0.05)',
-                          border: '1px solid rgba(245,243,238,0.1)',
-                          color: '#F5F3EE',
+                          background: '#FFFFFF',
+                          border: '1px solid #D1D5DB',
+                          color: '#111827',
                           fontSize: '0.85rem',
                           outline: 'none',
                           boxSizing: 'border-box',
@@ -714,7 +709,7 @@ export default function DetailPage() {
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                       <div>
-                        <label style={{ display: 'block', fontSize: '0.78rem', color: '#9095A1', marginBottom: 5 }}>
+                        <label style={{ display: 'block', fontSize: '0.78rem', color: '#4B5563', marginBottom: 5 }}>
                           Alamat Email *
                         </label>
                         <input
@@ -727,9 +722,9 @@ export default function DetailPage() {
                             width: '100%',
                             padding: '11px 14px',
                             borderRadius: 8,
-                            background: 'rgba(245,243,238,0.05)',
-                            border: '1px solid rgba(245,243,238,0.1)',
-                            color: '#F5F3EE',
+                            background: '#FFFFFF',
+                            border: '1px solid #D1D5DB',
+                            color: '#111827',
                             fontSize: '0.85rem',
                             outline: 'none',
                             boxSizing: 'border-box',
@@ -738,7 +733,7 @@ export default function DetailPage() {
                       </div>
 
                       <div>
-                        <label style={{ display: 'block', fontSize: '0.78rem', color: '#9095A1', marginBottom: 5 }}>
+                        <label style={{ display: 'block', fontSize: '0.78rem', color: '#4B5563', marginBottom: 5 }}>
                           Nomor WhatsApp / HP *
                         </label>
                         <input
@@ -751,9 +746,9 @@ export default function DetailPage() {
                             width: '100%',
                             padding: '11px 14px',
                             borderRadius: 8,
-                            background: 'rgba(245,243,238,0.05)',
-                            border: '1px solid rgba(245,243,238,0.1)',
-                            color: '#F5F3EE',
+                            background: '#FFFFFF',
+                            border: '1px solid #D1D5DB',
+                            color: '#111827',
                             fontSize: '0.85rem',
                             outline: 'none',
                             boxSizing: 'border-box',
@@ -763,7 +758,7 @@ export default function DetailPage() {
                     </div>
 
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.78rem', color: '#9095A1', marginBottom: 5 }}>
+                      <label style={{ display: 'block', fontSize: '0.78rem', color: '#4B5563', marginBottom: 5 }}>
                         Nomor Identitas NIK / Paspor (Opsional)
                       </label>
                       <input
@@ -775,9 +770,9 @@ export default function DetailPage() {
                           width: '100%',
                           padding: '11px 14px',
                           borderRadius: 8,
-                          background: 'rgba(245,243,238,0.05)',
-                          border: '1px solid rgba(245,243,238,0.1)',
-                          color: '#F5F3EE',
+                          background: '#FFFFFF',
+                          border: '1px solid #D1D5DB',
+                          color: '#111827',
                           fontSize: '0.85rem',
                           outline: 'none',
                           boxSizing: 'border-box',
@@ -788,8 +783,8 @@ export default function DetailPage() {
                 </div>
 
                 {/* Input Kode Promo */}
-                <div style={{ background: '#161920', borderRadius: 14, border: '1px solid rgba(245,243,238,0.1)', padding: '20px' }}>
-                  <h3 style={{ margin: '0 0 12px', fontSize: '1rem', fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif" }}>
+                <div style={{ background: '#FFFFFF', borderRadius: 14, border: '1px solid #E5E7EB', padding: '20px' }}>
+                  <h3 style={{ margin: '0 0 12px', fontSize: '1rem', fontWeight: 700, color: '#111827' }}>
                     2. Kode Promo &amp; Diskon
                   </h3>
                   <div style={{ display: 'flex', gap: 8 }}>
@@ -802,9 +797,9 @@ export default function DetailPage() {
                         flex: 1,
                         padding: '10px 14px',
                         borderRadius: 8,
-                        background: 'rgba(245,243,238,0.05)',
-                        border: '1px solid rgba(245,243,238,0.1)',
-                        color: '#F5F3EE',
+                        background: '#FFFFFF',
+                        border: '1px solid #D1D5DB',
+                        color: '#111827',
                         fontSize: '0.85rem',
                         outline: 'none',
                         fontFamily: 'monospace',
@@ -817,13 +812,12 @@ export default function DetailPage() {
                       style={{
                         padding: '10px 18px',
                         borderRadius: 8,
-                        background: '#D95D39',
+                        background: '#0066CC',
                         color: '#fff',
                         border: 'none',
                         fontWeight: 700,
                         fontSize: '0.82rem',
                         cursor: 'pointer',
-                        fontFamily: "'Space Grotesk', sans-serif",
                       }}
                     >
                       Terapkan
@@ -836,19 +830,19 @@ export default function DetailPage() {
                         marginTop: 10,
                         padding: '8px 12px',
                         borderRadius: 6,
-                        background: 'rgba(74,222,128,0.1)',
-                        border: '1px solid rgba(74,222,128,0.25)',
+                        background: '#D1FAE5',
+                        border: '1px solid #A7F3D0',
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        color: '#86efac',
+                        color: '#059669',
                         fontSize: '0.78rem',
                       }}
                     >
                       <span>✓ {appliedPromo.title}</span>
                       <button
                         onClick={() => { setAppliedPromo(null); setPromoCode('') }}
-                        style={{ background: 'none', border: 'none', color: '#86efac', cursor: 'pointer', fontSize: '1rem' }}
+                        style={{ background: 'none', border: 'none', color: '#059669', cursor: 'pointer', fontSize: '1rem' }}
                       >
                         ✕
                       </button>
@@ -856,15 +850,15 @@ export default function DetailPage() {
                   )}
 
                   {promoError && (
-                    <div style={{ marginTop: 8, color: '#fca5a5', fontSize: '0.75rem' }}>
+                    <div style={{ marginTop: 8, color: '#DC2626', fontSize: '0.75rem' }}>
                       {promoError}
                     </div>
                   )}
                 </div>
 
                 {/* Metode Pembayaran */}
-                <div style={{ background: '#161920', borderRadius: 14, border: '1px solid rgba(245,243,238,0.1)', padding: '20px' }}>
-                  <h3 style={{ margin: '0 0 14px', fontSize: '1rem', fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif" }}>
+                <div style={{ background: '#FFFFFF', borderRadius: 14, border: '1px solid #E5E7EB', padding: '20px' }}>
+                  <h3 style={{ margin: '0 0 14px', fontSize: '1rem', fontWeight: 700, color: '#111827' }}>
                     3. Metode Pembayaran Resmi
                   </h3>
 
@@ -875,15 +869,16 @@ export default function DetailPage() {
                       style={{
                         padding: '14px',
                         borderRadius: 10,
-                        background: paymentMethod === 'qris' ? 'rgba(217,93,57,0.15)' : 'rgba(245,243,238,0.03)',
-                        border: paymentMethod === 'qris' ? '1.5px solid #D95D39' : '1px solid rgba(245,243,238,0.08)',
+                        background: paymentMethod === 'qris' ? '#EFF6FF' : '#FFFFFF',
+                        border: paymentMethod === 'qris' ? '1.5px solid #0066CC' : '1px solid #E5E7EB',
                         cursor: 'pointer',
                         textAlign: 'center',
+                        transition: 'all 0.2s ease',
                       }}
                     >
                       <span style={{ fontSize: '1.2rem', display: 'block', marginBottom: 4 }}>📲</span>
-                      <span style={{ fontSize: '0.84rem', fontWeight: 700, color: '#F5F3EE', display: 'block' }}>QRIS</span>
-                      <span style={{ fontSize: '0.68rem', color: '#9095A1' }}>BCA, GoPay, ShopeePay</span>
+                      <span style={{ fontSize: '0.84rem', fontWeight: 700, color: '#111827', display: 'block' }}>QRIS</span>
+                      <span style={{ fontSize: '0.68rem', color: '#6B7280' }}>BCA, GoPay, ShopeePay</span>
                     </div>
 
                     {/* Virtual Account */}
@@ -892,15 +887,16 @@ export default function DetailPage() {
                       style={{
                         padding: '14px',
                         borderRadius: 10,
-                        background: paymentMethod === 'va' ? 'rgba(217,93,57,0.15)' : 'rgba(245,243,238,0.03)',
-                        border: paymentMethod === 'va' ? '1.5px solid #D95D39' : '1px solid rgba(245,243,238,0.08)',
+                        background: paymentMethod === 'va' ? '#EFF6FF' : '#FFFFFF',
+                        border: paymentMethod === 'va' ? '1.5px solid #0066CC' : '1px solid #E5E7EB',
                         cursor: 'pointer',
                         textAlign: 'center',
+                        transition: 'all 0.2s ease',
                       }}
                     >
                       <span style={{ fontSize: '1.2rem', display: 'block', marginBottom: 4 }}>🏦</span>
-                      <span style={{ fontSize: '0.84rem', fontWeight: 700, color: '#F5F3EE', display: 'block' }}>Virtual Account</span>
-                      <span style={{ fontSize: '0.68rem', color: '#9095A1' }}>BCA, Mandiri, BNI, BRI</span>
+                      <span style={{ fontSize: '0.84rem', fontWeight: 700, color: '#111827', display: 'block' }}>Virtual Account</span>
+                      <span style={{ fontSize: '0.68rem', color: '#6B7280' }}>BCA, Mandiri, BNI, BRI</span>
                     </div>
 
                     {/* GoPay */}
@@ -909,26 +905,27 @@ export default function DetailPage() {
                       style={{
                         padding: '14px',
                         borderRadius: 10,
-                        background: paymentMethod === 'gopay' ? 'rgba(217,93,57,0.15)' : 'rgba(245,243,238,0.03)',
-                        border: paymentMethod === 'gopay' ? '1.5px solid #D95D39' : '1px solid rgba(245,243,238,0.08)',
+                        background: paymentMethod === 'gopay' ? '#EFF6FF' : '#FFFFFF',
+                        border: paymentMethod === 'gopay' ? '1.5px solid #0066CC' : '1px solid #E5E7EB',
                         cursor: 'pointer',
                         textAlign: 'center',
+                        transition: 'all 0.2s ease',
                       }}
                     >
                       <span style={{ fontSize: '1.2rem', display: 'block', marginBottom: 4 }}>💳</span>
-                      <span style={{ fontSize: '0.84rem', fontWeight: 700, color: '#F5F3EE', display: 'block' }}>GoPay / E-Wallet</span>
-                      <span style={{ fontSize: '0.68rem', color: '#9095A1' }}>Instant Auto-Debit</span>
+                      <span style={{ fontSize: '0.84rem', fontWeight: 700, color: '#111827', display: 'block' }}>GoPay / E-Wallet</span>
+                      <span style={{ fontSize: '0.68rem', color: '#6B7280' }}>Instant Auto-Debit</span>
                     </div>
                   </div>
 
                   {/* Payment Method Details */}
                   {paymentMethod === 'qris' && (
-                    <div style={{ background: '#0D0F14', borderRadius: 8, padding: '16px', textAlign: 'center', border: '1px solid rgba(245,243,238,0.06)' }}>
-                      <p style={{ margin: '0 0 8px', fontSize: '0.78rem', color: '#9095A1' }}>
+                    <div style={{ background: '#F9FAFB', borderRadius: 8, padding: '16px', textAlign: 'center', border: '1px solid #E5E7EB' }}>
+                      <p style={{ margin: '0 0 8px', fontSize: '0.78rem', color: '#4B5563' }}>
                         Scan QRIS langsung dengan aplikasi Mobile Banking atau E-Wallet apa saja.
                       </p>
-                      <div style={{ display: 'inline-block', padding: 8, background: '#F5F3EE', borderRadius: 8 }}>
-                        <div style={{ width: 120, height: 120, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fff', color: '#111318', fontWeight: 700, fontSize: '0.75rem', border: '2px solid #111318' }}>
+                      <div style={{ display: 'inline-block', padding: 8, background: '#FFFFFF', borderRadius: 8, border: '1px solid #E5E7EB' }}>
+                        <div style={{ width: 120, height: 120, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#FFFFFF', color: '#111827', fontWeight: 700, fontSize: '0.75rem', border: '2px solid #111827' }}>
                           [ QRIS SIMULASI ]
                         </div>
                       </div>
@@ -936,7 +933,7 @@ export default function DetailPage() {
                   )}
 
                   {paymentMethod === 'va' && (
-                    <div style={{ background: '#0D0F14', borderRadius: 8, padding: '16px', border: '1px solid rgba(245,243,238,0.06)' }}>
+                    <div style={{ background: '#F9FAFB', borderRadius: 8, padding: '16px', border: '1px solid #E5E7EB' }}>
                       <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
                         {['BCA', 'Mandiri', 'BNI', 'BRI'].map((bank) => (
                           <button
@@ -946,9 +943,9 @@ export default function DetailPage() {
                             style={{
                               padding: '6px 14px',
                               borderRadius: 6,
-                              background: vaBank === bank ? '#D95D39' : 'rgba(245,243,238,0.05)',
-                              color: '#fff',
-                              border: 'none',
+                              background: vaBank === bank ? '#0066CC' : '#FFFFFF',
+                              color: vaBank === bank ? '#FFFFFF' : '#4B5563',
+                              border: vaBank === bank ? 'none' : '1px solid #D1D5DB',
                               fontSize: '0.75rem',
                               fontWeight: 700,
                               cursor: 'pointer',
@@ -960,15 +957,15 @@ export default function DetailPage() {
                       </div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>
-                          <span style={{ fontSize: '0.7rem', color: '#6B6E7A', display: 'block' }}>Nomor Virtual Account {vaBank}</span>
-                          <span style={{ fontFamily: 'monospace', fontSize: '1rem', fontWeight: 700, color: '#D95D39' }}>
+                          <span style={{ fontSize: '0.7rem', color: '#6B7280', display: 'block' }}>Nomor Virtual Account {vaBank}</span>
+                          <span style={{ fontFamily: 'monospace', fontSize: '1rem', fontWeight: 700, color: '#0066CC' }}>
                             88019-9281-4192
                           </span>
                         </div>
                         <button
                           type="button"
                           onClick={() => { navigator.clipboard?.writeText('8801992814192'); showToast('Nomor VA berhasil disalin!') }}
-                          style={{ padding: '4px 10px', borderRadius: 4, background: 'rgba(245,243,238,0.08)', color: '#F5F3EE', border: 'none', fontSize: '0.72rem', cursor: 'pointer' }}
+                          style={{ padding: '6px 12px', borderRadius: 6, background: '#EFF6FF', color: '#0066CC', border: '1px solid #BFDBFE', fontSize: '0.72rem', fontWeight: 600, cursor: 'pointer' }}
                         >
                           Salin
                         </button>
@@ -977,8 +974,8 @@ export default function DetailPage() {
                   )}
 
                   {paymentMethod === 'gopay' && (
-                    <div style={{ background: '#0D0F14', borderRadius: 8, padding: '16px', border: '1px solid rgba(245,243,238,0.06)' }}>
-                      <span style={{ fontSize: '0.78rem', color: '#9095A1' }}>
+                    <div style={{ background: '#F9FAFB', borderRadius: 8, padding: '16px', border: '1px solid #E5E7EB' }}>
+                      <span style={{ fontSize: '0.78rem', color: '#4B5563' }}>
                         Kamu akan diarahkan ke aplikasi GoPay setelah menekan tombol konfirmasi bayar di samping.
                       </span>
                     </div>
@@ -990,51 +987,52 @@ export default function DetailPage() {
               <div>
                 <div
                   style={{
-                    background: '#161920',
+                    background: '#FFFFFF',
                     borderRadius: 16,
-                    border: '1px solid rgba(245,243,238,0.1)',
+                    border: '1px solid #E5E7EB',
                     padding: '24px',
                     position: 'sticky',
                     top: 96,
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
                   }}
                 >
-                  <h3 style={{ margin: '0 0 16px', fontSize: '1.05rem', fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif" }}>
+                  <h3 style={{ margin: '0 0 16px', fontSize: '1.05rem', fontWeight: 700, color: '#111827' }}>
                     Rincian Pembayaran
                   </h3>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontSize: '0.82rem', marginBottom: 20 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ color: '#9095A1' }}>Event</span>
-                      <span style={{ color: '#F5F3EE', fontWeight: 600, maxWidth: 170, textAlign: 'right' }}>{event.title}</span>
+                      <span style={{ color: '#4B5563' }}>Event</span>
+                      <span style={{ color: '#111827', fontWeight: 600, maxWidth: 170, textAlign: 'right' }}>{event.title}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ color: '#9095A1' }}>Kategori Seat</span>
-                      <span style={{ color: '#D95D39', fontWeight: 700 }}>{TIER_CONFIG[selectedTier]?.name}</span>
+                      <span style={{ color: '#4B5563' }}>Kategori Seat</span>
+                      <span style={{ color: '#0066CC', fontWeight: 700 }}>{TIER_CONFIG[selectedTier]?.name}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ color: '#9095A1' }}>Jumlah Tiket</span>
-                      <span style={{ color: '#F5F3EE', fontWeight: 600 }}>{quantity} Tiket</span>
+                      <span style={{ color: '#4B5563' }}>Jumlah Tiket</span>
+                      <span style={{ color: '#111827', fontWeight: 600 }}>{quantity} Tiket</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ color: '#9095A1' }}>Harga Tiket</span>
-                      <span style={{ color: '#F5F3EE', fontWeight: 600 }}>{formatPrice(subtotal)}</span>
+                      <span style={{ color: '#4B5563' }}>Harga Tiket</span>
+                      <span style={{ color: '#111827', fontWeight: 600 }}>{formatPrice(subtotal)}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ color: '#9095A1' }}>Biaya Layanan &amp; Pajak</span>
-                      <span style={{ color: '#F5F3EE', fontWeight: 600 }}>{formatPrice(adminFee)}</span>
+                      <span style={{ color: '#4B5563' }}>Biaya Layanan &amp; Pajak</span>
+                      <span style={{ color: '#111827', fontWeight: 600 }}>{formatPrice(adminFee)}</span>
                     </div>
 
                     {discountAmount > 0 && (
-                      <div style={{ display: 'flex', justifyContent: 'space-between', color: '#4ade80', fontWeight: 700 }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', color: '#059669', fontWeight: 700 }}>
                         <span>Potongan Promo ({appliedPromo?.code})</span>
                         <span>− {formatPrice(discountAmount)}</span>
                       </div>
                     )}
 
-                    <div style={{ borderTop: '1px solid rgba(245,243,238,0.08)', paddingTop: 12, marginTop: 4 }}>
+                    <div style={{ borderTop: '1px solid #E5E7EB', paddingTop: 12, marginTop: 4 }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                        <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#F5F3EE' }}>Total Bayar</span>
-                        <span style={{ fontSize: '1.25rem', fontWeight: 700, color: '#D95D39', fontFamily: "'Space Grotesk', sans-serif" }}>
+                        <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#111827' }}>Total Bayar</span>
+                        <span style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0066CC' }}>
                           {formatPrice(finalTotal)}
                         </span>
                       </div>
@@ -1049,22 +1047,22 @@ export default function DetailPage() {
                       width: '100%',
                       padding: '14px',
                       borderRadius: 10,
-                      background: '#D95D39',
+                      background: '#0066CC',
                       color: '#fff',
                       border: 'none',
                       fontWeight: 700,
                       fontSize: '0.92rem',
                       cursor: isProcessing ? 'not-allowed' : 'pointer',
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      boxShadow: '0 8px 24px rgba(217,93,57,0.3)',
+                      boxShadow: '0 4px 14px rgba(0,102,204,0.25)',
                       opacity: isProcessing ? 0.7 : 1,
+                      transition: 'background 0.2s ease',
                     }}
                   >
                     {isProcessing ? 'Memproses Transaksi...' : 'Bayar Sekarang (Simulasi) →'}
                   </button>
 
                   <div style={{ marginTop: 14, textAlign: 'center' }}>
-                    <span style={{ fontSize: '0.72rem', color: '#6B6E7A' }}>
+                    <span style={{ fontSize: '0.72rem', color: '#6B7280' }}>
                       🔒 Transaksi aman berstandar enkripsi 256-bit SSL
                     </span>
                   </div>
@@ -1080,12 +1078,12 @@ export default function DetailPage() {
             style={{
               maxWidth: 620,
               margin: '20px auto 0',
-              background: '#161920',
-              border: '1px solid rgba(217,93,57,0.4)',
+              background: '#FFFFFF',
+              border: '1px solid #E5E7EB',
               borderRadius: 18,
               padding: '36px 32px',
               textAlign: 'center',
-              boxShadow: '0 24px 60px rgba(0,0,0,0.6)',
+              boxShadow: '0 12px 36px rgba(0,0,0,0.08)',
               animation: 'fadeInUp 0.3s ease-out',
             }}
           >
@@ -1094,14 +1092,14 @@ export default function DetailPage() {
                 width: 64,
                 height: 64,
                 borderRadius: '50%',
-                background: 'rgba(74,222,128,0.15)',
-                color: '#4ade80',
+                background: '#D1FAE5',
+                color: '#059669',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 margin: '0 auto 16px',
                 fontSize: '2rem',
-                border: '1px solid rgba(74,222,128,0.3)',
+                border: '1px solid #A7F3D0',
               }}
             >
               ✓
@@ -1112,21 +1110,20 @@ export default function DetailPage() {
                 margin: '0 0 6px',
                 fontSize: '1.6rem',
                 fontWeight: 700,
-                color: '#F5F3EE',
-                fontFamily: "'Space Grotesk', sans-serif",
+                color: '#111827',
               }}
             >
               Pembayaran Berhasil!
             </h2>
-            <p style={{ margin: '0 0 24px', color: '#9095A1', fontSize: '0.86rem', lineHeight: 1.5 }}>
+            <p style={{ margin: '0 0 24px', color: '#4B5563', fontSize: '0.86rem', lineHeight: 1.5 }}>
               Selamat! Tiket konsermu telah diterbitkan secara resmi dan tersimpan di menu <strong>Tiket Saya</strong>.
             </p>
 
             {/* Ticket Card Preview */}
             <div
               style={{
-                background: '#0D0F14',
-                border: '1px dashed rgba(245,243,238,0.2)',
+                background: '#F9FAFB',
+                border: '1px dashed #D1D5DB',
                 borderRadius: 12,
                 padding: '20px',
                 marginBottom: 24,
@@ -1134,36 +1131,36 @@ export default function DetailPage() {
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                <span style={{ fontSize: '0.72rem', color: '#D95D39', fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif" }}>
+                <span style={{ fontSize: '0.72rem', color: '#0066CC', fontWeight: 700 }}>
                   E-TIKET KONSERKU #{purchasedTicket.ticketCode}
                 </span>
-                <span style={{ fontSize: '0.72rem', color: '#4ade80', fontWeight: 600 }}>
+                <span style={{ fontSize: '0.72rem', color: '#059669', fontWeight: 600, background: '#D1FAE5', padding: '2px 8px', borderRadius: 4 }}>
                   TERKONFIRMASI
                 </span>
               </div>
-              <h3 style={{ margin: '0 0 4px', fontSize: '1.1rem', color: '#F5F3EE', fontWeight: 700 }}>
+              <h3 style={{ margin: '0 0 4px', fontSize: '1.1rem', color: '#111827', fontWeight: 700 }}>
                 {purchasedTicket.eventTitle}
               </h3>
-              <p style={{ margin: '0 0 14px', fontSize: '0.78rem', color: '#6B6E7A' }}>
+              <p style={{ margin: '0 0 14px', fontSize: '0.78rem', color: '#6B7280' }}>
                 📅 {formatDate(purchasedTicket.eventDate)} • 📍 {purchasedTicket.location}
               </p>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, fontSize: '0.78rem' }}>
                 <div>
-                  <span style={{ color: '#6B6E7A', display: 'block' }}>Kategori</span>
-                  <span style={{ color: '#F5F3EE', fontWeight: 700 }}>{purchasedTicket.tier} ({purchasedTicket.quantity} Tiket)</span>
+                  <span style={{ color: '#6B7280', display: 'block' }}>Kategori</span>
+                  <span style={{ color: '#111827', fontWeight: 700 }}>{purchasedTicket.tier} ({purchasedTicket.quantity} Tiket)</span>
                 </div>
                 <div>
-                  <span style={{ color: '#6B6E7A', display: 'block' }}>Nama Pemesan</span>
-                  <span style={{ color: '#F5F3EE', fontWeight: 600 }}>{purchasedTicket.buyerName}</span>
+                  <span style={{ color: '#6B7280', display: 'block' }}>Nama Pemesan</span>
+                  <span style={{ color: '#111827', fontWeight: 600 }}>{purchasedTicket.buyerName}</span>
                 </div>
                 <div>
-                  <span style={{ color: '#6B6E7A', display: 'block' }}>Metode Bayar</span>
-                  <span style={{ color: '#F5F3EE', fontWeight: 600 }}>{purchasedTicket.paymentMethod?.toUpperCase()}</span>
+                  <span style={{ color: '#6B7280', display: 'block' }}>Metode Bayar</span>
+                  <span style={{ color: '#111827', fontWeight: 600 }}>{purchasedTicket.paymentMethod?.toUpperCase()}</span>
                 </div>
                 <div>
-                  <span style={{ color: '#6B6E7A', display: 'block' }}>Total Pembayaran</span>
-                  <span style={{ color: '#D95D39', fontWeight: 700 }}>{formatPrice(purchasedTicket.total)}</span>
+                  <span style={{ color: '#6B7280', display: 'block' }}>Total Pembayaran</span>
+                  <span style={{ color: '#0066CC', fontWeight: 700 }}>{formatPrice(purchasedTicket.total)}</span>
                 </div>
               </div>
             </div>
@@ -1176,13 +1173,12 @@ export default function DetailPage() {
                 style={{
                   padding: '12px 24px',
                   borderRadius: 8,
-                  background: '#D95D39',
+                  background: '#0066CC',
                   color: '#fff',
                   border: 'none',
                   fontWeight: 700,
                   fontSize: '0.88rem',
                   cursor: 'pointer',
-                  fontFamily: "'Space Grotesk', sans-serif",
                 }}
               >
                 Kembali ke Beranda &amp; Lihat Tiket
@@ -1193,9 +1189,9 @@ export default function DetailPage() {
                 style={{
                   padding: '12px 24px',
                   borderRadius: 8,
-                  background: 'rgba(245,243,238,0.06)',
-                  color: '#F5F3EE',
-                  border: '1px solid rgba(245,243,238,0.12)',
+                  background: '#F3F4F6',
+                  color: '#111827',
+                  border: '1px solid #D1D5DB',
                   fontWeight: 600,
                   fontSize: '0.88rem',
                   cursor: 'pointer',

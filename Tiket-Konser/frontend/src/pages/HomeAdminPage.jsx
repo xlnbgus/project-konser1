@@ -46,65 +46,65 @@ const DEMO_SALES     = { isSalesOpen: true }
 const S = {
   input: {
     width: '100%', boxSizing: 'border-box', padding: '10px 14px',
-    borderRadius: 8, border: '1px solid rgba(245,243,238,0.1)',
-    background: 'rgba(245,243,238,0.05)', color: '#F5F3EE',
+    borderRadius: 8, border: '1px solid #D1D5DB',
+    background: '#FFFFFF', color: '#111827',
     fontSize: '0.875rem', outline: 'none',
     fontFamily: "'Manrope', sans-serif",
   },
   select: {
     width: '100%', boxSizing: 'border-box', padding: '10px 14px',
-    borderRadius: 8, border: '1px solid rgba(245,243,238,0.1)',
-    background: '#161920', color: '#F5F3EE',
+    borderRadius: 8, border: '1px solid #D1D5DB',
+    background: '#FFFFFF', color: '#111827',
     fontSize: '0.875rem', outline: 'none', cursor: 'pointer',
     fontFamily: "'Manrope', sans-serif",
   },
   textarea: {
     width: '100%', boxSizing: 'border-box', padding: '10px 14px',
-    borderRadius: 8, border: '1px solid rgba(245,243,238,0.1)',
-    background: 'rgba(245,243,238,0.05)', color: '#F5F3EE',
+    borderRadius: 8, border: '1px solid #D1D5DB',
+    background: '#FFFFFF', color: '#111827',
     fontSize: '0.875rem', outline: 'none', resize: 'vertical', minHeight: 72,
     fontFamily: "'Manrope', sans-serif",
   },
   card: {
-    background: '#161920', border: '1px solid rgba(245,243,238,0.08)',
+    background: '#FFFFFF', border: '1px solid #E5E7EB',
     borderRadius: 12, padding: '20px',
   },
   section: {
-    background: '#161920', border: '1px solid rgba(245,243,238,0.08)',
+    background: '#FFFFFF', border: '1px solid #E5E7EB',
     borderRadius: 14, padding: '24px',
   },
   btnPrimary: (color) => ({
     border: 'none', borderRadius: 8, padding: '10px 18px',
-    background: color || '#D95D39',
+    background: color || '#0066CC',
     color: '#fff', cursor: 'pointer', fontWeight: 600, fontSize: '0.85rem',
     display: 'inline-flex', alignItems: 'center', gap: 6,
     fontFamily: "'Space Grotesk', sans-serif",
   }),
   btnGhost: {
-    border: '1px solid rgba(245,243,238,0.1)', borderRadius: 8, padding: '7px 12px',
-    background: 'transparent', color: '#9095A1',
+    border: '1px solid #E5E7EB', borderRadius: 8, padding: '7px 12px',
+    background: '#F9FAFB', color: '#4B5563',
     cursor: 'pointer', fontSize: '0.82rem', fontWeight: 500,
     fontFamily: "'Manrope', sans-serif",
   },
   btnDanger: {
-    border: 'none', borderRadius: 8, padding: '7px 12px',
-    background: 'rgba(239,68,68,0.12)', color: '#fca5a5',
+    border: '1px solid #FECACA', borderRadius: 8, padding: '7px 12px',
+    background: '#FEE2E2', color: '#DC2626',
     cursor: 'pointer', fontSize: '0.82rem', fontWeight: 500,
     fontFamily: "'Manrope', sans-serif",
   },
   label: {
-    display: 'block', color: '#9095A1', fontSize: '0.72rem',
+    display: 'block', color: '#4B5563', fontSize: '0.72rem',
     fontWeight: 700, marginBottom: 6, letterSpacing: '0.08em', textTransform: 'uppercase',
     fontFamily: "'Space Grotesk', sans-serif",
   },
   statCard: (color) => ({
-    background: '#161920', border: `1px solid ${color ? color + '44' : 'rgba(217,93,57,0.25)'}`,
+    background: '#FFFFFF', border: `1px solid ${color ? color + '44' : '#E5E7EB'}`,
     borderRadius: 12, padding: '20px', position: 'relative', overflow: 'hidden',
   }),
   row: {
     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
     gap: 12, padding: '13px 15px', borderRadius: 8,
-    background: 'rgba(245,243,238,0.03)', border: '1px solid rgba(245,243,238,0.06)',
+    background: '#FFFFFF', border: '1px solid #E5E7EB',
   },
 }
 
@@ -113,21 +113,22 @@ const S = {
 function Modal({ title, onClose, onSubmit, children, submitLabel, submitColor }) {
   return (
     <div style={{
-      position: 'fixed', inset: 0, background: 'rgba(10,11,15,0.85)',
+      position: 'fixed', inset: 0, background: 'rgba(17,24,39,0.4)',
+      backdropFilter: 'blur(4px)',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       padding: 20, zIndex: 100,
     }}>
       <div style={{
-        width: '100%', maxWidth: 520, background: '#161920',
+        width: '100%', maxWidth: 520, background: '#FFFFFF',
         borderRadius: 14, padding: '28px 24px',
-        border: '1px solid rgba(245,243,238,0.1)',
-        boxShadow: '0 24px 60px rgba(0,0,0,0.6)',
+        border: '1px solid #E5E7EB',
+        boxShadow: '0 20px 45px rgba(0,0,0,0.1)',
         maxHeight: '90vh', overflowY: 'auto',
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 22 }}>
-          <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 700, color: '#F5F3EE', fontFamily: "'Space Grotesk', sans-serif" }}>{title}</h3>
+          <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 700, color: '#111827', fontFamily: "'Space Grotesk', sans-serif" }}>{title}</h3>
           <button onClick={onClose} style={{
-            border: 'none', background: 'rgba(245,243,238,0.08)', color: '#9095A1',
+            border: 'none', background: '#F3F4F6', color: '#4B5563',
             cursor: 'pointer', borderRadius: 6, width: 28, height: 28,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>✕</button>
@@ -135,7 +136,7 @@ function Modal({ title, onClose, onSubmit, children, submitLabel, submitColor })
         <form onSubmit={onSubmit} style={{ display: 'grid', gap: 14 }}>
           {children}
           <button type="submit" style={{
-            ...S.btnPrimary(submitColor || '#D95D39'),
+            ...S.btnPrimary(submitColor || '#0066CC'),
             justifyContent: 'center', padding: '12px', marginTop: 4,
           }}>
             {submitLabel || 'Simpan'}
@@ -157,14 +158,14 @@ function Field({ label, children }) {
 
 function Badge({ status }) {
   const map = {
-    pending:   { bg: 'rgba(251,191,36,0.15)',  color: '#fbbf24', text: 'Pending'   },
-    paid:      { bg: 'rgba(16,185,129,0.15)',   color: '#10b981', text: 'Paid'      },
-    verified:  { bg: 'rgba(59,130,246,0.15)',   color: '#60a5fa', text: 'Verified'  },
-    cancelled: { bg: 'rgba(239,68,68,0.15)',    color: '#f87171', text: 'Cancelled' },
-    active:    { bg: 'rgba(16,185,129,0.15)',   color: '#10b981', text: 'Active'    },
-    inactive:  { bg: 'rgba(107,114,128,0.18)', color: '#9ca3af', text: 'Inactive'  },
-    available: { bg: 'rgba(59,130,246,0.15)',   color: '#60a5fa', text: 'Available' },
-    soldout:   { bg: 'rgba(239,68,68,0.15)',    color: '#f87171', text: 'Sold Out'  },
+    pending:   { bg: '#FEF3C7', color: '#D97706', text: 'Pending'   },
+    paid:      { bg: '#D1FAE5', color: '#059669', text: 'Paid'      },
+    verified:  { bg: '#EFF6FF', color: '#0066CC', text: 'Verified'  },
+    cancelled: { bg: '#FEE2E2', color: '#DC2626', text: 'Cancelled' },
+    active:    { bg: '#D1FAE5', color: '#059669', text: 'Active'    },
+    inactive:  { bg: '#F3F4F6', color: '#6B7280', text: 'Inactive'  },
+    available: { bg: '#EFF6FF', color: '#0066CC', text: 'Available' },
+    soldout:   { bg: '#FEE2E2', color: '#DC2626', text: 'Sold Out'  },
   }
   const s = map[status] || map.pending
   return (
@@ -178,9 +179,9 @@ function Badge({ status }) {
 function Toast({ message, type }) {
   if (!message) return null
   const colors = {
-    success: { bg: 'rgba(16,185,129,0.12)', border: 'rgba(16,185,129,0.3)', color: '#6ee7b7', icon: '✅' },
-    error:   { bg: 'rgba(239,68,68,0.12)',  border: 'rgba(239,68,68,0.3)',  color: '#fca5a5', icon: '❌' },
-    warn:    { bg: 'rgba(251,191,36,0.12)', border: 'rgba(251,191,36,0.3)', color: '#fcd34d', icon: '💡' },
+    success: { bg: '#D1FAE5', border: '#A7F3D0', color: '#059669', icon: '✅' },
+    error:   { bg: '#FEE2E2', border: '#FECACA', color: '#DC2626', icon: '❌' },
+    warn:    { bg: '#FEF3C7', border: '#FDE68A', color: '#D97706', icon: '💡' },
   }
   const c = colors[type] || colors.success
   return (
@@ -562,14 +563,14 @@ export default function HomeAdminPage() {
   return (
     <div style={{
       display: 'flex', minHeight: '100vh',
-      background: '#111318', color: '#F5F3EE',
+      background: '#F4F5F7', color: '#111827',
       fontFamily: "'Manrope', sans-serif",
     }}>
 
       {/* ──────────── SIDEBAR ──────────── */}
       <aside style={{
         width: SW, minHeight: '100vh', flexShrink: 0,
-        background: '#161920', borderRight: '1px solid rgba(245,243,238,0.08)',
+        background: '#FFFFFF', borderRight: '1px solid #E5E7EB',
         position: 'sticky', top: 0, height: '100vh',
         display: 'flex', flexDirection: 'column',
         transition: 'width 0.22s ease', overflow: 'hidden',
@@ -578,11 +579,11 @@ export default function HomeAdminPage() {
         {/* Logo row */}
         <div style={{
           padding: '18px 14px', display: 'flex', alignItems: 'center',
-          gap: 10, borderBottom: '1px solid rgba(245,243,238,0.06)', flexShrink: 0,
+          gap: 10, borderBottom: '1px solid #E5E7EB', flexShrink: 0,
         }}>
           <div style={{
             width: 32, height: 32, borderRadius: 8, flexShrink: 0,
-            background: '#D95D39',
+            background: '#0066CC',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -590,13 +591,13 @@ export default function HomeAdminPage() {
             </svg>
           </div>
           {sidebarOpen && (
-            <span style={{ fontWeight: 700, fontSize: '1rem', whiteSpace: 'nowrap', fontFamily: "'Space Grotesk', sans-serif" }}>
-              Konser<span style={{ color: '#D95D39' }}>Ku</span>
+            <span style={{ fontWeight: 700, fontSize: '1rem', whiteSpace: 'nowrap', fontFamily: "'Space Grotesk', sans-serif", color: '#111827' }}>
+              Konser<span style={{ color: '#0066CC' }}>Ku</span>
             </span>
           )}
           <button onClick={() => setSidebarOpen(o => !o)} style={{
-            marginLeft: 'auto', border: 'none', background: 'rgba(245,243,238,0.06)',
-            color: '#9095A1', cursor: 'pointer', borderRadius: 6, width: 26, height: 26,
+            marginLeft: 'auto', border: 'none', background: '#F3F4F6',
+            color: '#4B5563', cursor: 'pointer', borderRadius: 6, width: 26, height: 26,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             fontSize: 11, flexShrink: 0,
           }}>
@@ -613,9 +614,9 @@ export default function HomeAdminPage() {
                 display: 'flex', alignItems: 'center',
                 gap: 10, padding: sidebarOpen ? '10px 12px' : '10px',
                 borderRadius: 8, border: 'none', cursor: 'pointer', textAlign: 'left',
-                background: active ? 'rgba(217,93,57,0.12)' : 'transparent',
-                color: active ? '#D95D39' : '#9095A1',
-                borderLeft: active ? '3px solid #D95D39' : '3px solid transparent',
+                background: active ? '#EFF6FF' : 'transparent',
+                color: active ? '#0066CC' : '#4B5563',
+                borderLeft: active ? '3px solid #0066CC' : '3px solid transparent',
                 transition: 'all 0.15s', width: '100%',
                 justifyContent: sidebarOpen ? 'flex-start' : 'center',
                 fontFamily: "'Space Grotesk', sans-serif",
@@ -639,16 +640,16 @@ export default function HomeAdminPage() {
 
         {/* Sticky header */}
         <header style={{
-          padding: '14px 28px', borderBottom: '1px solid rgba(245,243,238,0.06)',
+          padding: '14px 28px', borderBottom: '1px solid #E5E7EB',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
-          background: 'rgba(17,19,24,0.92)', backdropFilter: 'blur(12px)',
+          background: 'rgba(255,255,255,0.96)', backdropFilter: 'blur(12px)',
           position: 'sticky', top: 0, zIndex: 10, flexWrap: 'wrap',
         }}>
           <div>
-            <p style={{ margin: 0, color: '#D95D39', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: "'Space Grotesk', sans-serif" }}>
+            <p style={{ margin: 0, color: '#0066CC', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: "'Space Grotesk', sans-serif" }}>
               Admin Panel
             </p>
-            <h1 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 700, lineHeight: 1.3, fontFamily: "'Space Grotesk', sans-serif" }}>
+            <h1 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 700, lineHeight: 1.3, color: '#111827', fontFamily: "'Space Grotesk', sans-serif" }}>
               {TABS.find(t => t.id === activeTab)?.icon}{' '}
               {TABS.find(t => t.id === activeTab)?.label}
             </h1>
@@ -666,10 +667,10 @@ export default function HomeAdminPage() {
                 onClick={() => setProfileOpen(o => !o)}
                 style={{
                   width: 34, height: 34, borderRadius: 8, flexShrink: 0,
-                  background: '#D95D39', color: '#fff', fontWeight: 700,
+                  background: '#0066CC', color: '#fff', fontWeight: 700,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontSize: 14, cursor: 'pointer',
-                  border: profileOpen ? '2px solid #D95D39' : '1px solid rgba(245,243,238,0.1)',
+                  border: profileOpen ? '2px solid #004C99' : '1px solid #0066CC',
                   transition: 'border 0.2s',
                   fontFamily: "'Space Grotesk', sans-serif",
                 }}
@@ -687,29 +688,29 @@ export default function HomeAdminPage() {
                   <div style={{
                     position: 'absolute', top: 44, right: 0, zIndex: 50,
                     width: 240, borderRadius: 14,
-                    background: '#0f172a', border: '1px solid rgba(255,255,255,0.1)',
-                    boxShadow: '0 16px 48px rgba(0,0,0,0.5)',
+                    background: '#FFFFFF', border: '1px solid #E5E7EB',
+                    boxShadow: '0 16px 48px rgba(0,0,0,0.1)',
                     overflow: 'hidden',
                   }}>
                     {/* Info user */}
                     <div style={{
                       padding: '16px 16px 12px',
-                      borderBottom: '1px solid rgba(255,255,255,0.07)',
+                      borderBottom: '1px solid #E5E7EB',
                     }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
                         <div style={{
                           width: 40, height: 40, borderRadius: 10, flexShrink: 0,
-                          background: 'linear-gradient(135deg,#ff462b,#ff7a00)',
+                          background: '#0066CC',
                           display: 'flex', alignItems: 'center', justifyContent: 'center',
                           fontSize: 18, fontWeight: 700, color: '#fff',
                         }}>
                           {(user.name || user.email || 'A')[0].toUpperCase()}
                         </div>
                         <div style={{ minWidth: 0 }}>
-                          <p style={{ margin: 0, fontWeight: 700, fontSize: '0.88rem', color: '#f9fafb', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          <p style={{ margin: 0, fontWeight: 700, fontSize: '0.88rem', color: '#111827', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                             {user.name || 'Admin'}
                           </p>
-                          <p style={{ margin: '2px 0 0', fontSize: '0.72rem', color: '#6b7280', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          <p style={{ margin: '2px 0 0', fontSize: '0.72rem', color: '#6B7280', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                             {user.email || '—'}
                           </p>
                         </div>
@@ -717,10 +718,10 @@ export default function HomeAdminPage() {
                       <div style={{
                         display: 'inline-flex', alignItems: 'center', gap: 5,
                         padding: '3px 10px', borderRadius: 99,
-                        background: 'rgba(255,70,43,0.15)', border: '1px solid rgba(255,70,43,0.3)',
+                        background: '#EFF6FF', border: '1px solid #BFDBFE',
                       }}>
-                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#ff7a00', display: 'inline-block' }} />
-                        <span style={{ color: '#ff7a00', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#0066CC', display: 'inline-block' }} />
+                        <span style={{ color: '#0066CC', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                           Admin
                         </span>
                       </div>
@@ -732,11 +733,11 @@ export default function HomeAdminPage() {
                         onClick={() => { setActiveTab('overview'); setProfileOpen(false) }}
                         style={{
                           width: '100%', textAlign: 'left', border: 'none', borderRadius: 8,
-                          padding: '9px 12px', background: 'transparent', color: '#d1d5db',
+                          padding: '9px 12px', background: 'transparent', color: '#4B5563',
                           cursor: 'pointer', fontSize: '0.83rem', display: 'flex', alignItems: 'center', gap: 8,
                           transition: 'background 0.15s',
                         }}
-                        onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.06)'}
+                        onMouseEnter={e => e.currentTarget.style.background = '#F3F4F6'}
                         onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                       >
                         📊 Overview
@@ -745,27 +746,27 @@ export default function HomeAdminPage() {
                         onClick={() => { setActiveTab('sales'); setProfileOpen(false) }}
                         style={{
                           width: '100%', textAlign: 'left', border: 'none', borderRadius: 8,
-                          padding: '9px 12px', background: 'transparent', color: '#d1d5db',
+                          padding: '9px 12px', background: 'transparent', color: '#4B5563',
                           cursor: 'pointer', fontSize: '0.83rem', display: 'flex', alignItems: 'center', gap: 8,
                           transition: 'background 0.15s',
                         }}
-                        onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.06)'}
+                        onMouseEnter={e => e.currentTarget.style.background = '#F3F4F6'}
                         onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                       >
                         💰 Penjualan
                       </button>
                     </div>
 
-                    <div style={{ padding: '8px', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+                    <div style={{ padding: '8px', borderTop: '1px solid #E5E7EB' }}>
                       <button
                         onClick={() => { handleLogout(); setProfileOpen(false) }}
                         style={{
                           width: '100%', textAlign: 'left', border: 'none', borderRadius: 8,
-                          padding: '9px 12px', background: 'transparent', color: '#f87171',
+                          padding: '9px 12px', background: 'transparent', color: '#DC2626',
                           cursor: 'pointer', fontSize: '0.83rem', display: 'flex', alignItems: 'center', gap: 8,
                           transition: 'background 0.15s',
                         }}
-                        onMouseEnter={e => e.currentTarget.style.background = 'rgba(239,68,68,0.1)'}
+                        onMouseEnter={e => e.currentTarget.style.background = '#FEE2E2'}
                         onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                       >
                         🚪 Logout
@@ -790,17 +791,17 @@ export default function HomeAdminPage() {
               {/* Stats */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))', gap: 14 }}>
                 {[
-                  { label: 'Total Pesanan',    value: analytics.totalOrders   || 0,  icon: '📦', color: '#ff462b' },
-                  { label: 'Sudah Dibayar',    value: analytics.paidOrders    || 0,  icon: '✅', color: '#10b981' },
-                  { label: 'Menunggu',         value: analytics.pendingOrders || 0,  icon: '⏳', color: '#f59e0b' },
-                  { label: 'Total Pendapatan', value: `Rp ${Number(analytics.totalRevenue || 0).toLocaleString('id-ID')}`, icon: '💰', color: '#f59e0b' },
-                  { label: 'Tiket Terjual',   value: analytics.soldTickets   || 0,  icon: '🎫', color: '#06b6d4' },
-                  { label: 'Status Penjualan', value: sales.isSalesOpen !== false ? 'Buka' : 'Tutup', icon: '🔔', color: sales.isSalesOpen !== false ? '#10b981' : '#ef4444' },
+                  { label: 'Total Pesanan',    value: analytics.totalOrders   || 0,  icon: '📦', color: '#0066CC' },
+                  { label: 'Sudah Dibayar',    value: analytics.paidOrders    || 0,  icon: '✅', color: '#059669' },
+                  { label: 'Menunggu',         value: analytics.pendingOrders || 0,  icon: '⏳', color: '#D97706' },
+                  { label: 'Total Pendapatan', value: `Rp ${Number(analytics.totalRevenue || 0).toLocaleString('id-ID')}`, icon: '💰', color: '#0066CC' },
+                  { label: 'Tiket Terjual',   value: analytics.soldTickets   || 0,  icon: '🎫', color: '#0066CC' },
+                  { label: 'Status Penjualan', value: sales.isSalesOpen !== false ? 'Buka' : 'Tutup', icon: '🔔', color: sales.isSalesOpen !== false ? '#059669' : '#DC2626' },
                 ].map(item => (
                   <div key={item.label} style={S.statCard(item.color)}>
                     <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 12 }}>
-                      <p style={{ margin: 0, color: '#9ca3af', fontSize: '0.78rem', fontWeight: 500 }}>{item.label}</p>
-                      <span style={{ fontSize: 20, opacity: 0.6 }}>{item.icon}</span>
+                      <p style={{ margin: 0, color: '#6B7280', fontSize: '0.78rem', fontWeight: 600 }}>{item.label}</p>
+                      <span style={{ fontSize: 20, opacity: 0.8 }}>{item.icon}</span>
                     </div>
                     <h2 style={{ margin: 0, fontSize: '1.35rem', fontWeight: 800, color: item.color, wordBreak: 'break-word' }}>{item.value}</h2>
                   </div>
@@ -810,33 +811,33 @@ export default function HomeAdminPage() {
               {/* Summary tables */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 16 }}>
                 <div style={S.section}>
-                  <h3 style={{ margin: '0 0 16px', fontSize: '0.9rem', fontWeight: 700, color: '#e5e7eb' }}>🎪 Event Terbaru</h3>
+                  <h3 style={{ margin: '0 0 16px', fontSize: '0.9rem', fontWeight: 700, color: '#111827' }}>🎪 Event Terbaru</h3>
                   {events.slice(0, 4).map(ev => (
-                    <div key={ev.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                    <div key={ev.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #E5E7EB' }}>
                       <div>
-                        <p style={{ margin: 0, fontWeight: 500, fontSize: '0.875rem' }}>{ev.title || '—'}</p>
-                        <p style={{ margin: '2px 0 0', fontSize: '0.72rem', color: '#6b7280' }}>{ev.date || '—'} · {ev.location || '—'}</p>
+                        <p style={{ margin: 0, fontWeight: 600, fontSize: '0.875rem', color: '#111827' }}>{ev.title || '—'}</p>
+                        <p style={{ margin: '2px 0 0', fontSize: '0.72rem', color: '#6B7280' }}>{ev.date || '—'} · {ev.location || '—'}</p>
                       </div>
-                      <span style={{ fontSize: '0.8rem', color: '#ff7a00', fontWeight: 600, flexShrink: 0, marginLeft: 8 }}>
+                      <span style={{ fontSize: '0.8rem', color: '#0066CC', fontWeight: 700, flexShrink: 0, marginLeft: 8 }}>
                         Rp {Number(ev.price || 0).toLocaleString('id-ID')}
                       </span>
                     </div>
                   ))}
-                  {events.length === 0 && <p style={{ color: '#6b7280', fontSize: '0.85rem' }}>Belum ada event.</p>}
+                  {events.length === 0 && <p style={{ color: '#6B7280', fontSize: '0.85rem' }}>Belum ada event.</p>}
                 </div>
 
                 <div style={S.section}>
-                  <h3 style={{ margin: '0 0 16px', fontSize: '0.9rem', fontWeight: 700, color: '#e5e7eb' }}>📦 Pesanan Terbaru</h3>
+                  <h3 style={{ margin: '0 0 16px', fontSize: '0.9rem', fontWeight: 700, color: '#111827' }}>📦 Pesanan Terbaru</h3>
                   {orders.slice(0, 4).map(o => (
-                    <div key={o.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                    <div key={o.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #E5E7EB' }}>
                       <div>
-                        <p style={{ margin: 0, fontWeight: 500, fontSize: '0.875rem' }}>{o.eventTitle || o.eventId || '—'}</p>
-                        <p style={{ margin: '2px 0 0', fontSize: '0.72rem', color: '#6b7280' }}>{o.paymentMethod || '—'}</p>
+                        <p style={{ margin: 0, fontWeight: 600, fontSize: '0.875rem', color: '#111827' }}>{o.eventTitle || o.eventId || '—'}</p>
+                        <p style={{ margin: '2px 0 0', fontSize: '0.72rem', color: '#6B7280' }}>{o.paymentMethod || '—'}</p>
                       </div>
                       <Badge status={o.status || 'pending'} />
                     </div>
                   ))}
-                  {orders.length === 0 && <p style={{ color: '#6b7280', fontSize: '0.85rem' }}>Belum ada pesanan.</p>}
+                  {orders.length === 0 && <p style={{ color: '#6B7280', fontSize: '0.85rem' }}>Belum ada pesanan.</p>}
                 </div>
               </div>
             </div>
@@ -846,27 +847,27 @@ export default function HomeAdminPage() {
           {activeTab === 'events' && (
             <div style={S.section}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, gap: 12, flexWrap: 'wrap' }}>
-                <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700 }}>
-                  Kelola Event <span style={{ color: '#6b7280', fontWeight: 400 }}>({fEvents.length})</span>
+                <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: '#111827' }}>
+                  Kelola Event <span style={{ color: '#6B7280', fontWeight: 400 }}>({fEvents.length})</span>
                 </h3>
-                <button onClick={openAddEvent} style={S.btnPrimary('#ff462b')}>+ Tambah Event</button>
+                <button onClick={openAddEvent} style={S.btnPrimary('#0066CC')}>+ Tambah Event</button>
               </div>
               {loading ? (
-                <p style={{ color: '#6b7280', textAlign: 'center', padding: '40px 0' }}>Memuat...</p>
+                <p style={{ color: '#6B7280', textAlign: 'center', padding: '40px 0' }}>Memuat...</p>
               ) : fEvents.length === 0 ? (
-                <p style={{ color: '#6b7280', textAlign: 'center', padding: '40px 0' }}>Tidak ada event.</p>
+                <p style={{ color: '#6B7280', textAlign: 'center', padding: '40px 0' }}>Tidak ada event.</p>
               ) : (
                 <div style={{ display: 'grid', gap: 10 }}>
                   {fEvents.map(ev => (
                     <div key={ev.id} style={S.row}
-                      onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(255,70,43,0.35)'}
-                      onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'}
+                      onMouseEnter={e => e.currentTarget.style.borderColor = '#0066CC'}
+                      onMouseLeave={e => e.currentTarget.style.borderColor = '#E5E7EB'}
                     >
                       <div style={{ minWidth: 0 }}>
-                        <p style={{ margin: 0, fontWeight: 600, fontSize: '0.9rem' }}>{ev.title || '—'}</p>
-                        <p style={{ margin: '3px 0 0', fontSize: '0.77rem', color: '#6b7280' }}>
+                        <p style={{ margin: 0, fontWeight: 600, fontSize: '0.9rem', color: '#111827' }}>{ev.title || '—'}</p>
+                        <p style={{ margin: '3px 0 0', fontSize: '0.77rem', color: '#6B7280' }}>
                           📅 {ev.date || '—'} &nbsp;·&nbsp; 📍 {ev.location || '—'} &nbsp;·&nbsp;
-                          <span style={{ color: '#ff7a00' }}>Rp {Number(ev.price || 0).toLocaleString('id-ID')}</span>
+                          <span style={{ color: '#0066CC', fontWeight: 600 }}>Rp {Number(ev.price || 0).toLocaleString('id-ID')}</span>
                           &nbsp;·&nbsp; <Badge status={ev.status || 'available'} />
                         </p>
                       </div>
@@ -885,26 +886,26 @@ export default function HomeAdminPage() {
           {activeTab === 'promos' && (
             <div style={S.section}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, gap: 12, flexWrap: 'wrap' }}>
-                <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700 }}>
-                  Kelola Promo <span style={{ color: '#6b7280', fontWeight: 400 }}>({fPromos.length})</span>
+                <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: '#111827' }}>
+                  Kelola Promo <span style={{ color: '#6B7280', fontWeight: 400 }}>({fPromos.length})</span>
                 </h3>
-                <button onClick={openAddPromo} style={S.btnPrimary('#f59e0b')}>+ Tambah Promo</button>
+                <button onClick={openAddPromo} style={S.btnPrimary('#0066CC')}>+ Tambah Promo</button>
               </div>
               {fPromos.length === 0 ? (
-                <p style={{ color: '#6b7280', textAlign: 'center', padding: '40px 0' }}>Tidak ada promo.</p>
+                <p style={{ color: '#6B7280', textAlign: 'center', padding: '40px 0' }}>Tidak ada promo.</p>
               ) : (
                 <div style={{ display: 'grid', gap: 10 }}>
                   {fPromos.map(p => (
                     <div key={p.id} style={S.row}
-                      onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(236,72,153,0.35)'}
-                      onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'}
+                      onMouseEnter={e => e.currentTarget.style.borderColor = '#0066CC'}
+                      onMouseLeave={e => e.currentTarget.style.borderColor = '#E5E7EB'}
                     >
                       <div style={{ minWidth: 0 }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-                          <p style={{ margin: 0, fontWeight: 700, fontSize: '0.9rem', color: '#f59e0b' }}>{p.code || '—'}</p>
-                          <span style={{ fontSize: '0.8rem', color: '#f9fafb' }}>{p.title || '—'}</span>
+                          <p style={{ margin: 0, fontWeight: 700, fontSize: '0.9rem', color: '#0066CC' }}>{p.code || '—'}</p>
+                          <span style={{ fontSize: '0.8rem', color: '#111827', fontWeight: 500 }}>{p.title || '—'}</span>
                         </div>
-                        <p style={{ margin: '3px 0 0', fontSize: '0.77rem', color: '#6b7280' }}>
+                        <p style={{ margin: '3px 0 0', fontSize: '0.77rem', color: '#6B7280' }}>
                           Diskon {p.discountPercent || 0}% &nbsp;·&nbsp; Berlaku s/d {p.expires || '—'}
                         </p>
                       </div>
@@ -923,28 +924,28 @@ export default function HomeAdminPage() {
           {activeTab === 'categories' && (
             <div style={S.section}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, gap: 12, flexWrap: 'wrap' }}>
-                <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700 }}>
-                  Kelola Kategori Tiket <span style={{ color: '#6b7280', fontWeight: 400 }}>({fCats.length})</span>
+                <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: '#111827' }}>
+                  Kelola Kategori Tiket <span style={{ color: '#6B7280', fontWeight: 400 }}>({fCats.length})</span>
                 </h3>
-                <button onClick={openAddCat} style={S.btnPrimary('#06b6d4')}>+ Tambah Kategori</button>
+                <button onClick={openAddCat} style={S.btnPrimary('#0066CC')}>+ Tambah Kategori</button>
               </div>
               {fCats.length === 0 ? (
-                <p style={{ color: '#6b7280', textAlign: 'center', padding: '40px 0' }}>Tidak ada kategori.</p>
+                <p style={{ color: '#6B7280', textAlign: 'center', padding: '40px 0' }}>Tidak ada kategori.</p>
               ) : (
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: 14 }}>
                   {fCats.map(c => (
-                    <div key={c.id} style={{ ...S.card, border: '1px solid rgba(6,182,212,0.2)' }}>
+                    <div key={c.id} style={{ ...S.card, border: '1px solid #E5E7EB' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 10 }}>
-                        <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: '#06b6d4' }}>{c.name || '—'}</h4>
+                        <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: '#0066CC' }}>{c.name || '—'}</h4>
                         <div style={{ display: 'flex', gap: 6 }}>
                           <button onClick={() => openEditCat(c)} style={S.btnGhost}>✏️</button>
                           <button onClick={() => deleteCat(c.id)} style={S.btnDanger}>🗑️</button>
                         </div>
                       </div>
-                      <p style={{ margin: '0 0 12px', fontSize: '0.82rem', color: '#9ca3af' }}>{c.description || '—'}</p>
-                      <div style={{ display: 'flex', gap: 16, fontSize: '0.8rem', color: '#6b7280' }}>
-                        <span>Kuota: <b style={{ color: '#f9fafb' }}>{c.quota || 0}</b></span>
-                        <span>Adj: <b style={{ color: '#ff7a00' }}>+Rp {Number(c.priceAdjustment || 0).toLocaleString('id-ID')}</b></span>
+                      <p style={{ margin: '0 0 12px', fontSize: '0.82rem', color: '#4B5563' }}>{c.description || '—'}</p>
+                      <div style={{ display: 'flex', gap: 16, fontSize: '0.8rem', color: '#6B7280' }}>
+                        <span>Kuota: <b style={{ color: '#111827' }}>{c.quota || 0}</b></span>
+                        <span>Adj: <b style={{ color: '#0066CC' }}>+Rp {Number(c.priceAdjustment || 0).toLocaleString('id-ID')}</b></span>
                       </div>
                     </div>
                   ))}
@@ -957,24 +958,24 @@ export default function HomeAdminPage() {
           {activeTab === 'artists' && (
             <div style={S.section}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, gap: 12, flexWrap: 'wrap' }}>
-                <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700 }}>
-                  Kelola Artis <span style={{ color: '#6b7280', fontWeight: 400 }}>({fArtists.length})</span>
+                <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: '#111827' }}>
+                  Kelola Artis <span style={{ color: '#6B7280', fontWeight: 400 }}>({fArtists.length})</span>
                 </h3>
-                <button onClick={openAddArtist} style={S.btnPrimary('#f59e0b')}>+ Tambah Artis</button>
+                <button onClick={openAddArtist} style={S.btnPrimary('#0066CC')}>+ Tambah Artis</button>
               </div>
               {fArtists.length === 0 ? (
-                <p style={{ color: '#6b7280', textAlign: 'center', padding: '40px 0' }}>Tidak ada artis.</p>
+                <p style={{ color: '#6B7280', textAlign: 'center', padding: '40px 0' }}>Tidak ada artis.</p>
               ) : (
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(200px,1fr))', gap: 14 }}>
                   {fArtists.map(a => (
-                    <div key={a.id} style={{ ...S.card, border: '1px solid rgba(245,158,11,0.2)', textAlign: 'center' }}>
+                    <div key={a.id} style={{ ...S.card, border: '1px solid #E5E7EB', textAlign: 'center' }}>
                       <div style={{
                         width: 56, height: 56, borderRadius: '50%', margin: '0 auto 12px',
-                        background: 'linear-gradient(135deg,#f59e0b,#ec4899)',
+                        background: '#EFF6FF', color: '#0066CC',
                         display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24,
                       }}>🎤</div>
-                      <p style={{ margin: '0 0 4px', fontWeight: 700, fontSize: '0.95rem' }}>{a.name || '—'}</p>
-                      <p style={{ margin: '0 0 10px', fontSize: '0.8rem', color: '#9ca3af' }}>{a.genre || '—'}</p>
+                      <p style={{ margin: '0 0 4px', fontWeight: 700, fontSize: '0.95rem', color: '#111827' }}>{a.name || '—'}</p>
+                      <p style={{ margin: '0 0 10px', fontSize: '0.8rem', color: '#6B7280' }}>{a.genre || '—'}</p>
                       <Badge status={a.status || 'active'} />
                       <div style={{ display: 'flex', gap: 8, marginTop: 14, justifyContent: 'center' }}>
                         <button onClick={() => openEditArtist(a)} style={S.btnGhost}>✏️ Edit</button>
@@ -990,32 +991,32 @@ export default function HomeAdminPage() {
           {/* ──────── ORDERS ──────── */}
           {activeTab === 'orders' && (
             <div style={S.section}>
-              <h3 style={{ margin: '0 0 20px', fontSize: '1rem', fontWeight: 700 }}>
-                Daftar Pesanan <span style={{ color: '#6b7280', fontWeight: 400 }}>({fOrders.length})</span>
+              <h3 style={{ margin: '0 0 20px', fontSize: '1rem', fontWeight: 700, color: '#111827' }}>
+                Daftar Pesanan <span style={{ color: '#6B7280', fontWeight: 400 }}>({fOrders.length})</span>
               </h3>
               {fOrders.length === 0 ? (
-                <p style={{ color: '#6b7280', textAlign: 'center', padding: '40px 0' }}>Tidak ada pesanan.</p>
+                <p style={{ color: '#6B7280', textAlign: 'center', padding: '40px 0' }}>Tidak ada pesanan.</p>
               ) : (
                 <div style={{ overflowX: 'auto' }}>
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.875rem' }}>
                     <thead>
-                      <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+                      <tr style={{ borderBottom: '1px solid #E5E7EB' }}>
                         {['ID', 'Event', 'Metode', 'Qty', 'Total', 'Status', 'Aksi'].map(h => (
-                          <th key={h} style={{ textAlign: 'left', padding: '10px 12px', color: '#6b7280', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }}>{h}</th>
+                          <th key={h} style={{ textAlign: 'left', padding: '10px 12px', color: '#6B7280', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }}>{h}</th>
                         ))}
                       </tr>
                     </thead>
                     <tbody>
                       {fOrders.map(o => (
-                        <tr key={o.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}
-                          onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.02)'}
+                        <tr key={o.id} style={{ borderBottom: '1px solid #E5E7EB' }}
+                          onMouseEnter={e => e.currentTarget.style.background = '#F9FAFB'}
                           onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                         >
-                          <td style={{ padding: '12px 12px', color: '#6b7280', fontFamily: 'monospace', fontSize: '0.78rem' }}>#{String(o.id).slice(-6)}</td>
-                          <td style={{ padding: '12px 12px', fontWeight: 500 }}>{o.eventTitle || o.eventId || '—'}</td>
-                          <td style={{ padding: '12px 12px', color: '#9ca3af' }}>{o.paymentMethod || '—'}</td>
-                          <td style={{ padding: '12px 12px', color: '#9ca3af' }}>{o.quantity || 1}</td>
-                          <td style={{ padding: '12px 12px', color: '#ff7a00', fontWeight: 600 }}>Rp {Number(o.total || 0).toLocaleString('id-ID')}</td>
+                          <td style={{ padding: '12px 12px', color: '#6B7280', fontFamily: 'monospace', fontSize: '0.78rem' }}>#{String(o.id).slice(-6)}</td>
+                          <td style={{ padding: '12px 12px', fontWeight: 600, color: '#111827' }}>{o.eventTitle || o.eventId || '—'}</td>
+                          <td style={{ padding: '12px 12px', color: '#4B5563' }}>{o.paymentMethod || '—'}</td>
+                          <td style={{ padding: '12px 12px', color: '#4B5563' }}>{o.quantity || 1}</td>
+                          <td style={{ padding: '12px 12px', color: '#0066CC', fontWeight: 700 }}>Rp {Number(o.total || 0).toLocaleString('id-ID')}</td>
                           <td style={{ padding: '12px 12px' }}><Badge status={o.status || 'pending'} /></td>
                           <td style={{ padding: '12px 12px' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -1033,15 +1034,13 @@ export default function HomeAdminPage() {
                                 onClick={() => deleteOrder(o.id)}
                                 title="Hapus pesanan"
                                 style={{
-                                  border: 'none', borderRadius: 8,
+                                  border: '1px solid #FECACA', borderRadius: 8,
                                   padding: '6px 10px', cursor: 'pointer',
-                                  background: 'rgba(239,68,68,0.15)',
-                                  color: '#f87171', fontSize: '0.82rem',
+                                  background: '#FEE2E2',
+                                  color: '#DC2626', fontSize: '0.82rem',
                                   fontWeight: 600, flexShrink: 0,
                                   transition: 'background 0.2s',
                                 }}
-                                onMouseEnter={e => e.currentTarget.style.background = 'rgba(239,68,68,0.3)'}
-                                onMouseLeave={e => e.currentTarget.style.background = 'rgba(239,68,68,0.15)'}
                               >🗑</button>
                             </div>
                           </td>
@@ -1059,34 +1058,34 @@ export default function HomeAdminPage() {
             <div style={{ display: 'grid', gap: 20 }}>
               {/* Toggle card */}
               <div style={{ ...S.section, maxWidth: 480 }}>
-                <h3 style={{ margin: '0 0 6px', fontSize: '1rem', fontWeight: 700 }}>Status Penjualan Tiket</h3>
-                <p style={{ margin: '0 0 20px', fontSize: '0.85rem', color: '#9ca3af' }}>
+                <h3 style={{ margin: '0 0 6px', fontSize: '1rem', fontWeight: 700, color: '#111827' }}>Status Penjualan Tiket</h3>
+                <p style={{ margin: '0 0 20px', fontSize: '0.85rem', color: '#4B5563' }}>
                   Kontrol apakah pembelian tiket sedang dibuka atau ditutup untuk publik.
                 </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '20px', borderRadius: 14, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '20px', borderRadius: 14, background: '#F9FAFB', border: '1px solid #E5E7EB' }}>
                   <div style={{
                     width: 64, height: 32, borderRadius: 999, cursor: 'pointer',
-                    background: sales.isSalesOpen !== false ? 'linear-gradient(135deg,#10b981,#059669)' : 'rgba(255,255,255,0.1)',
+                    background: sales.isSalesOpen !== false ? '#059669' : '#D1D5DB',
                     transition: 'background 0.3s', position: 'relative', flexShrink: 0,
                   }} onClick={toggleSales}>
                     <div style={{
                       position: 'absolute', top: 4, width: 24, height: 24, borderRadius: '50%',
                       background: '#fff', transition: 'left 0.3s',
                       left: sales.isSalesOpen !== false ? 36 : 4,
-                      boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
                     }} />
                   </div>
                   <div>
-                    <p style={{ margin: 0, fontWeight: 700, fontSize: '1rem', color: sales.isSalesOpen !== false ? '#10b981' : '#f87171' }}>
+                    <p style={{ margin: 0, fontWeight: 700, fontSize: '1rem', color: sales.isSalesOpen !== false ? '#059669' : '#DC2626' }}>
                       {sales.isSalesOpen !== false ? '🟢 Penjualan TERBUKA' : '🔴 Penjualan TUTUP'}
                     </p>
-                    <p style={{ margin: '2px 0 0', fontSize: '0.8rem', color: '#6b7280' }}>
+                    <p style={{ margin: '2px 0 0', fontSize: '0.8rem', color: '#6B7280' }}>
                       {sales.isSalesOpen !== false ? 'Pelanggan dapat membeli tiket saat ini.' : 'Pembelian tiket sedang tidak tersedia.'}
                     </p>
                   </div>
                 </div>
                 <button onClick={toggleSales} style={{
-                  ...S.btnPrimary(sales.isSalesOpen !== false ? '#ef4444' : '#10b981'),
+                  ...S.btnPrimary(sales.isSalesOpen !== false ? '#DC2626' : '#059669'),
                   marginTop: 16, width: '100%', justifyContent: 'center', padding: '12px',
                 }}>
                   {sales.isSalesOpen !== false ? '🔴 Tutup Penjualan' : '🟢 Buka Penjualan'}
@@ -1095,17 +1094,17 @@ export default function HomeAdminPage() {
 
               {/* Analytics summary */}
               <div style={S.section}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '1rem', fontWeight: 700 }}>📊 Ringkasan Analytics</h3>
+                <h3 style={{ margin: '0 0 16px', fontSize: '1rem', fontWeight: 700, color: '#111827' }}>📊 Ringkasan Analytics</h3>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 14 }}>
                   {[
-                    { label: 'Total Pesanan',    value: analytics.totalOrders   || 0,  color: '#ff462b' },
-                    { label: 'Pesanan Dibayar',  value: analytics.paidOrders    || 0,  color: '#10b981' },
-                    { label: 'Menunggu Bayar',   value: analytics.pendingOrders || 0,  color: '#f59e0b' },
-                    { label: 'Total Pendapatan', value: `Rp ${Number(analytics.totalRevenue || 0).toLocaleString('id-ID')}`, color: '#f59e0b' },
-                    { label: 'Tiket Terjual',   value: analytics.soldTickets   || 0,  color: '#06b6d4' },
+                    { label: 'Total Pesanan',    value: analytics.totalOrders   || 0,  color: '#0066CC' },
+                    { label: 'Pesanan Dibayar',  value: analytics.paidOrders    || 0,  color: '#059669' },
+                    { label: 'Menunggu Bayar',   value: analytics.pendingOrders || 0,  color: '#D97706' },
+                    { label: 'Total Pendapatan', value: `Rp ${Number(analytics.totalRevenue || 0).toLocaleString('id-ID')}`, color: '#0066CC' },
+                    { label: 'Tiket Terjual',   value: analytics.soldTickets   || 0,  color: '#0066CC' },
                   ].map(item => (
-                    <div key={item.label} style={{ ...S.card, border: `1px solid ${item.color}22` }}>
-                      <p style={{ margin: '0 0 6px', color: '#9ca3af', fontSize: '0.78rem' }}>{item.label}</p>
+                    <div key={item.label} style={{ ...S.card, border: '1px solid #E5E7EB' }}>
+                      <p style={{ margin: '0 0 6px', color: '#6B7280', fontSize: '0.78rem' }}>{item.label}</p>
                       <p style={{ margin: 0, fontSize: '1.3rem', fontWeight: 800, color: item.color }}>{item.value}</p>
                     </div>
                   ))}
@@ -1126,7 +1125,7 @@ export default function HomeAdminPage() {
           onClose={() => setEventModal(false)}
           onSubmit={submitEvent}
           submitLabel={editEventId ? 'Simpan Perubahan' : 'Tambah Event'}
-          submitColor="#ff462b"
+          submitColor="#0066CC"
         >
           <Field label="Judul Event">
             <input required style={S.input} value={eventForm.title} onChange={e => setEventForm(f => ({ ...f, title: e.target.value }))} placeholder="Nama event" />
@@ -1170,7 +1169,7 @@ export default function HomeAdminPage() {
           onClose={() => setPromoModal(false)}
           onSubmit={submitPromo}
           submitLabel={editPromoId ? 'Simpan Perubahan' : 'Tambah Promo'}
-          submitColor="#f59e0b"
+          submitColor="#0066CC"
         >
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <Field label="Kode Promo">
@@ -1199,7 +1198,7 @@ export default function HomeAdminPage() {
           onClose={() => setCatModal(false)}
           onSubmit={submitCat}
           submitLabel={editCatId ? 'Simpan Perubahan' : 'Tambah Kategori'}
-          submitColor="#06b6d4"
+          submitColor="#0066CC"
         >
           <Field label="Nama Kategori">
             <input required style={S.input} value={catForm.name} onChange={e => setCatForm(f => ({ ...f, name: e.target.value }))} placeholder="VIP, Regular, ..." />
@@ -1225,7 +1224,7 @@ export default function HomeAdminPage() {
           onClose={() => setArtistModal(false)}
           onSubmit={submitArtist}
           submitLabel={editArtistId ? 'Simpan Perubahan' : 'Tambah Artis'}
-          submitColor="#f59e0b"
+          submitColor="#0066CC"
         >
           <Field label="Nama Artis">
             <input required style={S.input} value={artistForm.name} onChange={e => setArtistForm(f => ({ ...f, name: e.target.value }))} placeholder="Nama artis" />

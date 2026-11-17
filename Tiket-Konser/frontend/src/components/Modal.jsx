@@ -15,7 +15,8 @@ export default function Modal({ isOpen, onClose, title, description, ctaLabel = 
       position: 'fixed',
       inset: 0,
       zIndex: 999,
-      background: 'rgba(10, 11, 15, 0.9)',
+      background: 'rgba(17, 24, 39, 0.5)',
+      backdropFilter: 'blur(4px)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -27,15 +28,15 @@ export default function Modal({ isOpen, onClose, title, description, ctaLabel = 
         maxHeight: '90vh',
         overflowY: 'auto',
         borderRadius: 14,
-        background: '#161920',
-        border: '1px solid rgba(245, 243, 238, 0.08)',
-        boxShadow: '0 24px 60px rgba(0, 0, 0, 0.5)',
+        background: '#FFFFFF',
+        border: '1px solid #E5E7EB',
+        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
         padding: '28px',
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: description ? 6 : 20 }}>
           <h3 style={{
             margin: 0,
-            color: '#F5F3EE',
+            color: '#111827',
             fontSize: '1.2rem',
             fontWeight: 700,
             fontFamily: "'Space Grotesk', sans-serif",
@@ -47,8 +48,8 @@ export default function Modal({ isOpen, onClose, title, description, ctaLabel = 
             onClick={onClose}
             style={{
               border: 'none',
-              background: 'rgba(245, 243, 238, 0.06)',
-              color: '#9095A1',
+              background: '#F3F4F6',
+              color: '#4B5563',
               cursor: 'pointer',
               borderRadius: 6,
               width: 28,
@@ -61,8 +62,8 @@ export default function Modal({ isOpen, onClose, title, description, ctaLabel = 
               flexShrink: 0,
               transition: 'color 0.2s, background 0.2s',
             }}
-            onMouseEnter={e => { e.currentTarget.style.color = '#F5F3EE'; e.currentTarget.style.background = 'rgba(245, 243, 238, 0.12)' }}
-            onMouseLeave={e => { e.currentTarget.style.color = '#9095A1'; e.currentTarget.style.background = 'rgba(245, 243, 238, 0.06)' }}
+            onMouseEnter={e => { e.currentTarget.style.color = '#111827'; e.currentTarget.style.background = '#E5E7EB' }}
+            onMouseLeave={e => { e.currentTarget.style.color = '#4B5563'; e.currentTarget.style.background = '#F3F4F6' }}
           >
             ×
           </button>
@@ -71,7 +72,7 @@ export default function Modal({ isOpen, onClose, title, description, ctaLabel = 
         {description && (
           <p style={{
             margin: '0 0 22px',
-            color: '#6B6E7A',
+            color: '#4B5563',
             lineHeight: 1.6,
             fontSize: '0.86rem',
             fontFamily: "'Manrope', sans-serif",
@@ -82,7 +83,7 @@ export default function Modal({ isOpen, onClose, title, description, ctaLabel = 
 
         {children}
 
-        <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', marginTop: 24, paddingTop: 16, borderTop: '1px solid rgba(245, 243, 238, 0.06)' }}>
+        <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', marginTop: 24, paddingTop: 16, borderTop: '1px solid #E5E7EB' }}>
           <button
             onClick={() => {
               if (onSecondary) onSecondary()
@@ -91,17 +92,17 @@ export default function Modal({ isOpen, onClose, title, description, ctaLabel = 
             style={{
               padding: '10px 18px',
               borderRadius: 8,
-              border: '1px solid rgba(245, 243, 238, 0.12)',
-              background: 'transparent',
-              color: '#9095A1',
+              border: '1px solid #E5E7EB',
+              background: '#FFFFFF',
+              color: '#4B5563',
               cursor: 'pointer',
               fontWeight: 600,
               fontSize: '0.86rem',
               fontFamily: "'Space Grotesk', sans-serif",
-              transition: 'color 0.2s, border-color 0.2s',
+              transition: 'all 0.2s ease',
             }}
-            onMouseEnter={e => { e.currentTarget.style.color = '#F5F3EE'; e.currentTarget.style.borderColor = 'rgba(245, 243, 238, 0.2)' }}
-            onMouseLeave={e => { e.currentTarget.style.color = '#9095A1'; e.currentTarget.style.borderColor = 'rgba(245, 243, 238, 0.12)' }}
+            onMouseEnter={e => { e.currentTarget.style.color = '#111827'; e.currentTarget.style.borderColor = '#D1D5DB'; e.currentTarget.style.background = '#F9FAFB' }}
+            onMouseLeave={e => { e.currentTarget.style.color = '#4B5563'; e.currentTarget.style.borderColor = '#E5E7EB'; e.currentTarget.style.background = '#FFFFFF' }}
           >
             {secondaryLabel}
           </button>

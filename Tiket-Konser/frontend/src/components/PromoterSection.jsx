@@ -114,10 +114,12 @@ const PROMOTERS = [
 ]
 
 export default function PromoterSection() {
+  const marqueeList = [...PROMOTERS, ...PROMOTERS]
+
   return (
-    <section style={{ padding: '80px 0', background: '#0D0F14', borderTop: '1px solid rgba(245,243,238,0.06)' }}>
+    <section id="promotor" className="reveal-section" style={{ padding: '80px 0 90px', background: '#F4F5F7', borderTop: '1px solid #E5E7EB', position: 'relative', overflow: 'hidden' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px' }}>
-        <div style={{ textAlign: 'center', marginBottom: 40 }} className="reveal">
+        <div style={{ textAlign: 'center', marginBottom: 44 }} className="reveal">
           <div
             style={{
               display: 'inline-flex',
@@ -125,15 +127,15 @@ export default function PromoterSection() {
               gap: 8,
               padding: '6px 14px',
               borderRadius: 20,
-              background: 'rgba(217,93,57,0.1)',
-              border: '1px solid rgba(217,93,57,0.25)',
+              background: '#EFF6FF',
+              border: '1px solid #BFDBFE',
               marginBottom: 12,
             }}
           >
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#D95D39' }} />
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#0066CC' }} />
             <span
               style={{
-                color: '#D95D39',
+                color: '#0066CC',
                 fontSize: '0.72rem',
                 fontWeight: 700,
                 letterSpacing: '0.08em',
@@ -147,58 +149,78 @@ export default function PromoterSection() {
           <h2 className="section-title" style={{ fontSize: '1.8rem', marginBottom: 8 }}>
             Dipercaya Promotor &amp; Event Organizer Terbesar
           </h2>
-          <p style={{ color: '#6B6E7A', fontSize: '0.88rem', maxWidth: 560, margin: '0 auto', lineHeight: 1.6 }}>
+          <p style={{ color: '#4B5563', fontSize: '0.88rem', maxWidth: 560, margin: '0 auto', lineHeight: 1.6 }}>
             Semua tiket yang dijual di KonserKu berasal langsung dari promotor resmi dengan jaminan keaslian 100% barcode gate-entry.
           </p>
         </div>
+      </div>
 
-        {/* Promoters Grid */}
+      {/* Infinite Horizontal Marquee Track (Slows down on hover) */}
+      <div
+        className="promoter-marquee-container reveal delay-100"
+        style={{
+          position: 'relative',
+          width: '100%',
+          overflow: 'hidden',
+          padding: '12px 0 24px',
+        }}
+      >
+        {/* Soft gradient edge masks */}
         <div
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-            gap: 16,
+            position: 'absolute', left: 0, top: 0, bottom: 0, width: 120,
+            background: 'linear-gradient(to right, #F4F5F7 25%, transparent)',
+            zIndex: 6, pointerEvents: 'none',
           }}
-          className="reveal delay-100"
-        >
-          {PROMOTERS.map((p) => (
+        />
+        <div
+          style={{
+            position: 'absolute', right: 0, top: 0, bottom: 0, width: 120,
+            background: 'linear-gradient(to left, #F4F5F7 25%, transparent)',
+            zIndex: 6, pointerEvents: 'none',
+          }}
+        />
+
+        <div className="promoter-marquee-track">
+          {marqueeList.map((p, idx) => (
             <div
-              key={p.name}
+              key={`${p.name}-${idx}`}
               style={{
-                background: '#161920',
-                border: '1px solid rgba(245,243,238,0.07)',
+                width: 290,
+                flexShrink: 0,
+                background: '#FFFFFF',
+                border: '1px solid #E5E7EB',
                 borderRadius: 14,
                 padding: '18px 20px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: 16,
-                transition: 'all 0.25s ease',
+                cursor: 'pointer',
+                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(217,93,57,0.45)'
+                e.currentTarget.style.borderColor = '#0066CC'
                 e.currentTarget.style.transform = 'translateY(-3px)'
-                e.currentTarget.style.boxShadow = '0 12px 30px rgba(0,0,0,0.35)'
+                e.currentTarget.style.boxShadow = '0 10px 25px -5px rgba(0, 102, 204, 0.08)'
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(245,243,238,0.07)'
+                e.currentTarget.style.borderColor = '#E5E7EB'
                 e.currentTarget.style.transform = 'translateY(0)'
                 e.currentTarget.style.boxShadow = 'none'
               }}
             >
-              {/* Aesthetic Gradient Vector SVG Badge */}
+              {/* Aesthetic Vector Icon Badge */}
               <div
                 style={{
-                  width: 48,
-                  height: 48,
+                  width: 46,
+                  height: 46,
                   borderRadius: 12,
                   background: p.gradient,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexShrink: 0,
-                  boxShadow: `0 6px 18px ${p.glowColor}`,
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  transition: 'transform 0.2s ease',
+                  transition: 'transform 0.25s ease',
                 }}
               >
                 {p.icon}
@@ -209,7 +231,7 @@ export default function PromoterSection() {
                   <h4
                     style={{
                       margin: 0,
-                      color: '#F5F3EE',
+                      color: '#111827',
                       fontSize: '0.9rem',
                       fontWeight: 700,
                       fontFamily: "'Space Grotesk', sans-serif",
@@ -222,11 +244,11 @@ export default function PromoterSection() {
                   </h4>
                   <span
                     style={{
-                      fontSize: '0.58rem',
-                      background: 'rgba(74,222,128,0.12)',
-                      border: '1px solid rgba(74,222,128,0.25)',
-                      color: '#4ade80',
-                      padding: '1px 5px',
+                      fontSize: '0.62rem',
+                      background: '#D1FAE5',
+                      border: '1px solid #A7F3D0',
+                      color: '#059669',
+                      padding: '1px 6px',
                       borderRadius: 4,
                       fontWeight: 700,
                     }}
@@ -234,7 +256,7 @@ export default function PromoterSection() {
                     {p.badge}
                   </span>
                 </div>
-                <p style={{ margin: 0, color: '#9095A1', fontSize: '0.74rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                <p style={{ margin: 0, color: '#4B5563', fontSize: '0.74rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                   {p.desc}
                 </p>
               </div>

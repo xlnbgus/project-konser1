@@ -84,7 +84,8 @@ export default function UpcomingEvents({ searchQuery = '', onSelectEvent }) {
   })
 
   return (
-    <section style={{ padding: '100px 0', background: '#161920', position: 'relative' }}>
+    <section id="jadwal-agenda" className="reveal-section" style={{ padding: '100px 0', background: '#F4F5F7', position: 'relative' }}>
+      <div id="upcoming" style={{ position: 'absolute', top: -70 }} />
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px' }}>
 
         {/* Header */}
@@ -95,13 +96,13 @@ export default function UpcomingEvents({ searchQuery = '', onSelectEvent }) {
           <div>
             <p className="label-eyebrow" style={{ marginBottom: 10 }}>Jadwal Agenda</p>
             <h2 className="section-title">Event &amp; Festival Mendatang</h2>
-            <p style={{ color: '#6B6E7A', fontSize: '0.9rem', marginTop: 10 }}>
+            <p style={{ color: '#4B5563', fontSize: '0.9rem', marginTop: 10 }}>
               Pastikan tanggalnya tidak terlewat dan pesan tiketmu sekarang
             </p>
           </div>
           <a href="#top-events" style={{
             display: 'flex', alignItems: 'center', gap: 6,
-            color: '#D95D39', fontWeight: 600, fontSize: '0.86rem',
+            color: '#0066CC', fontWeight: 600, fontSize: '0.86rem',
             textDecoration: 'none', fontFamily: "'Space Grotesk', sans-serif",
           }}>
             Pesan Tiket
@@ -113,49 +114,61 @@ export default function UpcomingEvents({ searchQuery = '', onSelectEvent }) {
 
         {/* Empty search state */}
         {normalizedQuery && filteredList.length === 0 && !fetchLoading && (
-          <div style={{ marginBottom: 20, padding: '14px 18px', borderRadius: 9, background: 'rgba(245,243,238,0.04)', border: '1px solid rgba(245,243,238,0.08)', color: '#9095A1' }}>
+          <div style={{ marginBottom: 20, padding: '14px 18px', borderRadius: 9, background: '#FFFFFF', border: '1px solid #E5E7EB', color: '#4B5563' }}>
             Tidak ada event untuk pencarian "{searchQuery}".
           </div>
         )}
 
         {/* List */}
         {fetchLoading ? (
-          <div style={{ textAlign: 'center', padding: '64px 0', color: '#6B6E7A', fontSize: '0.9rem' }}>
+          <div style={{ textAlign: 'center', padding: '64px 0', color: '#4B5563', fontSize: '0.9rem' }}>
             Memuat jadwal event…
           </div>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {filteredList.map((ev, idx) => {
               const { mon, day } = parseDateParts(ev.date)
               const img = resolveImage(ev)
+              const staggerDelay = (idx % 6) * 90 // 80ms-100ms interval
 
               return (
                 <div
                   key={ev.id}
-                  className={`reveal-left delay-${((idx % 5) + 1) * 100}`}
+                  className="reveal-left"
                   onClick={() => {
                     if (onSelectEvent) onSelectEvent(ev)
                   }}
                   style={{
                     display: 'flex', alignItems: 'center', gap: 20,
-                    padding: '18px 20px',
-                    borderBottom: '1px solid rgba(245,243,238,0.06)',
-                    transition: 'background 0.2s ease',
+                    padding: '16px 20px',
+                    background: '#FFFFFF',
+                    border: '1px solid #E5E7EB',
+                    borderRadius: 10,
+                    transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+                    transitionDelay: `${staggerDelay}ms`,
                     cursor: onSelectEvent ? 'pointer' : 'default',
                   }}
-                  onMouseEnter={e => e.currentTarget.style.background = 'rgba(245,243,238,0.03)'}
-                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.background = '#FAFAFA'
+                    e.currentTarget.style.borderColor = '#0066CC'
+                    e.currentTarget.style.transform = 'translateX(6px)'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.background = '#FFFFFF'
+                    e.currentTarget.style.borderColor = '#E5E7EB'
+                    e.currentTarget.style.transform = 'translateX(0)'
+                  }}
                 >
                   {/* Date block */}
                   <div style={{
                     flexShrink: 0, width: 56, textAlign: 'center',
-                    borderRight: '1px solid rgba(245,243,238,0.08)',
+                    borderRight: '1px solid #E5E7EB',
                     paddingRight: 18, marginRight: 4,
                   }}>
-                    <span style={{ fontSize: '0.62rem', fontWeight: 700, color: '#D95D39', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', fontFamily: "'Space Grotesk', sans-serif" }}>
+                    <span style={{ fontSize: '0.62rem', fontWeight: 700, color: '#0066CC', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', fontFamily: "'Space Grotesk', sans-serif" }}>
                       {mon}
                     </span>
-                    <span style={{ fontSize: '1.6rem', fontWeight: 700, color: '#F5F3EE', lineHeight: 1, fontFamily: "'Space Grotesk', sans-serif" }}>
+                    <span style={{ fontSize: '1.6rem', fontWeight: 700, color: '#111827', lineHeight: 1, fontFamily: "'Space Grotesk', sans-serif" }}>
                       {day}
                     </span>
                   </div>
@@ -163,8 +176,8 @@ export default function UpcomingEvents({ searchQuery = '', onSelectEvent }) {
                   {/* Thumbnail */}
                   <div style={{
                     flexShrink: 0, width: 56, height: 56, borderRadius: 8,
-                    overflow: 'hidden', background: '#0D0F14',
-                    border: '1px solid rgba(245,243,238,0.08)',
+                    overflow: 'hidden', background: '#F3F4F6',
+                    border: '1px solid #E5E7EB',
                   }}>
                     <img
                       src={img}
@@ -177,7 +190,7 @@ export default function UpcomingEvents({ searchQuery = '', onSelectEvent }) {
                   {/* Info */}
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <p style={{
-                      color: '#F5F3EE', fontWeight: 700, fontSize: '0.95rem',
+                      color: '#111827', fontWeight: 700, fontSize: '0.95rem',
                       marginBottom: 5, fontFamily: "'Space Grotesk', sans-serif",
                       whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
                       letterSpacing: '-0.01em',
@@ -186,17 +199,17 @@ export default function UpcomingEvents({ searchQuery = '', onSelectEvent }) {
                     </p>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                        <svg width="11" height="11" fill="none" stroke="#6B6E7A" strokeWidth="2" viewBox="0 0 24 24">
+                        <svg width="11" height="11" fill="none" stroke="#6B7280" strokeWidth="2" viewBox="0 0 24 24">
                           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
                         </svg>
-                        <span style={{ fontSize: '0.78rem', color: '#6B6E7A', maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        <span style={{ fontSize: '0.78rem', color: '#6B7280', maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                           {ev.location}
                         </span>
                       </div>
                       <span style={{
                         padding: '3px 8px', borderRadius: 4,
-                        background: 'rgba(245,243,238,0.05)', border: '1px solid rgba(245,243,238,0.08)',
-                        color: '#6B6E7A', fontSize: '0.68rem', fontWeight: 600,
+                        background: '#F3F4F6', border: '1px solid #E5E7EB',
+                        color: '#4B5563', fontSize: '0.68rem', fontWeight: 600,
                         fontFamily: "'Space Grotesk', sans-serif",
                       }}>
                         {ev.category}
@@ -206,14 +219,14 @@ export default function UpcomingEvents({ searchQuery = '', onSelectEvent }) {
                         style={{
                           display: 'inline-flex', alignItems: 'center', gap: 4,
                           padding: '3px 10px', borderRadius: 5,
-                          border: '1px solid rgba(217,93,57,0.25)',
-                          background: 'rgba(217,93,57,0.07)', color: '#D95D39',
+                          border: '1px solid #BFDBFE',
+                          background: '#EFF6FF', color: '#0066CC',
                           cursor: 'pointer', fontSize: '0.7rem', fontWeight: 600,
                           transition: 'background 0.2s, border-color 0.2s',
                           fontFamily: "'Space Grotesk', sans-serif",
                         }}
-                        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(217,93,57,0.15)' }}
-                        onMouseLeave={e => { e.currentTarget.style.background = 'rgba(217,93,57,0.07)' }}
+                        onMouseEnter={e => { e.currentTarget.style.background = '#DBEAFE' }}
+                        onMouseLeave={e => { e.currentTarget.style.background = '#EFF6FF' }}
                       >
                         Lokasi
                       </button>
@@ -222,10 +235,10 @@ export default function UpcomingEvents({ searchQuery = '', onSelectEvent }) {
 
                   {/* Price */}
                   <div style={{ flexShrink: 0, textAlign: 'right', minWidth: 100 }}>
-                    <p style={{ fontSize: '0.68rem', color: '#3A3D47', marginBottom: 2, fontFamily: "'Space Grotesk', sans-serif" }}>Mulai dari</p>
+                    <p style={{ fontSize: '0.68rem', color: '#6B7280', marginBottom: 2, fontFamily: "'Space Grotesk', sans-serif" }}>Mulai dari</p>
                     {ev.status === 'soldout'
-                      ? <span style={{ color: '#6B6E7A', fontWeight: 600, fontSize: '0.84rem' }}>Habis</span>
-                      : <span style={{ color: '#D95D39', fontWeight: 700, fontSize: '0.95rem', fontFamily: "'Space Grotesk', sans-serif" }}>{formatPrice(ev.price)}</span>
+                      ? <span style={{ color: '#9CA3AF', fontWeight: 600, fontSize: '0.84rem' }}>Habis</span>
+                      : <span style={{ color: '#0066CC', fontWeight: 700, fontSize: '0.95rem', fontFamily: "'Space Grotesk', sans-serif" }}>{formatPrice(ev.price)}</span>
                     }
                   </div>
                 </div>
@@ -247,11 +260,11 @@ export default function UpcomingEvents({ searchQuery = '', onSelectEvent }) {
         closeOnCta={false}
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <div style={{ padding: '12px 14px', borderRadius: 8, background: 'rgba(245,243,238,0.05)', border: '1px solid rgba(245,243,238,0.1)', color: '#F5F3EE' }}>
-            <strong style={{ display: 'block', marginBottom: 4, fontSize: '0.86rem', color: '#9095A1', fontWeight: 600 }}>Alamat</strong>
+          <div style={{ padding: '12px 14px', borderRadius: 8, background: '#F9FAFB', border: '1px solid #E5E7EB', color: '#111827' }}>
+            <strong style={{ display: 'block', marginBottom: 4, fontSize: '0.86rem', color: '#4B5563', fontWeight: 600 }}>Alamat</strong>
             <span style={{ fontSize: '0.9rem' }}>{selectedLocation?.location}</span>
           </div>
-          <div style={{ width: '100%', height: 0, paddingBottom: '56.25%', position: 'relative', borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(245,243,238,0.1)' }}>
+          <div style={{ width: '100%', height: 0, paddingBottom: '56.25%', position: 'relative', borderRadius: 10, overflow: 'hidden', border: '1px solid #E5E7EB' }}>
             {selectedLocation && (
               <iframe
                 title="Event location map"

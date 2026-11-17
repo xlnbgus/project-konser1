@@ -26,7 +26,7 @@ export default function HomePage() {
   }
 
   return (
-    <div style={{ background: '#111318', minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
+    <div style={{ background: '#FFFFFF', minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
       <Navbar
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}

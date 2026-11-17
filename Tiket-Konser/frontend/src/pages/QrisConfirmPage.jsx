@@ -21,7 +21,7 @@ export default function QrisConfirmPage() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#111318',
+      background: '#F4F5F7',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -31,11 +31,11 @@ export default function QrisConfirmPage() {
       <div style={{
         width: '100%',
         maxWidth: 440,
-        background: '#161920',
-        border: '1px solid rgba(245, 243, 238, 0.08)',
+        background: '#FFFFFF',
+        border: '1px solid #E5E7EB',
         borderRadius: 14,
         padding: '36px 30px',
-        boxShadow: '0 24px 60px rgba(0, 0, 0, 0.5)',
+        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.05)',
         textAlign: 'center',
       }}>
         {/* Brand Icon */}
@@ -43,7 +43,7 @@ export default function QrisConfirmPage() {
           width: 48,
           height: 48,
           borderRadius: 10,
-          background: '#D95D39',
+          background: '#0066CC',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -55,7 +55,7 @@ export default function QrisConfirmPage() {
         </div>
 
         <h1 style={{
-          color: '#F5F3EE',
+          color: '#111827',
           fontSize: '1.4rem',
           fontWeight: 700,
           marginBottom: 8,
@@ -64,7 +64,7 @@ export default function QrisConfirmPage() {
         }}>
           Konfirmasi Pembayaran
         </h1>
-        <p style={{ color: '#6B6E7A', fontSize: '0.86rem', lineHeight: 1.6, marginBottom: 24 }}>
+        <p style={{ color: '#4B5563', fontSize: '0.86rem', lineHeight: 1.6, marginBottom: 24 }}>
           Pemesanan tiket melalui simulasi QRIS KonserKu.
         </p>
 
@@ -80,22 +80,22 @@ export default function QrisConfirmPage() {
           padding: '16px',
           borderRadius: 8,
           marginBottom: 20,
-          background: countdown > 0 ? 'rgba(217, 93, 57, 0.08)' : 'rgba(239, 68, 68, 0.08)',
-          border: countdown > 0 ? '1px solid rgba(217, 93, 57, 0.25)' : '1px solid rgba(239, 68, 68, 0.25)',
+          background: countdown > 0 ? '#EFF6FF' : '#FEE2E2',
+          border: countdown > 0 ? '1px solid #BFDBFE' : '1px solid #FECACA',
         }}>
-          <div style={{ color: '#9095A1', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 4, fontFamily: "'Space Grotesk', sans-serif" }}>
+          <div style={{ color: '#4B5563', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 4, fontFamily: "'Space Grotesk', sans-serif" }}>
             Masa Berlaku QRIS
           </div>
           <div style={{
             fontFamily: "'Space Grotesk', monospace",
             fontSize: '1.9rem',
             fontWeight: 700,
-            color: countdown > 0 ? '#D95D39' : '#f87171',
+            color: countdown > 0 ? '#0066CC' : '#DC2626',
           }}>
             {mm}:{ss}
           </div>
           {countdown === 0 && (
-            <div style={{ color: '#f87171', fontSize: '0.76rem', marginTop: 4 }}>Waktu pembayaran telah habis</div>
+            <div style={{ color: '#DC2626', fontSize: '0.76rem', marginTop: 4 }}>Waktu pembayaran telah habis</div>
           )}
         </div>
 
@@ -103,8 +103,8 @@ export default function QrisConfirmPage() {
           padding: '10px 14px',
           borderRadius: 8,
           marginBottom: 24,
-          background: 'rgba(245, 243, 238, 0.04)',
-          border: '1px solid rgba(245, 243, 238, 0.08)',
+          background: '#F9FAFB',
+          border: '1px solid #E5E7EB',
           color: '#6B6E7A',
           fontSize: '0.76rem',
           lineHeight: 1.5,
@@ -134,11 +134,11 @@ function Row({ label, value, accent, mono }) {
     <div style={{
       padding: '10px 14px',
       borderRadius: 8,
-      background: accent ? 'rgba(217, 93, 57, 0.08)' : 'rgba(245, 243, 238, 0.04)',
-      border: accent ? '1px solid rgba(217, 93, 57, 0.2)' : '1px solid rgba(245, 243, 238, 0.07)',
+      background: accent ? '#EFF6FF' : '#F9FAFB',
+      border: accent ? '1px solid #BFDBFE' : '1px solid #E5E7EB',
     }}>
       <div style={{
-        color: accent ? '#D95D39' : '#6B6E7A',
+        color: accent ? '#0066CC' : '#4B5563',
         fontSize: '0.68rem',
         fontWeight: 700,
         textTransform: 'uppercase',
@@ -149,7 +149,7 @@ function Row({ label, value, accent, mono }) {
         {label}
       </div>
       <div style={{
-        color: '#F5F3EE',
+        color: '#111827',
         fontWeight: 700,
         fontSize: '0.88rem',
         fontFamily: mono ? 'monospace' : 'inherit',

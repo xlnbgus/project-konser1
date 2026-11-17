@@ -1,20 +1,20 @@
 export default function Footer() {
   return (
-    <footer style={{ background: '#0D0F14', borderTop: '1px solid rgba(245,243,238,0.07)' }}>
+    <footer style={{ background: '#F4F5F7', borderTop: '1px solid #E5E7EB' }}>
 
       {/* Newsletter */}
-      <div style={{ borderBottom: '1px solid rgba(245,243,238,0.07)' }}>
+      <div style={{ borderBottom: '1px solid #E5E7EB', background: '#FFFFFF' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', padding: '48px 24px' }}>
           <div className="newsletter-row reveal">
             <div>
               <h3 style={{
-                color: '#F5F3EE',
+                color: '#111827',
                 fontFamily: "'Space Grotesk', sans-serif",
                 fontWeight: 700, fontSize: '1.2rem', marginBottom: 6, letterSpacing: '-0.02em',
               }}>
-                Info Event & Festival Terkini
+                Info Event &amp; Festival Terkini
               </h3>
-              <p style={{ color: '#6B6E7A', fontSize: '0.875rem', lineHeight: 1.6 }}>
+              <p style={{ color: '#4B5563', fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>
                 Jadwal konser terbaru, presale festival, dan voucher diskon langsung ke emailmu
               </p>
             </div>
@@ -23,14 +23,15 @@ export default function Footer() {
                 type="email"
                 placeholder="alamat@email.com"
                 style={{
-                  flex: 1, padding: '11px 16px', borderRadius: 7,
-                  background: 'rgba(245,243,238,0.05)',
-                  border: '1px solid rgba(245,243,238,0.1)',
-                  color: '#F5F3EE', fontSize: '0.875rem', outline: 'none',
+                  flex: 1, padding: '11px 16px', borderRadius: 8,
+                  background: '#FFFFFF',
+                  border: '1px solid #E5E7EB',
+                  color: '#111827', fontSize: '0.875rem', outline: 'none',
                   fontFamily: "'Manrope', sans-serif",
+                  transition: 'border-color 0.2s',
                 }}
-                onFocus={e => e.target.style.borderColor = 'rgba(217,93,57,0.4)'}
-                onBlur={e => e.target.style.borderColor = 'rgba(245,243,238,0.1)'}
+                onFocus={e => e.target.style.borderColor = '#0066CC'}
+                onBlur={e => e.target.style.borderColor = '#E5E7EB'}
               />
               <button className="btn-primary" style={{ flexShrink: 0, padding: '11px 22px' }}>Langganan</button>
             </div>
@@ -45,20 +46,20 @@ export default function Footer() {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
               <div style={{
-                width: 30, height: 30, borderRadius: 7,
-                background: '#D95D39',
+                width: 32, height: 32, borderRadius: 8,
+                background: '#0066CC',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 flexShrink: 0,
               }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 19V6l12-3v13"/><circle cx="6" cy="19" r="3"/><circle cx="18" cy="16" r="3"/>
                 </svg>
               </div>
-              <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: '1.05rem', color: '#F5F3EE' }}>
-                Konser<span style={{ color: '#D95D39' }}>Ku</span>
+              <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: '1.1rem', color: '#111827' }}>
+                Konser<span style={{ color: '#0066CC' }}>Ku</span>
               </span>
             </div>
-            <p style={{ color: '#6B6E7A', fontSize: '0.84rem', lineHeight: 1.65, marginBottom: 20, maxWidth: 240 }}>
+            <p style={{ color: '#4B5563', fontSize: '0.84rem', lineHeight: 1.65, marginBottom: 20, maxWidth: 240 }}>
               Platform resmi pemesanan tiket festival musik dan konser paling lengkap, aman, dan terpercaya di Indonesia.
             </p>
             <div style={{ display: 'flex', gap: 8 }}>
@@ -68,16 +69,16 @@ export default function Footer() {
                 { icon: 'yt', path: 'M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z' },
               ].map(s => (
                 <a key={s.icon} href="#" style={{
-                  width: 32, height: 32, borderRadius: 7,
-                  background: 'rgba(245,243,238,0.05)',
-                  border: '1px solid rgba(245,243,238,0.08)',
+                  width: 32, height: 32, borderRadius: 8,
+                  background: '#FFFFFF',
+                  border: '1px solid #E5E7EB',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  textDecoration: 'none', transition: 'border-color 0.2s, background 0.2s',
+                  textDecoration: 'none', transition: 'all 0.2s',
                 }}
-                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(217,93,57,0.3)'; e.currentTarget.style.background = 'rgba(217,93,57,0.08)' }}
-                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(245,243,238,0.08)'; e.currentTarget.style.background = 'rgba(245,243,238,0.05)' }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = '#0066CC'; e.currentTarget.style.background = '#EFF6FF' }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = '#E5E7EB'; e.currentTarget.style.background = '#FFFFFF' }}
                 >
-                  <svg width="13" height="13" fill="#6B6E7A" viewBox="0 0 24 24"><path d={s.path} /></svg>
+                  <svg width="13" height="13" fill="#4B5563" viewBox="0 0 24 24"><path d={s.path} /></svg>
                 </a>
               ))}
             </div>
@@ -85,14 +86,47 @@ export default function Footer() {
 
           {/* Link columns */}
           {[
-            { title:'Kategori Event', links:['Synchronize Festival','We The Fest','Pestapora','DWP Festival','Konser Musik','Stand Up Comedy'] },
-            { title:'Bantuan & Layanan', links:['FAQ & Bantuan','Cara Pembelian','Kebijakan E-Tiket','Hubungi Support','Status Pemesanan'] },
-            { title:'Tentang KonserKu', links:['Tentang Kami','Mitra Promotor','Karir','Blog Musik','Syarat & Ketentuan'] },
+            {
+              title: 'Kategori Event',
+              links: [
+                { name: 'Synchronize Festival', href: '#top-events' },
+                { name: 'We The Fest', href: '#top-events' },
+                { name: 'Pestapora', href: '#top-events' },
+                { name: 'DWP Festival', href: '#top-events' },
+                { name: 'Konser Musik', href: '#top-events' },
+                { name: 'Artis Favorit', href: '#artis-favorit' },
+              ]
+            },
+            {
+              title: 'Bantuan & Layanan',
+              links: [
+                { name: 'FAQ & Bantuan', href: '#faq' },
+                { name: 'Cara Pembelian', href: '#cara-beli' },
+                { name: 'Jadwal Agenda', href: '#jadwal-agenda' },
+                { name: 'Promo & Diskon', href: '#promo' },
+                { name: 'Hubungi Support', href: '#faq' },
+              ]
+            },
+            {
+              title: 'Tentang KonserKu',
+              links: [
+                { name: 'Tentang Kami', href: '#tentang-kami' },
+                { name: 'Mitra Promotor', href: '#promotor' },
+                { name: 'Event Unggulan', href: '#top-events' },
+                { name: 'Blog Musik', href: '#hero' },
+                { name: 'Syarat & Ketentuan', href: '#faq' },
+              ]
+            },
           ].map(col => (
             <div key={col.title}>
-              <h4 style={{ color: '#F5F3EE', fontWeight: 700, fontSize: '0.86rem', marginBottom: 18, letterSpacing: '-0.01em', fontFamily: "'Space Grotesk', sans-serif" }}>{col.title}</h4>
+              <h4 style={{ color: '#111827', fontWeight: 700, fontSize: '0.86rem', marginBottom: 18, letterSpacing: '-0.01em', fontFamily: "'Space Grotesk', sans-serif" }}>{col.title}</h4>
               {col.links.map(link => (
-                <a key={link} href="#" className="footer-link">{link}</a>
+                <a key={link.name} href={link.href} className="footer-link" style={{ display: 'block', color: '#4B5563', textDecoration: 'none', fontSize: '0.82rem', marginBottom: 10, transition: 'color 0.2s' }}
+                  onMouseEnter={e => e.currentTarget.style.color = '#0066CC'}
+                  onMouseLeave={e => e.currentTarget.style.color = '#4B5563'}
+                >
+                  {link.name}
+                </a>
               ))}
             </div>
           ))}
@@ -100,24 +134,24 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div style={{ borderTop: '1px solid rgba(245,243,238,0.06)', padding: '20px 24px' }}>
+      <div style={{ borderTop: '1px solid #E5E7EB', padding: '20px 24px', background: '#FFFFFF' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 14 }}>
-          <p style={{ color: '#3A3D47', fontSize: '0.76rem' }}>© 2026 KonserKu Indonesia. Hak cipta dilindungi undang-undang.</p>
+          <p style={{ color: '#6B6E7A', fontSize: '0.76rem', margin: 0 }}>© 2026 KonserKu Indonesia. Hak cipta dilindungi undang-undang.</p>
           <div style={{ display: 'flex', gap: 20 }}>
             {['Syarat & Ketentuan','Kebijakan Privasi','Keamanan Pembayaran'].map(l => (
-              <a key={l} href="#" style={{ color: '#3A3D47', fontSize: '0.76rem', textDecoration: 'none', transition: 'color 0.2s' }}
-                onMouseEnter={e => e.currentTarget.style.color = '#6B6E7A'}
-                onMouseLeave={e => e.currentTarget.style.color = '#3A3D47'}
+              <a key={l} href="#" style={{ color: '#6B6E7A', fontSize: '0.76rem', textDecoration: 'none', transition: 'color 0.2s' }}
+                onMouseEnter={e => e.currentTarget.style.color = '#0066CC'}
+                onMouseLeave={e => e.currentTarget.style.color = '#6B6E7A'}
               >{l}</a>
             ))}
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ color: '#3A3D47', fontSize: '0.73rem' }}>Pembayaran:</span>
+            <span style={{ color: '#6B6E7A', fontSize: '0.73rem' }}>Pembayaran:</span>
             {['QRIS','BCA','Mandiri','GoPay','Visa'].map((p, i) => (
               <span key={i} style={{
                 padding: '3px 8px', borderRadius: 4, fontSize: '0.7rem', fontWeight: 600,
-                background: 'rgba(245,243,238,0.04)', border: '1px solid rgba(245,243,238,0.07)',
-                color: '#6B6E7A', fontFamily: "'Space Grotesk', sans-serif",
+                background: '#F3F4F6', border: '1px solid #E5E7EB',
+                color: '#4B5563', fontFamily: "'Space Grotesk', sans-serif",
               }}>{p}</span>
             ))}
           </div>

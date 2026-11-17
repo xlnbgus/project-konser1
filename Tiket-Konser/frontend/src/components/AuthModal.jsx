@@ -58,22 +58,22 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'rgba(0,0,0,0.75)',
-        backdropFilter: 'blur(10px)',
-        WebkitBackdropFilter: 'blur(10px)',
+        background: 'rgba(17, 24, 39, 0.45)',
+        backdropFilter: 'blur(4px)',
+        WebkitBackdropFilter: 'blur(4px)',
         padding: '20px',
       }}
       onClick={onClose}
     >
       <div
         style={{
-          background: '#161920',
-          border: '1px solid rgba(245,243,238,0.12)',
+          background: '#FFFFFF',
+          border: '1px solid #E5E7EB',
           borderRadius: 16,
           width: '100%',
           maxWidth: 440,
           overflow: 'hidden',
-          boxShadow: '0 24px 60px rgba(0,0,0,0.6)',
+          boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)',
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -81,8 +81,8 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
         <div
           style={{
             display: 'flex',
-            borderBottom: '1px solid rgba(245,243,238,0.08)',
-            background: 'rgba(17,19,24,0.6)',
+            borderBottom: '1px solid #E5E7EB',
+            background: '#F9FAFB',
           }}
         >
           <button
@@ -90,10 +90,10 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
             style={{
               flex: 1,
               padding: '16px',
-              background: tab === 'login' ? '#161920' : 'transparent',
+              background: tab === 'login' ? '#FFFFFF' : 'transparent',
               border: 'none',
-              borderBottom: tab === 'login' ? '2px solid #D95D39' : '2px solid transparent',
-              color: tab === 'login' ? '#F5F3EE' : '#6B6E7A',
+              borderBottom: tab === 'login' ? '2px solid #0066CC' : '2px solid transparent',
+              color: tab === 'login' ? '#111827' : '#6B7280',
               fontWeight: 700,
               fontSize: '0.88rem',
               cursor: 'pointer',
@@ -108,10 +108,10 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
             style={{
               flex: 1,
               padding: '16px',
-              background: tab === 'register' ? '#161920' : 'transparent',
+              background: tab === 'register' ? '#FFFFFF' : 'transparent',
               border: 'none',
-              borderBottom: tab === 'register' ? '2px solid #D95D39' : '2px solid transparent',
-              color: tab === 'register' ? '#F5F3EE' : '#6B6E7A',
+              borderBottom: tab === 'register' ? '2px solid #0066CC' : '2px solid transparent',
+              color: tab === 'register' ? '#111827' : '#6B7280',
               fontWeight: 700,
               fontSize: '0.88rem',
               cursor: 'pointer',
@@ -128,7 +128,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
           {tab === 'login' ? (
             <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.78rem', color: '#9095A1', marginBottom: 6, fontWeight: 500 }}>
+                <label style={{ display: 'block', fontSize: '0.78rem', color: '#4B5563', marginBottom: 6, fontWeight: 600 }}>
                   Alamat Email
                 </label>
                 <input
@@ -141,23 +141,23 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
                     width: '100%',
                     padding: '11px 14px',
                     borderRadius: 8,
-                    background: 'rgba(245,243,238,0.05)',
-                    border: '1px solid rgba(245,243,238,0.1)',
-                    color: '#F5F3EE',
+                    background: '#FFFFFF',
+                    border: '1px solid #D1D5DB',
+                    color: '#111827',
                     fontSize: '0.86rem',
                     outline: 'none',
                     fontFamily: "'Manrope', sans-serif",
                     boxSizing: 'border-box',
                   }}
-                  onFocus={(e) => (e.target.style.borderColor = '#D95D39')}
-                  onBlur={(e) => (e.target.style.borderColor = 'rgba(245,243,238,0.1)')}
+                  onFocus={(e) => (e.target.style.borderColor = '#0066CC')}
+                  onBlur={(e) => (e.target.style.borderColor = '#D1D5DB')}
                 />
               </div>
 
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                  <label style={{ fontSize: '0.78rem', color: '#9095A1', fontWeight: 500 }}>Kata Sandi</label>
-                  <a href="#" onClick={(e) => { e.preventDefault(); showToast('Tautan reset sandi dikirim ke email.') }} style={{ fontSize: '0.74rem', color: '#D95D39', textDecoration: 'none' }}>
+                  <label style={{ fontSize: '0.78rem', color: '#4B5563', fontWeight: 600 }}>Kata Sandi</label>
+                  <a href="#" onClick={(e) => { e.preventDefault(); showToast('Tautan reset sandi dikirim ke email.') }} style={{ fontSize: '0.74rem', color: '#0066CC', textDecoration: 'none' }}>
                     Lupa sandi?
                   </a>
                 </div>
@@ -171,16 +171,16 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
                     width: '100%',
                     padding: '11px 14px',
                     borderRadius: 8,
-                    background: 'rgba(245,243,238,0.05)',
-                    border: '1px solid rgba(245,243,238,0.1)',
-                    color: '#F5F3EE',
+                    background: '#FFFFFF',
+                    border: '1px solid #D1D5DB',
+                    color: '#111827',
                     fontSize: '0.86rem',
                     outline: 'none',
                     fontFamily: "'Manrope', sans-serif",
                     boxSizing: 'border-box',
                   }}
-                  onFocus={(e) => (e.target.style.borderColor = '#D95D39')}
-                  onBlur={(e) => (e.target.style.borderColor = 'rgba(245,243,238,0.1)')}
+                  onFocus={(e) => (e.target.style.borderColor = '#0066CC')}
+                  onBlur={(e) => (e.target.style.borderColor = '#D1D5DB')}
                 />
               </div>
 
@@ -191,7 +191,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
                   marginTop: 8,
                   padding: '12px',
                   borderRadius: 8,
-                  background: '#D95D39',
+                  background: '#0066CC',
                   color: '#fff',
                   border: 'none',
                   fontSize: '0.88rem',
@@ -211,7 +211,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
                   <button
                     type="button"
                     onClick={() => setTab('register')}
-                    style={{ background: 'none', border: 'none', color: '#D95D39', fontWeight: 600, cursor: 'pointer', padding: 0 }}
+                    style={{ background: 'none', border: 'none', color: '#0066CC', fontWeight: 600, cursor: 'pointer', padding: 0 }}
                   >
                     Daftar sekarang
                   </button>
@@ -221,7 +221,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
           ) : (
             <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.78rem', color: '#9095A1', marginBottom: 5, fontWeight: 500 }}>
+                <label style={{ display: 'block', fontSize: '0.78rem', color: '#4B5563', marginBottom: 5, fontWeight: 600 }}>
                   Nama Lengkap
                 </label>
                 <input
@@ -234,18 +234,20 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
                     width: '100%',
                     padding: '10px 14px',
                     borderRadius: 8,
-                    background: 'rgba(245,243,238,0.05)',
-                    border: '1px solid rgba(245,243,238,0.1)',
-                    color: '#F5F3EE',
+                    background: '#FFFFFF',
+                    border: '1px solid #D1D5DB',
+                    color: '#111827',
                     fontSize: '0.85rem',
                     outline: 'none',
                     boxSizing: 'border-box',
                   }}
+                  onFocus={(e) => (e.target.style.borderColor = '#0066CC')}
+                  onBlur={(e) => (e.target.style.borderColor = '#D1D5DB')}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.78rem', color: '#9095A1', marginBottom: 5, fontWeight: 500 }}>
+                <label style={{ display: 'block', fontSize: '0.78rem', color: '#4B5563', marginBottom: 5, fontWeight: 600 }}>
                   Alamat Email
                 </label>
                 <input
@@ -258,18 +260,20 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
                     width: '100%',
                     padding: '10px 14px',
                     borderRadius: 8,
-                    background: 'rgba(245,243,238,0.05)',
-                    border: '1px solid rgba(245,243,238,0.1)',
-                    color: '#F5F3EE',
+                    background: '#FFFFFF',
+                    border: '1px solid #D1D5DB',
+                    color: '#111827',
                     fontSize: '0.85rem',
                     outline: 'none',
                     boxSizing: 'border-box',
                   }}
+                  onFocus={(e) => (e.target.style.borderColor = '#0066CC')}
+                  onBlur={(e) => (e.target.style.borderColor = '#D1D5DB')}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.78rem', color: '#9095A1', marginBottom: 5, fontWeight: 500 }}>
+                <label style={{ display: 'block', fontSize: '0.78rem', color: '#4B5563', marginBottom: 5, fontWeight: 600 }}>
                   Nomor WhatsApp
                 </label>
                 <input
@@ -282,18 +286,20 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
                     width: '100%',
                     padding: '10px 14px',
                     borderRadius: 8,
-                    background: 'rgba(245,243,238,0.05)',
-                    border: '1px solid rgba(245,243,238,0.1)',
-                    color: '#F5F3EE',
+                    background: '#FFFFFF',
+                    border: '1px solid #D1D5DB',
+                    color: '#111827',
                     fontSize: '0.85rem',
                     outline: 'none',
                     boxSizing: 'border-box',
                   }}
+                  onFocus={(e) => (e.target.style.borderColor = '#0066CC')}
+                  onBlur={(e) => (e.target.style.borderColor = '#D1D5DB')}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.78rem', color: '#9095A1', marginBottom: 5, fontWeight: 500 }}>
+                <label style={{ display: 'block', fontSize: '0.78rem', color: '#4B5563', marginBottom: 5, fontWeight: 600 }}>
                   Kata Sandi Baru
                 </label>
                 <input
@@ -306,13 +312,15 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
                     width: '100%',
                     padding: '10px 14px',
                     borderRadius: 8,
-                    background: 'rgba(245,243,238,0.05)',
-                    border: '1px solid rgba(245,243,238,0.1)',
-                    color: '#F5F3EE',
+                    background: '#FFFFFF',
+                    border: '1px solid #D1D5DB',
+                    color: '#111827',
                     fontSize: '0.85rem',
                     outline: 'none',
                     boxSizing: 'border-box',
                   }}
+                  onFocus={(e) => (e.target.style.borderColor = '#0066CC')}
+                  onBlur={(e) => (e.target.style.borderColor = '#D1D5DB')}
                 />
               </div>
 
@@ -323,7 +331,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
                   marginTop: 6,
                   padding: '12px',
                   borderRadius: 8,
-                  background: '#D95D39',
+                  background: '#0066CC',
                   color: '#fff',
                   border: 'none',
                   fontSize: '0.88rem',

@@ -31,14 +31,14 @@ export default function FaqSection() {
   }
 
   return (
-    <section style={{ padding: '90px 0', background: '#111318', borderTop: '1px solid rgba(245,243,238,0.06)' }}>
+    <section id="faq" className="reveal-section" style={{ padding: '90px 0', background: '#FFFFFF', borderTop: '1px solid #E5E7EB', position: 'relative' }}>
       <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 24px' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }} className="reveal">
           <p className="label-eyebrow" style={{ marginBottom: 10 }}>Pusat Informasi</p>
           <h2 className="section-title" style={{ fontSize: '2rem', marginBottom: 12 }}>
             Pertanyaan Umum (FAQ)
           </h2>
-          <p style={{ color: '#6B6E7A', fontSize: '0.9rem', lineHeight: 1.6 }}>
+          <p style={{ color: '#4B5563', fontSize: '0.9rem', lineHeight: 1.6 }}>
             Semua hal yang perlu kamu ketahui seputar pembelian tiket, keamanan transaksi, dan gate masuk konser
           </p>
         </div>
@@ -51,11 +51,12 @@ export default function FaqSection() {
               <div
                 key={idx}
                 style={{
-                  background: '#161920',
-                  border: isOpen ? '1px solid #D95D39' : '1px solid rgba(245,243,238,0.08)',
+                  background: '#FFFFFF',
+                  border: isOpen ? '1px solid #0066CC' : '1px solid #E5E7EB',
                   borderRadius: 12,
                   overflow: 'hidden',
                   transition: 'border-color 0.25s ease',
+                  boxShadow: isOpen ? '0 4px 12px rgba(0, 102, 204, 0.06)' : 'none',
                 }}
               >
                 <button
@@ -76,7 +77,7 @@ export default function FaqSection() {
                 >
                   <span
                     style={{
-                      color: isOpen ? '#F5F3EE' : 'rgba(245,243,238,0.85)',
+                      color: isOpen ? '#0066CC' : '#111827',
                       fontFamily: "'Space Grotesk', sans-serif",
                       fontWeight: 700,
                       fontSize: '0.95rem',
@@ -90,8 +91,8 @@ export default function FaqSection() {
                       width: 28,
                       height: 28,
                       borderRadius: 6,
-                      background: isOpen ? 'rgba(217,93,57,0.15)' : 'rgba(245,243,238,0.05)',
-                      color: isOpen ? '#D95D39' : '#9095A1',
+                      background: isOpen ? '#EFF6FF' : '#F3F4F6',
+                      color: isOpen ? '#0066CC' : '#4B5563',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -110,11 +111,11 @@ export default function FaqSection() {
                   <div
                     style={{
                       padding: '0 24px 22px 24px',
-                      color: 'rgba(245,243,238,0.7)',
+                      color: '#4B5563',
                       fontSize: '0.86rem',
                       lineHeight: 1.65,
                       fontFamily: "'Manrope', sans-serif",
-                      borderTop: '1px solid rgba(245,243,238,0.04)',
+                      borderTop: '1px solid #F3F4F6',
                       paddingTop: '16px',
                     }}
                   >
